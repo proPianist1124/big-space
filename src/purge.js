@@ -25,7 +25,7 @@ module.exports = function(app) {
 					if (purgeUser == mods.mod1 || purgeUser == mods.mod2) {
 						await db.delete("totalPosts");
 						console.log(`-- ${purgeUser} purged all posts`.red);
-						res.send(`<script>window.location.replace('${process.env['url']}');</script>`);
+						res.send(`<script>window.location.replace("/");</script>`);
 						process.exit();
 					} else {
 						res.send(`whoops lol u dont got the perms, boi`);
@@ -35,7 +35,7 @@ module.exports = function(app) {
 					if (purgeUser == mods.mod1 || purgeUser == mods.mod2) {
 						await db.empty();
 						console.log(`-- ${purgeUser} purged entire database`);
-						res.send(`<script>window.location.replace('${process.env['url']}');</script>`);
+						res.send(`<script>window.location.replace("/");</script>`);
 						process.exit();
 					} else {
 						res.send(`whoops lol u dont got the perms, boi`);

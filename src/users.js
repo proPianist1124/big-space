@@ -11,10 +11,11 @@ const http = require('http');
 const bp = require('body-parser');
 
 module.exports = function(app) {
-	app.get("/users/:user", function(req, res) {
+	app.get("/@:user", function(req, res) {
 		(async () => {
 			let userId = req.params.user;
 			let bio = [];
+			let follow = [];
 			if(await db.get(userId) == null){
 				res.send(`<h1>invalid request</h1>`);
 			}else{
@@ -23,13 +24,16 @@ module.exports = function(app) {
 				if(user == "" || user == undefined){
 					user = "no user available";
 					userOptions = [];
+					follow = [];
+				}else{
+					follow = `<form><i class="fa-solid fa-user-plus"></i></form>`;
 				}
 				if(await db.get(`${userId}_bio`) == null || await db.get(`${userId}_bio`) == ""){
 					bio = `<span style = "color:var(--error)">no bio available</span>`;
 				}else{
 					bio = `<span style = "color:var(--tertiary)">${await db.get(`${user}_bio`)}</span>`;
 				}
-				res.send(`<title>Big Space | ${userId}</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="https://kit.fontawesome.com/09556a902e.js" crossorigin="anonymous"></script><h3>&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = 'color:var(--primary)'>&nbsp;${user}</span>${userOptions}<center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1></center><br><main><h1 style = "text-align:center">${userId}</h1><p style = "text-align:left; font-size:18px;">About me: ${bio}</p></main><br><center><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
+				res.send(`<title>Big Space | ${userId}</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="https://kit.fontawesome.com/09556a902e.js" crossorigin="anonymous"></script><h3>&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = 'color:var(--primary)'>&nbsp;${user}</span>${userOptions}<center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1></center><br><main><h2 style = "text-align:center">${userId}</h2><p style = "text-align:left; font-size:18px;">About me: ${bio}</p></main><br><center><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
 			}
 		})();
 	});

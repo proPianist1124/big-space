@@ -72,7 +72,7 @@ module.exports = function(app) {
 								let newPostsAdded = `<a href = "/posts/${postName}">${await db.get(postName)}</a>${await db.get("totalPosts")}`;
 								await db.set("totalPosts", newPostsAdded);
 							}
-							res.send(`<script>window.location.replace('${process.env['url']}');</script>`); // send the client back to the og url
+							res.send(`<script>window.location.replace("/");</script>`); // send the client back to the og url
 						}
 					})();
 				}

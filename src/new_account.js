@@ -23,7 +23,7 @@ module.exports = function(app) {
 		function accounts() {
 			(async () => {
 				if (await db.get(newUser) != null) {
-					res.send(`this username has already been taken. <a href = '${process.env['url']}'></a>`);
+					res.send(`this username has already been taken. <a href = "/"></a>`);
 				} else {
 					function urlCombo(length){
 						let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
@@ -39,7 +39,7 @@ module.exports = function(app) {
 						await db.set(newUser, userId);
 						await db.set(`${newUser}_password`, newPass);
 						await db.set(`${newUser}_address`, location);
-						res.send(`<script>window.location.replace('${process.env['url']}'); document.cookie = "name=${userId}; SameSite=None; Secure";</script>`);
+						res.send(`<script>window.location.replace("/"); document.cookie = "name=${userId}; SameSite=None; Secure";</script>`);
 						console.log("");
 						console.log(`new account ${newUser} was created`.blue);
 						console.log("");

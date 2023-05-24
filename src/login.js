@@ -22,7 +22,7 @@ module.exports = function(app) {
 			
 			// if the new user exists and the password is the same as the saved password for that specific username
 			if (await db.get(newUser) != null && newPass == await db.get(`${newUser}_password`)) {
-				res.send(`<script>window.location.replace('${process.env['url']}'); document.cookie = "name=${await db.get(newUser)}; SameSite=None; Secure";</script>`);
+				res.send(`<script>window.location.replace("/"); document.cookie = "name=${await db.get(newUser)}; SameSite=None; Secure";</script>`);
 				console.log("");
 				console.log(`${newUser} has signed in`.green);
 				console.log("");

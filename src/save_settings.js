@@ -22,7 +22,7 @@ module.exports = function(app) {
 			if(req.cookies.name == "" || req.cookies.name == null || req.cookies.name == undefined || user == null){
 				res.send(`<h1>invalid request</h1>`);
 			}else{
-				if(location != await db.get(`${user}_address`) || await db.get(`${user}_address`) == null || location == process.env['banned']){
+				if(location != await db.get(`${user}_address`) || await db.get(`${user}_address`) == null){
 					res.send(`<h1>invalid request</h1>`);
 				}else{
 					await db.set(`${user}_bio`, req.body.bio);

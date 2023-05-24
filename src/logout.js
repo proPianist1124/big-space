@@ -18,7 +18,7 @@ module.exports = function(app) {
 			console.log(`${user} has logged out`.red);
 			console.log("");
 			res.clearCookie("name");
-			res.send(`<script>window.location.replace("${process.env['url']}");</script>`);
+			res.send(`<script>window.location.replace("/");</script>`);
 		})();
 	});
 }

@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6{
 	color:var(--primary);
 }
 h2 i{
-	transition:0.3s;
+	transition:0.1s;
 }
 h2 i:hover{
 	font-style:italic;
@@ -71,6 +71,12 @@ button.replit:hover{
 	background-color:#3C445C;
 	width:210px;
 	color:#F26207;
+}
+button.login{
+	width:400px
+}
+button.login:hover{
+	width:410px;
 }
 input{
 	font-family: var(--mainFont);
@@ -149,12 +155,6 @@ img{
   bottom: 0;
   width: 100%;
 	padding:25px 25px;
-}
-.login{
-	width:400px
-}
-.login:hover{
-	width:410px;
 }
 .user{
 	color:var(--tertiary);
