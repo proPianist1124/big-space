@@ -12,7 +12,6 @@ const http = require("http");
 const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
-const helmet = require("helmet");
 
 let Filter = require("bad-words"),
 	filter = new Filter();
@@ -21,7 +20,6 @@ app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser()); // my delicious cookies
 app.use(express.static('static'));
-app.use(helmet());
 app.listen(port, () => { // check if webapp is running properly
   console.log(`Webserver started @ port ${port}`.green);
   console.log("");

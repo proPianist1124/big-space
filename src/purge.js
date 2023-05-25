@@ -11,7 +11,6 @@ const http = require("http");
 const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
-const helmet = require("helmet");
 
 let Filter = require("bad-words"),
 	filter = new Filter();
