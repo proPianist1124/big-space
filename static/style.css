@@ -2,6 +2,7 @@
 
 :root{
 	--background:#15202b;
+	--background-lighter:#2a3847;;
 	--post:#1c2732;
 	--primary:#f7f9f9;
 	--secondary:#8a98a5;
@@ -18,8 +19,19 @@ body {
 	background-color:var(--background);
 	font-family: var(--mainFont);
 	text-align:left;
-	color:black;
-} 
+	color:var(--primary);
+	animation: fadeInAnimation ease 1.5s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
 h1, h2, h3, h4, h5, h6{
 	color:var(--primary);
 }
@@ -171,4 +183,15 @@ img{
 }
 .normal:hover{
 	width:120px;
+}
+.card{
+	max-width:500px;
+	height:120px;
+	background-color:var(--post);
+	border-radius:5px;
+	padding:10px 5px;
+	transition:0.3s
+}
+.card:hover{
+	box-shadow: 10px 10px var(--background-lighter);
 }
