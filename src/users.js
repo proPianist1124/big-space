@@ -1,14 +1,20 @@
 const Database = require("@replit/database");
 const db = new Database();
-const colors = require('colors');
-const cookieParser = require('cookie-parser');
-const express = require('express');
+const colors = require("colors");
+const cookieParser = require("cookie-parser");
+const express = require("express");
 const app = express();
 const router = express.Router();
-const path = require('path');
+const path = require("path");
 const port = 3000;
-const http = require('http');
-const bp = require('body-parser');
+const http = require("http");
+const bp = require("body-parser");
+const { createHash } = require("node:crypto");
+const timestamp = require("time-stamp");
+const helmet = require("helmet");
+
+let Filter = require("bad-words"),
+	filter = new Filter();
 
 module.exports = function(app) {
 	app.get("/@:user", function(req, res) {
@@ -33,7 +39,7 @@ module.exports = function(app) {
 				}else{
 					bio = `<span style = "color:var(--tertiary)">${await db.get(`${user}_bio`)}</span>`;
 				}
-				res.send(`<title>Big Space | ${userId}</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="https://kit.fontawesome.com/09556a902e.js" crossorigin="anonymous"></script><h3>&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = 'color:var(--primary)'>&nbsp;${user}</span>${userOptions}<center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1></center><br><main><h2 style = "text-align:center">${userId}</h2><p style = "text-align:left; font-size:18px;">About me: ${bio}</p></main><br><center><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
+				res.send(`<title>Big Space | ${userId}</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="/fontawesome.js"></script><h3>&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = 'color:var(--primary)'>&nbsp;${user}</span>${userOptions}<center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1></center><br><main><h2 style = "text-align:center">${userId}</h2><p style = "text-align:left; font-size:18px;">About me: ${bio}</p></main><br><center><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
 			}
 		})();
 	});

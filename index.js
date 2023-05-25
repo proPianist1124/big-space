@@ -1,21 +1,27 @@
 // https://replit.com/talk/learn/Replit-DB/43305
 const Database = require("@replit/database");
 const db = new Database();
-const colors = require('colors');
-const cookieParser = require('cookie-parser');
-const express = require('express');
+const colors = require("colors");
+const cookieParser = require("cookie-parser");
+const express = require("express");
 const app = express();
 const router = express.Router();
-const path = require('path');
+const path = require("path");
 const port = 3000;
-const http = require('http');
-const bp = require('body-parser');
+const http = require("http");
+const bp = require("body-parser");
 const { createHash } = require("node:crypto");
+const timestamp = require("time-stamp");
+const helmet = require("helmet");
+
+let Filter = require("bad-words"),
+	filter = new Filter();
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser()); // my delicious cookies
 app.use(express.static('static'));
+app.use(helmet());
 app.listen(port, () => { // check if webapp is running properly
   console.log(`Webserver started @ port ${port}`.green);
   console.log("");
@@ -43,5 +49,5 @@ require('./src/save_settings')(app); // save your bio
 require('./src/jobs')(app); // big space jobs
 
 app.use((req, res, next) => {
-  res.status(404).send(`<title>Big Space | 404</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="https://kit.fontawesome.com/09556a902e.js" crossorigin="anonymous"></script><h3><center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1><h2 style = "color:var(--error)">404 Not Found</h2><img src = "/saturn.png"><br><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
+  res.status(404).send(`<title>Big Space | 404</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="/fontawesome.js"></script><h3><center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1><h2 style = "color:var(--error)">404 Not Found</h2><img src = "/saturn.png"><br><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
 })
