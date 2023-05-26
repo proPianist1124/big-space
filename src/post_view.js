@@ -12,9 +12,6 @@ const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
-let Filter = require("bad-words"),
-	filter = new Filter();
-
 let mods = {
 	mod1: process.env['mod1'],
 	mod2: process.env['mod2'],

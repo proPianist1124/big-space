@@ -12,9 +12,6 @@ const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
-let Filter = require("bad-words"),
-	filter = new Filter();
-
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let mods = {
 	mod1: process.env['mod1'],

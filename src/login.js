@@ -12,9 +12,6 @@ const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
-let Filter = require("bad-words"),
-	filter = new Filter();
-
 module.exports = function(app) {
 	app.post('/login', function(req, res) {
 		function sha256(input) {
@@ -23,9 +20,9 @@ module.exports = function(app) {
 		(async () => {
 			let newUser = req.body.username;
 			let newPass = req.body.password;
-			
+
 			// if the new user exists and the password is the same as the saved password for that specific username
-			if (await db.get(newUser) != null && newPass == await db.get(`${newUser}_password`)) {
+			if (await db.get(newUser) != null && newPass == await db.get(`${await db.get(newUser)}_password`)) {
 				res.send(`<script>window.location.replace("/"); document.cookie = "name=${await db.get(newUser)}; SameSite=None; Secure";</script>`);
 				console.log("");
 				console.log(`${newUser} has signed in`.green);

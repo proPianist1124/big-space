@@ -12,9 +12,6 @@ const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
-let Filter = require("bad-words"),
-	filter = new Filter();
-
 let adminSelect = [];
 module.exports = function(app) {
 	app.get('/post_page', function(req, res) {

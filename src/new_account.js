@@ -12,9 +12,6 @@ const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
-let Filter = require("bad-words"),
-	filter = new Filter();
-
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 module.exports = function(app) {
 	app.post('/new_account', function(req, res) {
@@ -45,14 +42,14 @@ module.exports = function(app) {
 						if(await db.get(userId) == null){
 							await db.set(userId, newUser);
 							await db.set(newUser, userId);
-							await db.set(`${newUser}_password`, newPass);
-							await db.set(`${newUser}_address`, location);
+							await db.set(`${userId}_password`, newPass);
+							await db.set(`${userId}_address`, location);
 							res.send(`<script>window.location.replace("/"); document.cookie = "name=${userId}; SameSite=None; Secure";</script>`);
 							console.log("");
 							console.log(`new account ${newUser} was created`.blue);
 							console.log("");
 						}else{
-							res.send(`<h1>an error occured. please try signing up again! <a style = "color:red" href = "/">Go back</a></h1>`);
+							res.send(process.env['invalid_message']);
 						}
 					}
 				}

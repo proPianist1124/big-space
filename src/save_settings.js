@@ -12,9 +12,6 @@ const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
-let Filter = require("bad-words"),
-	filter = new Filter();
-
 module.exports = function(app) {
 	app.post("/save_settings", function(req, res) {
 		function sha256(input) {
