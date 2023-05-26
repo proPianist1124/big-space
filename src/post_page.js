@@ -21,7 +21,7 @@ module.exports = function(app) {
 		(async () => {
 			let user = await db.get(req.cookies.name);
 			if(user == null || user == ""){
-				res.send(`<h1>invalid request</h1>`);
+				res.send(process.env["invalid_message"]);
 			}else{
 				if (user == process.env['mod1']) {
 					adminSelect = `<option value="#official">#official</option>`;

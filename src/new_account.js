@@ -15,6 +15,7 @@ const timestamp = require("time-stamp");
 let Filter = require("bad-words"),
 	filter = new Filter();
 
+const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 module.exports = function(app) {
 	app.post('/new_account', function(req, res) {
 		function sha256(input) {
@@ -26,29 +27,33 @@ module.exports = function(app) {
 		accounts();
 		function accounts() {
 			(async () => {
-				if (await db.get(newUser) != null) {
-					res.send(`this username has already been taken. <a href = "/"></a>`);
-				} else {
-					function urlCombo(length){
-						let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-							retVal = "";
-						for (let i = 0, n = charset.length; i < length; ++i) {
-							retVal += charset.charAt(Math.floor(Math.random() * n));
+				if(regex.test(newUser) == false || regex.test(newPass)){
+					res.send(process.env["invalid_message"]);
+				}else{
+					if (await db.get(newUser) != null) {
+						res.send(`this username has already been taken. <a href = "/">go back</a>`);
+					} else {
+						function urlCombo(length){
+							let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+								retVal = "";
+							for (let i = 0, n = charset.length; i < length; ++i) {
+								retVal += charset.charAt(Math.floor(Math.random() * n));
+							}
+							return retVal;
 						}
-						return retVal;
-					}
-					let userId = urlCombo(15);
-					if(await db.get(userId) == null){
-						await db.set(userId, newUser);
-						await db.set(newUser, userId);
-						await db.set(`${newUser}_password`, newPass);
-						await db.set(`${newUser}_address`, location);
-						res.send(`<script>window.location.replace("/"); document.cookie = "name=${userId}; SameSite=None; Secure";</script>`);
-						console.log("");
-						console.log(`new account ${newUser} was created`.blue);
-						console.log("");
-					}else{
-						res.send(`<h1>an error occured. please try signing up again! <a style = "color:red" href = "/">Go back</a></h1>`);
+						let userId = urlCombo(15);
+						if(await db.get(userId) == null){
+							await db.set(userId, newUser);
+							await db.set(newUser, userId);
+							await db.set(`${newUser}_password`, newPass);
+							await db.set(`${newUser}_address`, location);
+							res.send(`<script>window.location.replace("/"); document.cookie = "name=${userId}; SameSite=None; Secure";</script>`);
+							console.log("");
+							console.log(`new account ${newUser} was created`.blue);
+							console.log("");
+						}else{
+							res.send(`<h1>an error occured. please try signing up again! <a style = "color:red" href = "/">Go back</a></h1>`);
+						}
 					}
 				}
 			})();

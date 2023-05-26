@@ -23,7 +23,7 @@ module.exports = function(app) {
 			let page = [];
 			let follow = [];
 			if(await db.get(userId) == null){
-				res.send(`<h1>invalid request</h1>`);
+				res.send(process.env["invalid_message"]);
 			}else{
 				let user = await db.get(req.cookies.name);
 				let userOptions = `<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a><a href = "/settings" style = "float:right; color:var(--primary)" class="fa-solid fa-gear"></a></h3>`;

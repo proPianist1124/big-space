@@ -24,10 +24,10 @@ module.exports = function(app) {
 		(async () => {
 			let user = await db.get(req.cookies.name);
 			if(req.cookies.name == "" || req.cookies.name == null || req.cookies.name == undefined || user == null){
-				res.send(`<h1>invalid request</h1>`);
+				res.send(process.env["invalid_message"]);
 			}else{
 				if(location != await db.get(`${user}_address`) || await db.get(`${user}_address`) == null){
-					res.send(`<h1>invalid request</h1>`);
+					res.send(process.env["invalid_message"]);
 				}else{
 					await db.set(`${user}_bio`, req.body.bio);
 					await db.set(`${user}_page`, req.body.page);

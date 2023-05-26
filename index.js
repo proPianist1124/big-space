@@ -29,6 +29,7 @@ app.listen(port, () => { // check if webapp is running properly
 function startApp() {
   (async () => {
     require('./src/home')(app);
+		//process.exit();
   })();
 }
 
@@ -39,7 +40,7 @@ require('./src/new_account')(app); // new account
 require('./src/logout')(app); // logout
 require('./src/purge')(app); // empty
 require('./src/users')(app); // user page
-require('./src/new_post')(app); // post
+require('./src/post')(app); // post
 require('./src/post_page')(app); // post page
 require('./src/post_view')(app); // post view
 require('./src/settings')(app); // user settings

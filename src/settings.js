@@ -26,7 +26,7 @@ module.exports = function(app) {
 			let bio = [];
 			let page = [];
 			if(user == null || user == ""){ // prevent spamming in accounts checking if cookies exist
-				res.send(`<h1>invalid request</h1>`);
+				res.send(process.env["invalid_message"]);
 			}else{
 				if(await db.get(`${user}_bio`) == null){
 					bio = "";
