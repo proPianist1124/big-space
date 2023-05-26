@@ -13,6 +13,7 @@ const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
+let accounts = [];
 module.exports = function(app) {
 	app.post('/new_account', function(req, res) {
 		function sha256(input) {
@@ -24,7 +25,7 @@ module.exports = function(app) {
 		accounts();
 		function accounts() {
 			(async () => {
-				if(regex.test(newUser) == false || regex.test(newPass)){
+				if(regex.test(newUser) == false || regex.test(newPass) == false){
 					res.send(process.env["invalid_message"]);
 				}else{
 					if (await db.get(newUser) != null) {

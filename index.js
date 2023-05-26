@@ -12,7 +12,10 @@ const http = require("http");
 const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
+const fs = require("fs");
+const ejs = require("ejs");
 
+app.engine("html", ejs.renderFile);
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser()); // my delicious cookies
@@ -26,7 +29,6 @@ app.listen(port, () => { // check if webapp is running properly
 function startApp() {
   (async () => {
     require('./src/home')(app);
-		//process.exit();
   })();
 }
 
