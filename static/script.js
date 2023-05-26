@@ -1,3 +1,3 @@
 function copy(){
-	alert(localStorage.getItem("view"));
+	alert(`https://big-space.repl.co/posts/${localStorage.getItem("view")}`);
 }

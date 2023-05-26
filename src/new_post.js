@@ -22,19 +22,20 @@ let mods = {
 
 let totalPosts = [];
 module.exports = function(app) {
-	app.post('/post', function(req, res) {
+	app.get('/post', function(req, res) {
 		function sha256(input) {
 			return createHash("sha256").update(input).digest("hex");
 		}
 		const location = sha256(req.header('x-forwarded-for'));
-		if (req.cookies.name == "" || req.cookies.name == undefined) {
+		if (user == null || user == "") {
 			res.send(`<h1>invalid request</h1>`);
 		} else {
 			(async () => {
+				const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 				let postNum = 0;
 				let user = [];
-				let userTitle = filter.clean(req.body.postTitle);
-				let userContent = filter.clean(req.body.postContent);
+				let userTitle = req.body.postTitle;
+				let userContent = req.body.postContent;
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
 				if (await db.get(req.cookies.name) == mods.mod1 || await db.get(req.cookies.name) == mods.mod2) {
@@ -42,26 +43,30 @@ module.exports = function(app) {
 				} else {
 					user = await db.get(req.cookies.name);
 				}
-
+				
 				let imageIfPossible = `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`;
-				counting();
-				function counting() { // a function to check posts until it finds that one doesn't exist
+				if(regex.test(userTitle) == false){
+					res.send(`<h1>invalid request</h1>`);
+				}else{
+					counting();
+				}
+				function counting() {
 					(async () => {
 						postNum += 1;
 						let postName = `post${postNum}`;
 						if (await db.get(postName) != null) {
 							totalPosts = `${totalPosts} ${await db.get(postName)}`;
-							counting(); // if post exists, repeat the entire process to find one that DOES NOT exist
+							counting(); // if post exists, repeat the entire process
 						} else {
 							let fullDate = timestamp('MM/DD');
 
 							// let the server know that someone has posted (for security purposes)
 							console.log(`${user}: ${userTitle} - ${userContent}`);
 
-							if (userImage == "") { // to check if the user has put anything into the image url box
+							if (userImage == "") { // to check if image url box is filled
 								imageIfPossible = "";
 							}
-							// set a database object for the post that DOESN'T exist, filling up that empty slot
+							// set a database object for the post that DOESN'T exist
 							await db.set(postName, `<main id = "${postName}"><h1><span style = "color:var(--primary)"><u>${userTopic}</u>&nbsp;&nbsp;${fullDate}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${userTitle}</span></h1><h3>${userContent}</h3>${imageIfPossible}<p style = "color:var(--tertiary)"><i>made by ${user}</i></p></main>`);
 							await db.set(`${postName}_title`, userTitle);
 							await db.set(`${postName}_author`, await db.get(req.cookies.name));

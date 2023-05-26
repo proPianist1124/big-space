@@ -33,7 +33,7 @@ module.exports = function(app) {
 						res.send(`<script>window.location.replace("/");</script>`);
 						process.exit();
 					} else {
-						res.send(`whoops lol u dont got the perms, boi`);
+						res.send(`<h1>invalid request</h1>`);
 					}
 				}
 				if(method == "all"){
@@ -43,11 +43,11 @@ module.exports = function(app) {
 						res.send(`<script>window.location.replace("/");</script>`);
 						process.exit();
 					} else {
-						res.send(`whoops lol u dont got the perms, boi`);
+						res.send(`<h1>invalid request</h1>`);
 					}
 				}
 			}else{
-				res.send("<h1>invalid request</h1>");
+				res.send(`<h1>invalid request</h1>`);
 			}
 		})();
 	});

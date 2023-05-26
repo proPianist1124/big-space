@@ -20,6 +20,7 @@ module.exports = function(app) {
 		(async () => {
 			let userId = req.params.user;
 			let bio = [];
+			let page = [];
 			let follow = [];
 			if(await db.get(userId) == null){
 				res.send(`<h1>invalid request</h1>`);
@@ -38,7 +39,12 @@ module.exports = function(app) {
 				}else{
 					bio = `<span style = "color:var(--tertiary)">${await db.get(`${user}_bio`)}</span>`;
 				}
-				res.send(`<title>Big Space | ${userId}</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="/fontawesome.js"></script><h3>&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = 'color:var(--primary)'>&nbsp;${user}</span>${userOptions}<center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1></center><br><main><h2 style = "text-align:center">${userId}</h2><p style = "text-align:left; font-size:18px;">About me: ${bio}</p></main><br><center><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
+				if(await db.get(`${userId}_page`) == null || await db.get(`${userId}_page`) == ""){
+					page = `<span style = "color:var(--error)">no website available</span>`;
+				}else{
+					page = `<span style = "color:var(--tertiary)">${await db.get(`${user}_page`)}</span>`;
+				}
+				res.send(`<title>Big Space | ${userId}</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css"><script src = "/script.js"></script><script src="/fontawesome.js"></script><h3>&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = 'color:var(--primary)'>&nbsp;${user}</span>${userOptions}<center><h1 style = "color:var(--quatenary)">Big Space&nbsp;<span style = "font-size:17px; color:var(--tertiary)">Share Content</span></h1></center><br><main><h2 style = "text-align:center">${userId}</h2><p style = "text-align:left; font-size:18px;"><i class="fa-solid fa-address-card"></i> About me: ${bio}<br><i class="fa-solid fa-globe"></i> Website: <a href = "${await db.get(`${user}_page`)}" class = "bio" target = "_blank">${page}</a></p></main><br><center><a href = "/"><button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button></a></center>`);
 			}
 		})();
 	});

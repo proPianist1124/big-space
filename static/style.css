@@ -35,9 +35,6 @@ body {
 h1, h2, h3, h4, h5, h6{
 	color:var(--primary);
 }
-h2 i{
-	transition:0.1s;
-}
 h2 i:hover{
 	font-style:italic;
 }
@@ -136,6 +133,13 @@ option{
 }
 a{
 	text-decoration:none;
+}
+a.bio{
+	color:var(--tertiary);
+	text-decoration:none;
+}
+a.bio:hover{
+	text-decoration:underline;
 }
 ::-webkit-scrollbar {
 	display: none;
