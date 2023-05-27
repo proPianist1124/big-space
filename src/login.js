@@ -25,7 +25,7 @@ module.exports = function(app) {
 			if (await db.get(newUser) != null && newPass == await db.get(`${await db.get(newUser)}_password`)) {
 				res.send(`<script>window.location.replace("/"); document.cookie = "name=${await db.get(newUser)}; SameSite=None; Secure";</script>`);
 				console.log("");
-				console.log(`${newUser} has signed in`.green);
+				console.log(`${newUser} has signed in`.yellow);
 				console.log("");
 			} else {
 				// if the user does not exist or the password entered was incorrect

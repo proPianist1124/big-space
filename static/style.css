@@ -86,6 +86,19 @@ button.login{
 button.login:hover{
 	width:410px;
 }
+button.post{
+	border-radius:50%;
+	height:50px;
+	width:50px;
+}
+button.normal{
+	transition:0.3s;
+	width:100px;
+}
+button.normal:hover{
+	width:120px;
+}
+
 input{
 	font-family: var(--mainFont);
 	color:var(--secondary);
@@ -139,29 +152,36 @@ a.bio{
 a.bio:hover{
 	text-decoration:underline;
 }
+a.user{
+	color:var(--tertiary);
+	font-style:italic;
+	text-decoration:none;
+	transition:0.3s;
+}
+a.user:hover{
+	color:var(--tertiary-darker);
+}
+a.logout{
+	color:var(--error);
+	padding:10px;
+	transition:0.5s;
+}
+a.logout:hover{
+	color:var(--error-bolder);
+	cursor:pointer;
+}
+
 ::-webkit-scrollbar {
 	display: none;
 }
 ::placeholder{
 	color:var(--secondary);
 }
+
 img{
 	border-radius:20px;
 }
-.post{
-	border-radius:50%;
-	height:50px;
-	width:50px;
-}
-.logout{
-	color:var(--error);
-	padding:10px;
-	transition:0.5s;
-}
-.logout:hover{
-	color:var(--error-bolder);
-	cursor:pointer;
-}
+
 .footer {
   position: fixed;
   left: 0;
@@ -169,21 +189,14 @@ img{
   width: 100%;
 	padding:25px 25px;
 }
-.user{
-	color:var(--tertiary);
-	font-style:italic;
-	text-decoration:none;
-	transition:0.3s;
-}
-.user:hover{
-	color:var(--tertiary-darker);
-}
-.normal{
-	transition:0.3s;
-	width:100px;
-}
-.normal:hover{
-	width:120px;
+.copyright{
+	position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
 }
 .card{
 	max-width:500px;

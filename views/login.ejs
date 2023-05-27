@@ -11,7 +11,7 @@
 	<center>
 		<br>
 		<%- include("./partials/header"); %>
-		<br><br>
+		<br>
 		<h2 style = "color:var(--primary)">Login</h2>
 		<form action = "/login" method = "POST">
 			<input name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" pattern = "^[a-zA-Z0-9_]*$" required/>
@@ -20,6 +20,7 @@
 			<br><br>
 			<button type = "submit" class = "login">Login</button>
 		</form>
+		<br>
 		<h2 style = "color:var(--primary)">Sign Up </h2>
 		<form action = "/new_account" method = "POST">
 			<input name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>

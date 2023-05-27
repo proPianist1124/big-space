@@ -1,4 +1,5 @@
 // https://replit.com/talk/learn/Replit-DB/43305
+
 const Database = require("@replit/database");
 const db = new Database();
 const colors = require("colors");
