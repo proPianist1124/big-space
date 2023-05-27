@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+	<title>Big Space | Login</title>
+	<meta name="description" content="Share Content Together Easily">
+	<%- include("./partials/meta"); %>
+</head>
+<body>
+	<script src = "/script.js"></script>
+	<script src="/fontawesome.js"></script>
+	<script src="https://replit.com/public/js/repl-auth-v2.js"></script>
+	<center>
+		<br>
+		<%- include("./partials/header"); %>
+		<br><br>
+		<h2 style = "color:var(--primary)">Login</h2>
+		<form action = "/login" method = "POST">
+			<input name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" pattern = "^[a-zA-Z0-9_]*$" required/>
+			<br>
+			<input name = "password" placeholder = "Enter password…" autocomplete = "off" type = "password" required/>
+			<br><br>
+			<button type = "submit" class = "login">Login</button>
+		</form>
+		<h2 style = "color:var(--primary)">Sign Up </h2>
+		<form action = "/new_account" method = "POST">
+			<input name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
+			<br>
+			<input name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
+			<br><br>
+			<button type = "submit" class = "login">Sign Up</button>
+		</form>
+		<br>
+		<h2>Not Trusting? Login with Replit instead!</h2><button onclick="alert('replit auth is not available yet')" class = "replit"><img src = "/replit.png" style = "width:25px; height:25px; vertical-align:middle;"> Auth with Replit</button></center>
+</body>

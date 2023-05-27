@@ -1,0 +1,48 @@
+<!doctype html>
+<head>
+	<title>Big Space | Settings</title>
+	<%- include("./partials/meta"); %>
+</head>
+<body>
+	<script src = "/script.js"></script>
+	<script src="/fontawesome.js"></script>
+	<h3>
+		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
+		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
+		<a href = "/settings" style = "float:right; color:var(--primary)" class="fa-solid fa-gear"></a>
+	</h3>
+	<center>
+		<%- include("./partials/header"); %>
+	</center>
+	<main style = "background-color:var(--post)">
+		<form action = "/save_settings" method = "POST">
+			<h2 style = "text-align:center">
+				Account: <%- user %>
+			</h2>
+			<p style = "text-align:left; font-size:18px;">
+				Token: <span style = "color:var(--tertiary)"><%- token %></span>
+				<br>
+				Password: <span style = "color:var(--tertiary)"><%- password %></span>
+				<br>Bio: <input name = "bio" class = "bio" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off"/>
+				<br>Page: <input name = "page" class = "bio" value = "<%- page %>" placeholder = "your page…" autocomplete = "off"/>
+			</p>
+			<br><br>
+			<button type = "submit">
+				Save <i class="fa-solid fa-floppy-disk"></i>
+			</button>
+		</form>
+	</main>
+	<br>
+	<center>
+		<a href = "/">
+			<button class = "login" style = "border-radius:5px 0px 0px 5px;">
+				<i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back
+			</button>
+		</a>
+		<a href = "/@<%- user %>">
+			<button class = "login" style = "border-radius:0px 5px 5px 0px;">
+				<i class="fa-regular fa-id-card"></i>&nbsp;&nbsp;View Profile
+			</button>
+		</a>
+	</center>
+</body>

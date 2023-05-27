@@ -1,0 +1,24 @@
+<!doctype html>
+<head>
+	<title>Big Space | Share Content</title>
+	<%- include("./partials/meta"); %>
+</head>
+<body>
+	<script src = "/script.js"></script>
+	<script src="/fontawesome.js"></script>
+	<h3>
+		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
+		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
+		<a href = "/settings" style = "float:right; color:var(--primary)" class="fa-solid fa-gear"></a>
+	</h3>
+	<center>
+		<%- include("./partials/header"); %>
+	</center>
+	<%- totalPosts %>
+	<br><br><br><br>
+	<div class = "footer">
+		<a href = "/post_page">
+			<button class = "post" type = "submit"><i class="fa-solid fa-pencil" style = "font-size:18px;"></i></button>
+		</a>
+	</div>
+</body>

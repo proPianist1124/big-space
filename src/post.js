@@ -14,17 +14,17 @@ const timestamp = require("time-stamp");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let mods = {
-	mod1: process.env['mod1'],
-	mod2: process.env['mod2'],
+	mod1: process.env["mod1"],
+	mod2: process.env["mod2"],
 }
 
 let totalPosts = [];
 module.exports = function(app) {
-	app.post('/post', function(req, res) {
+	app.post("/post", function(req, res) {
 		function sha256(input) {
 			return createHash("sha256").update(input).digest("hex");
 		}
-		const location = sha256(req.header('x-forwarded-for'));
+		const location = sha256(req.header("x-forwarded-for"));
 		(async () => {
 			if (await db.get(req.cookies.name) == null || await db.get(req.cookies.name) == "") {
 				res.send(process.env["invalid_message"]);
@@ -54,7 +54,7 @@ module.exports = function(app) {
 							totalPosts = `${totalPosts} ${await db.get(postName)}`;
 							counting(); // if post exists, repeat the entire process
 						} else {
-							let fullDate = timestamp('MM/DD');
+							let fullDate = timestamp("MM/DD");
 
 							// let the server know that someone has posted (for security purposes)
 							console.log(`${user.blue}: ${userTitle.green} - ${userContent.green}`);

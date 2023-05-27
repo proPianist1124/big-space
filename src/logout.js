@@ -13,7 +13,7 @@ const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
 module.exports = function(app) {
-	app.get('/logout', function(req, res) {
+	app.get("/logout", function(req, res) {
 		(async () => {
 			let user = await db.get(req.cookies.name);
 			console.log("");

@@ -1,0 +1,38 @@
+<!doctype html>
+<head>
+	<title>Big Space | <%- title %></title>
+	<%- include("./partials/meta"); %>
+</head>
+<body>
+	<script src = "/script.js"></script>
+	<script src="/fontawesome.js"></script>
+	<h3>
+		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span><%- userOptions %>
+	</h3>
+	<center>
+		<%- include("./partials/header"); %>
+	</center>
+	<main>
+		<h2 style = "text-align:center">
+			"<%- title %>" - <span style = "color:var(--secondary)">Expanded View</span>
+		</h2>
+	</main>
+	<h3>
+		<%- pulledPost %>
+	</h3>
+	<br>
+	<center>
+		<h2>Impressed? 
+			<a href = "/@<%- author %>" class = "user">
+				Follow <%- author %>!
+			</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-share" onclick = "copy()"></i></h2>
+		<a href = "/">
+			<button class = "login">
+				<i class="fa-solid fa-arrow-right-from-bracket"></i>
+				&nbsp;&nbsp;Go back
+			</button>
+		</a>
+	</center>
+	<script>localStorage.setItem("view","<%- post %>");</script>
+</body>

@@ -15,13 +15,13 @@ const timestamp = require("time-stamp");
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let accounts = [];
 module.exports = function(app) {
-	app.post('/new_account', function(req, res) {
+	app.post("/new_account", function(req, res) {
 		function sha256(input) {
 			return createHash("sha256").update(input).digest("hex");
 		}
 		const newUser = req.body.newAccount;
 		const newPass = req.body.newPassword;
-		const location = sha256(req.header('x-forwarded-for'));
+		const location = sha256(req.header("x-forwarded-for"));
 		accounts();
 		function accounts() {
 			(async () => {
@@ -50,7 +50,7 @@ module.exports = function(app) {
 							console.log(`new account ${newUser} was created`.blue);
 							console.log("");
 						}else{
-							res.send(process.env['invalid_message']);
+							res.send(process.env["invalid_message"]);
 						}
 					}
 				}

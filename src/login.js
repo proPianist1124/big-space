@@ -13,7 +13,7 @@ const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 
 module.exports = function(app) {
-	app.post('/login', function(req, res) {
+	app.post("/login", function(req, res) {
 		function sha256(input) {
 			return createHash("sha256").update(input).digest("hex");
 		}
@@ -29,7 +29,7 @@ module.exports = function(app) {
 				console.log("");
 			} else {
 				// if the user does not exist or the password entered was incorrect
-				res.send(`Wtf u broke my website……just kidding! you just entered a password incorrectly or the user doesn't exist! <a href = "/" style = "color:red">Go back</a>`);
+				res.send(process.env["invalid_message"]);
 			}
 		})();
 	});

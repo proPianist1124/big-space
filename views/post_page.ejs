@@ -1,0 +1,42 @@
+<!doctype html>
+<head>
+	<title>Big Space | New Post</title>
+	<%- include("./partials/meta"); %>
+</head>
+<body>
+	<script src = "/script.js"></script>
+	<script src="/fontawesome.js"></script>
+	<center>
+		<%- include("./partials/header"); %>
+	</center>
+	<br>
+	<div style = "color:var(--primary)">
+		<h2>
+			New Post&nbsp;&nbsp;
+			<a href = "/">
+				<button class = "normal"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button>
+			</a>
+		</h2>
+		<form action = "/post" method = "POST">
+			<br>
+			&nbsp;<input placeholder = "title" name = "postTitle" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "25" required/>
+			<br>
+			&nbsp;<input placeholder = "content" name = "postContent" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "100" required/>
+			<br>
+			<span style = "padding:2px;"></span>
+			<select name="postTopic">
+				<option value="#random">#random</option>
+				<option value="#programming">#programming</option>
+				<option value="#comedy">#comedy</option>
+				<option value="#business">#business</option>
+				<option value="#politics">#politics</option>
+				<%- adminSelect %>
+			</select>
+			<br>&nbsp;<input placeholder = "photo [url]" name = "postImage" id = "userPost" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type = "url">
+			<br><br>
+			<button type = "submit" class = "login">
+				Post <i class="fa-solid fa-folder-plus"></i>
+			</button>
+		</form>
+	</div>
+</body>

@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Manrope&family=Plus+Jakarta+Sans&family=Poppins&display=swap');
 
 :root{
-	--background:#15202b;
-	--background-lighter:#2a3847;;
-	--post:#1c2732;
+	--background:#393D3F;
+	--background-lighter:#4c5052;
+	--post:#45484a;
 	--primary:#f7f9f9;
 	--secondary:#8a98a5;
-	--tertiary:#1d9bf0;
-	--tertiary-lighter:#61b0ff;
+	--tertiary:#29a3f5;
+	--tertiary-darker:dodgerblue;
 	--quatenary:white;
 	--postColor:var(--primary);
 	--error:#D9544D;
-	--error-lighter:#f20202;
+	--error-bolder:#f20202;
 	--mainFont:'Manrope', sans-serif;
 	--secondFont:'Poppins', sans-serif;
 }
@@ -42,7 +42,7 @@ p{
 	font-size:15px;
 }
 main{
-	max-width: 900px;
+	max-width: 800px;
 	margin: 15px auto;
 	padding: 20px 20px;
 	background-color:var(--post);
@@ -51,7 +51,7 @@ main{
 	transition:0.3s;
 }
 main:hover{
-	box-shadow: 4px 4px var(--tertiary);
+	background-color:var(--background-lighter);
 	cursor:pointer;
 }
 button{
@@ -65,8 +65,7 @@ button{
 	transition:0.3s;
 }
 button:hover{
-	background-color:var(--tertiary-lighter);
-	color:var(--background);
+	background-color:var(--tertiary-darker);
 }
 button.replit{
 	background-color:#1C2333;
@@ -95,14 +94,13 @@ input{
 	height:50px;
 	transition:0.3s;
 	background-color:var(--post);
-	border:1px solid var(--post);
+	border:none;
 	font-size:20px;
 }
 input:focus{
-	background-color:var(--background);
+	background-color:var(--background-lighter);
 	color:var(--primary);
 	outline:none;
-	border:1px solid var(--tertiary);
 }
 input.bio{
 	height:20px;
@@ -154,7 +152,6 @@ img{
 	border-radius:50%;
 	height:50px;
 	width:50px;
-	font-size:25px;
 }
 .logout{
 	color:var(--error);
@@ -162,7 +159,7 @@ img{
 	transition:0.5s;
 }
 .logout:hover{
-	color:var(--error-lighter);
+	color:var(--error-bolder);
 	cursor:pointer;
 }
 .footer {
@@ -179,7 +176,7 @@ img{
 	transition:0.3s;
 }
 .user:hover{
-	color:var(--tertiary-lighter);
+	color:var(--tertiary-darker);
 }
 .normal{
 	transition:0.3s;
