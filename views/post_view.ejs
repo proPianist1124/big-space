@@ -12,14 +12,16 @@
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
-	<main>
+	<main style = "background-color:var(--post)">
 		<h2 style = "text-align:center">
 			"<%- title %>" - <span style = "color:var(--secondary)">Expanded View</span>
 		</h2>
 	</main>
-	<h3>
-		<%- pulledPost %>
-	</h3>
+	<main style = "background-color:var(--post)">
+		<h1 style = "text-align:center">
+			<%- pulledPost %>
+		</h1>
+	</main>
 	<br>
 	<center>
 		<h2>Impressed? 
@@ -37,5 +39,5 @@
 	<center>
 		<%- include("./partials/footer"); %>
 	</center>
-	<script>localStorage.setItem("view","<%- post %>");</script>
+	<script>localStorage.setItem("view","<%- postUrl %>");</script>
 </body>

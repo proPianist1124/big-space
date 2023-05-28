@@ -45,6 +45,7 @@ require("./src/save_settings")(app); // save your bio
 // login page/home page `<br><center><h2 style = "color:#D9544D">NO POSTS AVAILABLE</h2></center>`
 app.get("/", function(req, res) {
 	let posts = [];
+	let imageIfPossible = [];
 	const location = sha256(req.header("x-forwarded-for"));
 	(async () => {
 		let user = await db.get(req.cookies.name);
@@ -60,7 +61,7 @@ app.get("/", function(req, res) {
 					count+=1;
 					let postId = `post${count}`;
 					if(await db.get(postId) != null){ // if post exists, repeat function
-						let newPosts = `<a href = "/posts/${postId}">${await db.get(postId)}</a> ${posts}`; // change 
+						let newPosts = `<a href = "/posts/${postId}"><main><h1><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h1><h3>${await db.get(postId)}</h3>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i>made by ${user}</i></p></main></a> ${posts}`;
 						posts = newPosts;
 						repeatAndCheck();
 					}else{
@@ -126,9 +127,10 @@ app.get("/posts/:id", function(req, res) {
 				title: await db.get(`${post}_title`),
 				user: user,
 				userOptions: userOptions,
-				pulledPost: pulledPost,
+				pulledPost: `"${await db.get(post)}"<br>`,
 				author: await db.get(`${post}_author`),
-				post: post,
+				topic: await db.get(`${post}_topic`),
+				postUrl: post,
 			});
 		}
 	})();
@@ -166,8 +168,8 @@ app.get("/@:user", function(req, res) {
 			res.render("users", {
 				user: user,
 				userOptions: userOptions,
-				userBio: await db.get(`${userId}_bio`),
-				userPage: await db.get(`${user}_page`),
+				bio: await db.get(`${userId}_bio`),
+				page: await db.get(`${user}_page`),
 			});
 		}
 	})();

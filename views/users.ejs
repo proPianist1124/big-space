@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-	<title>Big Space | ${userId}</title>
+	<title>Big Space | <%- user %></title>
 	<%- include("./partials/meta"); %>
 </head>
 <body>
@@ -13,16 +13,16 @@
 		<%- include("./partials/header"); %>
 	</center>
 	<br> 
-	<main>
+	<main style = "background-color:var(--post)">
 		<h2 style = "text-align:center">
 			<%- user %>
 		</h2>
 		<p style = "text-align:left; font-size:18px;">
-			<i class="fa-solid fa-address-card"></i> About me: <%- userBio %>
+			<i class="fa-solid fa-address-card"></i> About me: <%- bio %>
 			<br>
 			<i class="fa-solid fa-globe"></i> Website: 
-			<a href = "<%- userPage %>" class = "bio" target = "_blank">
-				<%- userPage %>
+			<a href = "<%- page %>" class = "bio" target = "_blank">
+				<%- page %>
 			</a>
 		</p>
 	</main>

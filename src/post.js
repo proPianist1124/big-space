@@ -29,17 +29,11 @@ module.exports = function(app) {
 				res.send(process.env["invalid_message"]);
 			} else {
 				let postNum = 0;
-				let user = [];
+				let user = await db.get(req.cookies.name);
 				let userTitle = req.body.postTitle;
 				let userContent = req.body.postContent;
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
-				if (await db.get(req.cookies.name) == mods.mod1 || await db.get(req.cookies.name) == mods.mod2) {
-					user = `[Admin] ${await db.get(req.cookies.name)}`;
-				} else {
-					user = await db.get(req.cookies.name);
-				}
-				let imageIfPossible = `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`;
 				if(regex.test(userTitle) == false || regex.test(userContent) == false){ //regex pattern checking if title/content
 					res.send(process.env["invalid_message"]);
 				}else{
@@ -57,12 +51,16 @@ module.exports = function(app) {
 							// let the server know that someone has posted (for security purposes)
 							console.log(`${user.blue}: ${userTitle.green} - ${userContent.green}`);
 
-							if (userImage == "") { // to check if image url box is filled
-								imageIfPossible = "";
+							if (userImage != "") { // to check if image url box is filled
+								await db.set(`${postName}_image`, `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`);
+							}else{
+								await db.set(`${postName}_image`,"");
 							}
 							// set a database object for the post that DOESN'T exist
-							await db.set(postName, `<main id = "${postName}"><h1><span style = "color:var(--primary)"><u>${userTopic}</u>&nbsp;&nbsp;${fullDate}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${userTitle}</span></h1><h3>${userContent}</h3>${imageIfPossible}<p style = "color:var(--tertiary)"><i>made by ${user}</i></p></main>`);
+							await db.set(postName, userContent);
 							await db.set(`${postName}_title`, userTitle);
+							await db.set(`${postName}_date`, fullDate);
+							await db.set(`${postName}_topic`, userTopic);
 							await db.set(`${postName}_author`, await db.get(req.cookies.name));
 
 							res.send(`<script>window.location.replace("/");</script>`); // send the client back to the og url
