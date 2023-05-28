@@ -107,13 +107,15 @@ input{
 	height:50px;
 	transition:0.3s;
 	background-color:var(--post);
-	border:none;
 	font-size:20px;
+	outline:none;
+	border:none;
 }
 input:focus{
 	background-color:var(--background-lighter);
 	color:var(--primary);
 	outline:none;
+	border:none;
 }
 input.bio{
 	height:20px;
@@ -123,7 +125,6 @@ input.bio{
 }
 input.bio:focus{
 	background-color:var(--background);
-	border:1px solid var(--background);
 }
 select{
 	font-family:var(--mainFont);
@@ -170,6 +171,14 @@ a.logout:hover{
 	color:var(--error-bolder);
 	cursor:pointer;
 }
+.settings a{
+	float:right;
+	color:var(--primary);
+	transition:0.3s;
+}
+.settings a:hover{
+	color:var(--secondary);
+}
 
 ::-webkit-scrollbar {
 	display: none;
@@ -182,21 +191,29 @@ img{
 	border-radius:20px;
 }
 
-.footer {
+.pencil {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
 	padding:25px 25px;
 }
-.copyright{
+.footer{
 	position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
-  color: white;
+  background-color: var(--background);
+  color: var(--secondary);
+	font-size:15px;
   text-align: center;
+}
+.footer a{
+	color:var(--secondary);
+	text-decoration:none;
+}
+.footer a:hover{
+	text-decoration:underline;
 }
 .card{
 	max-width:500px;

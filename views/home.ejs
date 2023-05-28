@@ -9,16 +9,19 @@
 	<h3>
 		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
 		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
-		<a href = "/settings" style = "float:right; color:var(--primary)" class="fa-solid fa-gear"></a>
+		<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
-	<%- totalPosts %>
+	<%- posts %>
 		<br><br><br><br>
-		<div class = "footer">
+		<div class = "pencil">
 			<a href = "/post_page">
 				<button class = "post" type = "submit"><i class="fa-solid fa-pencil" style = "font-size:18px;"></i></button>
 			</a>
 		</div>
+		<center>
+			<%- include("./partials/footer"); %>
+		</center>
 </body>

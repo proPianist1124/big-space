@@ -15,14 +15,14 @@
 	<br> 
 	<main>
 		<h2 style = "text-align:center">
-			${userId}
+			<%- user %>
 		</h2>
 		<p style = "text-align:left; font-size:18px;">
-			<i class="fa-solid fa-address-card"></i> About me: ${bio}
+			<i class="fa-solid fa-address-card"></i> About me: <%- userBio %>
 			<br>
 			<i class="fa-solid fa-globe"></i> Website: 
-			<a href = "${await db.get(`${user}_page`)}" class = "bio" target = "_blank">
-				${page}
+			<a href = "<%- userPage %>" class = "bio" target = "_blank">
+				<%- userPage %>
 			</a>
 		</p>
 	</main>
@@ -31,5 +31,8 @@
 		<a href = "/">
 			<button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button>
 		</a>
+	</center>
+	<center>
+		<%- include("./partials/footer"); %>
 	</center>
 </body>

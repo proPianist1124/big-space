@@ -42,24 +42,35 @@ require("./src/logout")(app); // logout
 require("./src/post")(app); // post
 require("./src/save_settings")(app); // save your bio
 
-// login page/home page
+// login page/home page `<br><center><h2 style = "color:#D9544D">NO POSTS AVAILABLE</h2></center>`
 app.get("/", function(req, res) {
+	let posts = [];
 	const location = sha256(req.header("x-forwarded-for"));
 	(async () => {
 		let user = await db.get(req.cookies.name);
-		if (await db.get("totalPosts") == null) {
-			totalPosts = `<br><center><h2 style = "color:#D9544D">NO POSTS AVAILABLE</h2></center>`;
-		} else {
-			totalPosts = await db.get("totalPosts");
-		}
 		if (user == null || user == "") {
 			// login page if the user's cookies are unavailable
 			res.render("login");
 		} else {
-			res.render("home", {
-				totalPosts: totalPosts,
-				user: user,
-			});
+			// counting method
+			let count = 0;
+			repeatAndCheck();
+			function repeatAndCheck(){
+				(async () => {
+					count+=1;
+					let postId = `post${count}`;
+					if(await db.get(postId) != null){ // if post exists, repeat function
+						let newPosts = `<a href = "/posts/${postId}">${await db.get(postId)}</a> ${posts}`; // change 
+						posts = newPosts;
+						repeatAndCheck();
+					}else{
+						res.render("home", {
+							posts: posts,
+							user: user,
+						});
+					}
+				})();
+			}
 		}
 	})();
 });
@@ -104,7 +115,7 @@ app.get("/posts/:id", function(req, res) {
 			res.send(process.env["invalid_message"]);
 		}else{
 			let user = await db.get(req.cookies.name);
-			let userOptions = `<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a><a href = "/settings" style = "float:right; color:var(--primary)" class="fa-solid fa-gear"></a></h3>`;
+			let userOptions = `<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span></h3>`;
 			let pulledPost = await db.get(post);
 			if(user == "" || user == undefined){
 				user = "no user available";
@@ -134,7 +145,7 @@ app.get("/@:user", function(req, res) {
 			res.send(process.env["invalid_message"]);
 		}else{
 			let user = await db.get(req.cookies.name);
-			let userOptions = `<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a><a href = "/settings" style = "float:right; color:var(--primary)" class="fa-solid fa-gear"></a></h3>`;
+			let userOptions = `<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span></h3>`;
 			if(user == "" || user == undefined){
 				user = "no user available";
 				userOptions = [];
@@ -155,6 +166,8 @@ app.get("/@:user", function(req, res) {
 			res.render("users", {
 				user: user,
 				userOptions: userOptions,
+				userBio: await db.get(`${userId}_bio`),
+				userPage: await db.get(`${user}_page`),
 			});
 		}
 	})();

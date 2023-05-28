@@ -18,7 +18,6 @@ let mods = {
 	mod2: process.env["mod2"],
 }
 
-let totalPosts = [];
 module.exports = function(app) {
 	app.post("/post", function(req, res) {
 		function sha256(input) {
@@ -41,17 +40,16 @@ module.exports = function(app) {
 					user = await db.get(req.cookies.name);
 				}
 				let imageIfPossible = `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`;
-				if(regex.test(userTitle) == false){
+				if(regex.test(userTitle) == false || regex.test(userContent) == false){ //regex pattern checking if title/content
 					res.send(process.env["invalid_message"]);
 				}else{
-					counting();
+					counting(); // start checking if post exists, then replace it if it doesnt
 				}
 				function counting() {
 					(async () => {
 						postNum += 1;
 						let postName = `post${postNum}`;
 						if (await db.get(postName) != null) {
-							totalPosts = `${totalPosts} ${await db.get(postName)}`;
 							counting(); // if post exists, repeat the entire process
 						} else {
 							let fullDate = timestamp("MM/DD");
@@ -66,13 +64,7 @@ module.exports = function(app) {
 							await db.set(postName, `<main id = "${postName}"><h1><span style = "color:var(--primary)"><u>${userTopic}</u>&nbsp;&nbsp;${fullDate}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${userTitle}</span></h1><h3>${userContent}</h3>${imageIfPossible}<p style = "color:var(--tertiary)"><i>made by ${user}</i></p></main>`);
 							await db.set(`${postName}_title`, userTitle);
 							await db.set(`${postName}_author`, await db.get(req.cookies.name));
-							if (await db.get("totalPosts") == null) {
-								await db.set("totalPosts", `<a href = "/posts/${postName}">${await db.get(postName)}</a>`); // of no other posts exist, set the database item to this post
-							} else {
-								// otherwise, add the new post to the string of other posts
-								let newPostsAdded = `<a href = "/posts/${postName}">${await db.get(postName)}</a>${await db.get("totalPosts")}`;
-								await db.set("totalPosts", newPostsAdded);
-							}
+
 							res.send(`<script>window.location.replace("/");</script>`); // send the client back to the og url
 						}
 					})();

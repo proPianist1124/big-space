@@ -9,7 +9,7 @@
 	<h3>
 		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
 		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
-		<a href = "/settings" style = "float:right; color:var(--primary)" class="fa-solid fa-gear"></a>
+		<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>
@@ -24,7 +24,7 @@
 				<br>
 				Password: <span style = "color:var(--tertiary)"><%- password %></span>
 				<br>Bio: <input name = "bio" class = "bio" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off"/>
-				<br>Page: <input name = "page" class = "bio" value = "<%- page %>" placeholder = "your page…" autocomplete = "off"/>
+				<br>Page: <input name = "page" type = "url" class = "bio" value = "<%- page %>" placeholder = "your page…" autocomplete = "off"/>
 			</p>
 			<br><br>
 			<button type = "submit">
@@ -44,5 +44,8 @@
 				<i class="fa-regular fa-id-card"></i>&nbsp;&nbsp;View Profile
 			</button>
 		</a>
+	</center>
+	<center>
+		<%- include("./partials/footer"); %>
 	</center>
 </body>
