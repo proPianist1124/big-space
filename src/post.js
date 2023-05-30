@@ -42,7 +42,7 @@ module.exports = function(app) {
 				function counting() {
 					(async () => {
 						postNum += 1;
-						let postName = `post${postNum}`;
+						let postName = `p${postNum}`;
 						if (await db.get(postName) != null) {
 							counting(); // if post exists, repeat the entire process
 						} else {
@@ -61,7 +61,7 @@ module.exports = function(app) {
 							await db.set(`${postName}_title`, userTitle);
 							await db.set(`${postName}_date`, fullDate);
 							await db.set(`${postName}_topic`, userTopic);
-							await db.set(`${postName}_author`, await db.get(req.cookies.name));
+							await db.set(`${postName}_author`, req.cookies.name);
 
 							res.send(`<script>window.location.replace("/");</script>`); // send the client back to the og url
 						}

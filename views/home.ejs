@@ -8,8 +8,8 @@
 	<script src="/fontawesome.js"></script>
 	<h3>
 		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
-		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
 		<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		<a href = "/logout" class = "logout" style = "float:right;">Logout <i class="fa-solid fa-circle-xmark"></i></a>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>
@@ -24,4 +24,10 @@
 		<center>
 			<%- include("./partials/footer"); %>
 		</center>
+		<script>
+			if(localStorage.getItem("viewed_message") == null){
+				alert("this app is in Beta mode - expect bugs and frequent database resets, so to make a post you might have to make an account again");
+				localStorage.setItem("viewed_message", "true");
+			}
+		</script>
 </body>

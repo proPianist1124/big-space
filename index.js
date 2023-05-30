@@ -1,5 +1,4 @@
 // https://replit.com/talk/learn/Replit-DB/43305
-
 const Database = require("@replit/database");
 const db = new Database();
 const colors = require("colors");
@@ -35,6 +34,14 @@ app.listen(port, () => { // check if webapp is running properly
 function sha256(input) {
 	return createHash("sha256").update(input).digest("hex");
 }
+function encodeImageFileAsURL(element) {
+  var file = element.files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    console.log('RESULT', reader.result)
+  }
+  reader.readAsDataURL(file);
+}
 
 require("./src/login")(app); // login
 require("./src/new_account")(app); // new account
@@ -42,7 +49,7 @@ require("./src/logout")(app); // logout
 require("./src/post")(app); // post
 require("./src/save_settings")(app); // save your bio
 
-// login page/home page `<br><center><h2 style = "color:#D9544D">NO POSTS AVAILABLE</h2></center>`
+// login page/home page
 app.get("/", function(req, res) {
 	let posts = [];
 	let imageIfPossible = [];
@@ -59,9 +66,10 @@ app.get("/", function(req, res) {
 			function repeatAndCheck(){
 				(async () => {
 					count+=1;
-					let postId = `post${count}`;
+					let postId = `p${count}`;
 					if(await db.get(postId) != null){ // if post exists, repeat function
-						let newPosts = `<a href = "/posts/${postId}"><main><h1><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h1><h3>${await db.get(postId)}</h3>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i>made by ${user}</i></p></main></a> ${posts}`;
+						// post ui (change as needed)
+						let newPosts = `<a href = "/posts/${postId}"><main><h1><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h1><h3>${await db.get(postId)}</h3>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i>made by ${await db.get(await db.get(`${postId}_author`))}</i></p></main></a> ${posts}`;
 						posts = newPosts;
 						repeatAndCheck();
 					}else{
@@ -97,6 +105,11 @@ app.get("/settings", function(req, res) {
 			}else{
 				page = await db.get(`${user}_page`);
 			}
+			if(await db.get(`${user}_page`) == null){
+				page = "";
+			}else{
+				page = await db.get(`${user}_page`);
+			}
 			res.render("settings", {
 				user: user,
 				password: password,
@@ -116,7 +129,7 @@ app.get("/posts/:id", function(req, res) {
 			res.send(process.env["invalid_message"]);
 		}else{
 			let user = await db.get(req.cookies.name);
-			let userOptions = `<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span></h3>`;
+			let userOptions = ` <span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span><a href = "/logout" class = "logout" style = "float:right;">Logout <i class="fa-solid fa-circle-xmark"></i></a>`;
 			let pulledPost = await db.get(post);
 			if(user == "" || user == undefined){
 				user = "no user available";
@@ -127,8 +140,8 @@ app.get("/posts/:id", function(req, res) {
 				title: await db.get(`${post}_title`),
 				user: user,
 				userOptions: userOptions,
-				pulledPost: `"${await db.get(post)}"<br>`,
-				author: await db.get(`${post}_author`),
+				pulledPost: `"${await db.get(post)}"<br><br>${await db.get(`${post}_image`)}`,
+				author: await db.get(await db.get(`${post}_author`)),
 				topic: await db.get(`${post}_topic`),
 				postUrl: post,
 			});
@@ -147,7 +160,7 @@ app.get("/@:user", function(req, res) {
 			res.send(process.env["invalid_message"]);
 		}else{
 			let user = await db.get(req.cookies.name);
-			let userOptions = `<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span></h3>`;
+			let userOptions = ` <span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span><a href = "/logout" class = "logout" style = "float:right;">Logout <i class="fa-solid fa-circle-xmark"></i></a>`;
 			if(user == "" || user == undefined){
 				user = "no user available";
 				userOptions = [];
@@ -199,17 +212,7 @@ app.get("/purge/:method", function(req, res) {
 	(async () => {
 		let method = req.params.method;
 		let purgeUser = await db.get(req.cookies.name);
-		if(method == "posts" || method == "all"){
-			if(method == "posts"){
-				if (purgeUser == mods.mod1 || purgeUser == mods.mod2) {
-					await db.delete("totalPosts");
-					console.log(`-- ${purgeUser} purged all posts`.red);
-					res.send(`<script>window.location.replace("/");</script>`);
-					process.exit();
-				} else {
-					res.send(process.env["invalid_message"]);
-				}
-			}
+		if(method == "all" || await db.get(method) != null){
 			if(method == "all"){
 				if (purgeUser == mods.mod1 || purgeUser == mods.mod2) {
 					await db.empty();
@@ -219,6 +222,11 @@ app.get("/purge/:method", function(req, res) {
 				} else {
 					res.send(process.env["invalid_message"]);
 				}
+			}else{
+				await db.delete(method);
+				console.log(`-- ${purgeUser} purged ${method}`);
+				res.send(`<script>window.location.replace("/");</script>`);
+				process.exit();
 			}
 		}else{
 			res.send(process.env["invalid_message"]);
@@ -233,5 +241,18 @@ app.get("/jobs", function(req, res) {
 
 // custom 404 page
 app.use((req, res, next) => {
-  res.status(404).render(`404`);
+	let gif = Math.floor(Math.random() * 3);
+	let selection = []
+	if(gif == 0){
+		selection = "/banana.gif";
+	}
+	if(gif == 1){
+		selection = "/nooo.gif";
+	}
+	if(gif == 2){
+		selection = "/monkey.gif";
+	}
+  res.status(404).render("404", {
+		gif: selection,
+	});
 })

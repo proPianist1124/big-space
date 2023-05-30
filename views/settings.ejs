@@ -8,8 +8,8 @@
 	<script src="/fontawesome.js"></script>
 	<h3>
 		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
-		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
 		<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		<a href = "/logout" class = "logout" style = "float:right;">Logout <i class="fa-solid fa-circle-xmark"></i></a>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>
@@ -25,6 +25,7 @@
 				Password: <span style = "color:var(--tertiary)"><%- password %></span>
 				<br>Bio: <input name = "bio" class = "bio" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off" required/>
 				<br>Page: <input name = "page" type = "url" class = "bio" value = "<%- page %>" placeholder = "your page…" autocomplete = "off" required/>
+				<br>Profile: <input name = "profile" type = "url" class = "bio" value = "<%- profile %>" placeholder = "profile pic…" autocomplete = "off" required/>
 			</p>
 			<br><br>
 			<button type = "submit">

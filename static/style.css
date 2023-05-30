@@ -37,6 +37,7 @@ h1, h2, h3, h4, h5, h6{
 }
 h2 i:hover{
 	font-style:italic;
+	cursor:pointer;
 }
 p{
 	font-size:15px;
@@ -47,11 +48,12 @@ main{
 	padding: 20px 20px;
 	background-color:var(--post);
 	color:var(--postColor);
-	border-radius:5px;
+	border-radius:10px;
 	transition:0.3s;
 }
 main:hover{
 	background-color:var(--background-lighter);
+	border-radius:0px;
 	cursor:pointer;
 }
 button{
@@ -172,7 +174,6 @@ a.logout:hover{
 	cursor:pointer;
 }
 .settings a{
-	float:right;
 	color:var(--primary);
 	transition:0.3s;
 }
@@ -224,5 +225,22 @@ img{
 	transition:0.3s
 }
 .card:hover{
-	box-shadow: 10px 10px var(--background-lighter);
+	background-color:var(--background-lighter);
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.main{
+	margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
 }

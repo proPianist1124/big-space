@@ -8,3 +8,5 @@
 6. More settings (change password, change username, 2fa)
 7. Add topic filtering
 8. ~~Implement account creation ratelimit from [ratelimit concept](https://replit.com/@big-space/ratelimit-example?v=1)~~
+9. ~~Fix 404 page~~
+10. Add `.push()` function…maybe
