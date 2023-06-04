@@ -26,9 +26,12 @@ app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser()); // my delicious cookies
 app.use(express.static("static"));
 app.listen(port, () => { // check if webapp is running properly
-  console.log(`Webserver started @ port ${port}`.green);
-  console.log("");
-  console.log(`SESSION HISTORY`.cyan);
+	(async () => {
+    process.exit()
+    console.log(`Webserver started @ port ${port}`.green);
+    console.log("");
+    console.log(`SESSION HISTORY`.cyan);
+  })();
 });
 
 function sha256(input) {
@@ -49,13 +52,15 @@ require("./src/logout")(app); // logout
 require("./src/post")(app); // post
 require("./src/save_settings")(app); // save your bio
 
+
 // login page/home page
 app.get("/", function(req, res) {
 	let posts = [];
 	let imageIfPossible = [];
 	const location = sha256(req.header("x-forwarded-for"));
 	(async () => {
-		let user = await db.get(req.cookies.name);
+		let token = req.cookies.name;
+		let user = await db.get(token);
 		if (user == null || user == "") {
 			// login page if the user's cookies are unavailable
 			res.render("login");
@@ -69,13 +74,15 @@ app.get("/", function(req, res) {
 					let postId = `p${count}`;
 					if(await db.get(postId) != null){ // if post exists, repeat function
 						// post ui (change as needed)
-						let newPosts = `<a href = "/posts/${postId}"><main><h1><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h1><h3>${await db.get(postId)}</h3>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i>made by ${await db.get(await db.get(`${postId}_author`))}</i></p></main></a> ${posts}`;
+						let authorProfile = await db.get(`${await db.get(`${postId}_author`)}_profile`);
+						let newPosts = `<a href = "/posts/${postId}"><main><h1><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h1><h3>${await db.get(postId)}</h3>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" style = "padding:2px; width:25px; border-radius:50%; vertical-align:middle;"/> ${await db.get(await db.get(`${postId}_author`))}</i></p></main></a> ${posts}`;
 						posts = newPosts;
 						repeatAndCheck();
 					}else{
 						res.render("home", {
 							posts: posts,
 							user: user,
+							profile: await db.get(`${token}_profile`),
 						});
 					}
 				})();
@@ -84,42 +91,42 @@ app.get("/", function(req, res) {
 	})();
 });
 
+
 // user settings
 app.get("/settings", function(req, res) {
 	const location = sha256(req.header("x-forwarded-for"));
 	(async () => {
-		let user = await db.get(req.cookies.name);
-		let password = await db.get(`${req.cookies.name}_password`);
+		let token = req.cookies.name;
+		let user = await db.get(token);
+		let password = await db.get(`${token}_password`);
 		let bio = [];
 		let page = [];
+		let profile = await db.get(`${token}_profile`);
 		if(user == null || user == ""){ // prevent spamming in accounts checking if cookies exist
 			res.send(process.env["invalid_message"]);
 		}else{
-			if(await db.get(`${user}_bio`) == null){
+			if(await db.get(`${token}_bio`) == null){
 				bio = "";
 			}else{
-				bio = await db.get(`${user}_bio`);
+				bio = await db.get(`${token}_bio`);
 			}
-			if(await db.get(`${user}_page`) == null){
+			if(await db.get(`${token}_page`) == null){
 				page = "";
 			}else{
-				page = await db.get(`${user}_page`);
-			}
-			if(await db.get(`${user}_page`) == null){
-				page = "";
-			}else{
-				page = await db.get(`${user}_page`);
+				page = await db.get(`${token}_page`);
 			}
 			res.render("settings", {
 				user: user,
 				password: password,
-				token: req.cookies.name,
+				token: token,
 				bio: bio,
 				page: page,
+				profile: profile,
 			});
 		}
 	})();
 });
+
 
 // a post's unique page
 app.get("/posts/:id", function(req, res) {
@@ -128,70 +135,88 @@ app.get("/posts/:id", function(req, res) {
 		if(await db.get(post) == null){
 			res.send(process.env["invalid_message"]);
 		}else{
-			let user = await db.get(req.cookies.name);
-			let userOptions = ` <span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span><a href = "/logout" class = "logout" style = "float:right;">Logout <i class="fa-solid fa-circle-xmark"></i></a>`;
+			let token = req.cookies.name
+			let user = await db.get(token);
+			let profile = await db.get(`${token}_profile`);
+			let userOptions = `<span style = "float:right;"><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>`;
 			let pulledPost = await db.get(post);
 			if(user == "" || user == undefined){
 				user = "no user available";
 				userOptions = [];
+				profile = "/default_user.png";
 			}
 			let postUrl = `https://big-space.propianist1124.repl.co/posts/${post}`;
 			res.render("post_view", {
-				title: await db.get(`${post}_title`),
-				user: user,
-				userOptions: userOptions,
-				pulledPost: `"${await db.get(post)}"<br><br>${await db.get(`${post}_image`)}`,
-				author: await db.get(await db.get(`${post}_author`)),
-				topic: await db.get(`${post}_topic`),
-				postUrl: post,
+				user: user, // your account
+				userOptions: userOptions, // your options
+				profile: profile, // user's profile
+				title: await db.get(`${post}_title`), // post title
+				pulledPost: `"${await db.get(post)}"<br><br>${await db.get(`${post}_image`)}`, // post with an image
+				author: await db.get(await db.get(`${post}_author`)), // post author
+				topic: await db.get(`${post}_topic`), // post topic
+				postUrl: post, // the post url
 			});
 		}
 	})();
 });
+
 
 // personal user webpage
 app.get("/@:user", function(req, res) {
 	(async () => {
-		let userId = req.params.user;
+		let userId = req.params.user; // selected user
+		let userToken = await db.get(userId); // select user's token
+		let token = req.cookies.name; // your own token
 		let bio = [];
 		let page = [];
+		let profile = await db.get(`${token}_profile`);
 		let follow = [];
 		if(await db.get(userId) == null){
 			res.send(process.env["invalid_message"]);
 		}else{
-			let user = await db.get(req.cookies.name);
-			let userOptions = ` <span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span><a href = "/logout" class = "logout" style = "float:right;">Logout <i class="fa-solid fa-circle-xmark"></i></a>`;
+			let token = req.cookies.name;
+			let user = await db.get(token);
+			let userOptions = `<span style = "float:right;"><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>`;
 			if(user == "" || user == undefined){
 				user = "no user available";
 				userOptions = [];
+				profile = "/default_user.png";
 				follow = [];
 			}else{
 				follow = `<form><i class="fa-solid fa-user-plus"></i></form>`;
 			}
-			if(await db.get(`${userId}_bio`) == null || await db.get(`${userId}_bio`) == ""){
+			if(await db.get(`${userToken}_bio`) == null || await db.get(`${userToken}_bio`) == ""){
 				bio = `<span style = "color:var(--error)">no bio available</span>`;
 			}else{
-				bio = `<span style = "color:var(--tertiary)">${await db.get(`${user}_bio`)}</span>`;
+				bio = `<span style = "color:var(--tertiary)">${await db.get(`${userToken}_bio`)}</span>`;
 			}
-			if(await db.get(`${userId}_page`) == null || await db.get(`${userId}_page`) == ""){
-				page = `<span style = "color:var(--error)">no website available</span>`;
+			if(await db.get(`${userToken}_page`) == null || await db.get(`${userToken}_page`) == ""){
+				page = `<span style = 'color:var(--error)'>none available</span>`;
 			}else{
-				page = `<span style = "color:var(--tertiary)">${await db.get(`${user}_page`)}</span>`;
+				page = `<span style = "color:var(--tertiary)">${await db.get(`${userToken}_page`)}</span>`;
 			}
 			res.render("users", {
-				user: user,
-				userOptions: userOptions,
-				bio: await db.get(`${userId}_bio`),
-				page: await db.get(`${user}_page`),
+				user: user, // current user
+				userOptions: userOptions, // your options (if you own an account or not)
+				bio: bio, // selected user's bio (about me)
+				profile: profile, // your own profile
+				page: page, // selected user's website WITH CSS
+				pageUrl: await db.get(`${userToken}_page`), // selected user's website URL
+				userSelect: userId, // selected user
+				userSelectProfile: await db.get(`${userToken}_profile`), // selected user's profile
 			});
 		}
 	})();
 });
 
+
 // page where you post stuff
 app.get("/post_page", function(req, res) {
 	(async () => {
-		let user = await db.get(req.cookies.name);
+		let token = req.cookies.name;
+		let user = await db.get(token);
 		if(user == null || user == ""){
 			res.send(process.env["invalid_message"]);
 		}else{
@@ -207,11 +232,13 @@ app.get("/post_page", function(req, res) {
 	})();
 });
 
+
 // purge feature
 app.get("/purge/:method", function(req, res) {
 	(async () => {
+		let token = req.cookies.name;
 		let method = req.params.method;
-		let purgeUser = await db.get(req.cookies.name);
+		let purgeUser = await db.get(token);
 		if(method == "all" || await db.get(method) != null){
 			if(method == "all"){
 				if (purgeUser == mods.mod1 || purgeUser == mods.mod2) {
@@ -234,10 +261,12 @@ app.get("/purge/:method", function(req, res) {
 	})();
 });
 
+
 // big space careers!
 app.get("/jobs", function(req, res) {
 	res.render("jobs");
 });
+
 
 // custom 404 page
 app.use((req, res, next) => {

@@ -23,14 +23,16 @@ module.exports = function(app) {
 			if(regex.test(req.body.bio) == false){
 				res.send(process.env["invalid_message"])
 			}else{
-				let user = req.cookies.name;
-				if(await db.get(user) == null || await db.get(user) == ""){
+				let token = req.cookies.name;
+				let user = await db.get(token);
+				if(user == null || user  == ""){
 					res.send(process.env["invalid_message"]);
 				}else{
-					await db.set(`${await db.get(user)}_bio`, req.body.bio);
-					await db.set(`${await db.get(user)}_page`, req.body.page);
+					await db.set(`${token}_bio`, req.body.bio);
+					await db.set(`${token}_page`, req.body.page);
+					await db.set(`${token}_profile`, req.body.profile);
 					res.send(`<script>window.location.replace("/settings");</script>`);
-					console.log(`${await db.get(user)} updated their page`.blue);
+					console.log(`${user} updated their page ${await db.get(`${token}_profile`)}`.blue);
 				}
 			}
 		})();

@@ -25,7 +25,8 @@ module.exports = function(app) {
 		}
 		const location = sha256(req.header("x-forwarded-for"));
 		(async () => {
-			if (await db.get(req.cookies.name) == null || await db.get(req.cookies.name) == "") {
+			let user = await db.get(req.cookies.name);
+			if (user == null || user == "") {
 				res.send(process.env["invalid_message"]);
 			} else {
 				let postNum = 0;

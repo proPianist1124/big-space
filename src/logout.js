@@ -15,9 +15,9 @@ const timestamp = require("time-stamp");
 module.exports = function(app) {
 	app.get("/logout", function(req, res) {
 		(async () => {
-			let user = await db.get(req.cookies.name);
+			let token = await db.get(req.cookies.name);
 			console.log("");
-			console.log(`${user} has logged out`.red);
+			console.log(`${token} has logged out`.red);
 			console.log("");
 			res.clearCookie("name");
 			res.send(`<script>window.location.replace("/");</script>`);

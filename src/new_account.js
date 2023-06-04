@@ -46,7 +46,7 @@ module.exports = function(app) {
 						newAccount();
 					}
 				}
-				async function newAccount(){ // async function for creating an account after ratelimit is completely gone
+				async function newAccount(){ // async function for creating an account after ratelimit
 					if(regex.test(newUser) == false){
 						res.send(process.env["invalid_message"]);
 					}else{
@@ -61,14 +61,14 @@ module.exports = function(app) {
 								}
 								return retVal;
 							}
-							let userId = urlCombo(15);
-							if(await db.get(userId) == null){
-								await db.set(userId, newUser);
-								await db.set(newUser, userId);
-								await db.set(newUser.toLowerCase(), true);
-								await db.set(`${userId}_password`, newPass);
-								await db.set(`${userId}_address`, location);
-								res.send(`<script>window.location.replace("/"); document.cookie = "name=${userId}; SameSite=None; Secure";</script>`);
+							let token = urlCombo(15);
+							if(await db.get(token) == null){
+								await db.set(token, newUser);
+								await db.set(newUser, token);
+								await db.set(`${token}_password`, newPass);
+								await db.set(`${token}_address`, location);
+								await db.set(`${token}_profile`, `https://big-space.lto.lol/default_user.png`);
+								res.send(`<script>window.location.replace("/"); document.cookie = "name=${token}; SameSite=None; Secure";</script>`);
 								console.log("");
 								console.log(`new account ${newUser} was created`.blue);
 								console.log("");

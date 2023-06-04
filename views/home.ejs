@@ -7,9 +7,9 @@
 	<script src = "/script.js"></script>
 	<script src="/fontawesome.js"></script>
 	<h3>
-		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
-		<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
-		<a href = "/logout" class = "logout" style = "float:right;">Logout <i class="fa-solid fa-circle-xmark"></i></a>
+		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
+		<span style = "float:right;"><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>

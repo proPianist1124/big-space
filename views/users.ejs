@@ -7,21 +7,23 @@
 	<script src = "/script.js"></script>
 	<script src="/fontawesome.js"></script>
 	<h3>
-		&nbsp;&nbsp;<i class="fa-solid fa-user"></i> <span style = "color:var(--primary)">&nbsp;<%- user %></span><%- userOptions %>
+		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> <span style = "color:var(--primary)">&nbsp;<%- user %></span><%- userOptions %>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
 	<br> 
-	<main style = "background-color:var(--post)">
+	<main style = "background-color:var(--post); border-radius:0px;">
 		<h2 style = "text-align:center">
-			<%- user %>
+			<img src = "<%- userSelectProfile %>" style = "border-radius:50%; width:100px;">
+			<br>
+			<%- userSelect %>
 		</h2>
 		<p style = "text-align:left; font-size:18px;">
 			<i class="fa-solid fa-address-card"></i> About me: <%- bio %>
 			<br>
 			<i class="fa-solid fa-globe"></i> Website: 
-			<a href = "<%- page %>" class = "bio" target = "_blank">
+			<a href = "<%- pageUrl %>" class = "bio" target = "_blank">
 				<%- page %>
 			</a>
 		</p>
