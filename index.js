@@ -27,7 +27,6 @@ app.use(cookieParser()); // my delicious cookies
 app.use(express.static("static"));
 app.listen(port, () => { // check if webapp is running properly
 	(async () => {
-    process.exit()
     console.log(`Webserver started @ port ${port}`.green);
     console.log("");
     console.log(`SESSION HISTORY`.cyan);
