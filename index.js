@@ -60,7 +60,7 @@ app.get("/", function(req, res) {
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		if (user == null || user == "") {
+		if (user == null || user == "" || user != process.env["beta_user"]) {
 			// login page if the user's cookies are unavailable
 			res.render("login");
 		} else {
