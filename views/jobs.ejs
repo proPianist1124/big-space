@@ -5,15 +5,13 @@
 	<%- include("./partials/meta"); %>
 </head>
 <body>
-	<script src = "/script.js"></script>
-	<script src="/fontawesome.js"></script>
 	<center>
 		<%- include("./partials/header"); %>
-		<main style = "background-color:var(--post); border-radius:0px;">
+		<div class = "postcard" style = "background-color:var(--post); border-radius:0px;">
 			<h2>Big Space Jobs</h2>
 			<p>Interested? We're hiring the current roles below!</p>
-		</main>
-		<main style = "background-color:var(--post); border-radius:0px;">
+		</div>
+		<div class = "postcard" style = "background-color:var(--post); border-radius:0px;">
 			<div class = "card">
 				<h3 style = "color:var(--tertiary)">
 					<i class="fa-solid fa-shield-halved"></i> Security
@@ -34,9 +32,9 @@
 				</h3>
 				Should know how to use Figma, create concept designs, and apply them into HTML5 format (using CSS3 as well).
 			</div>
-		</main>
+		</div>
 		<a href = "/">
-			<button class = "login">
+			<button>
 				<i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back
 			</button>
 		</a>

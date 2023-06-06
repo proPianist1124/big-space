@@ -10,3 +10,7 @@
 8. ~~Implement account creation ratelimit from [ratelimit concept](https://replit.com/@big-space/ratelimit-example?v=1)~~
 9. ~~Fix 404 page~~
 10. Add `.push()` function…maybe
+11. Make passwords show onclick, else `****` depending on .length
+12. Add dropdown under "logout"
+14. ~~Light/dark themes~~
+15. ~~Add link to personal profile on username click~~

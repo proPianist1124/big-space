@@ -63,7 +63,6 @@ module.exports = function(app) {
 							await db.set(`${postName}_date`, fullDate);
 							await db.set(`${postName}_topic`, userTopic);
 							await db.set(`${postName}_author`, req.cookies.name);
-
 							res.send(`<script>window.location.replace("/");</script>`); // send the client back to the og url
 						}
 					})();

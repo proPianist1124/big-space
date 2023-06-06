@@ -74,10 +74,13 @@ app.get("/", function(req, res) {
 					if(await db.get(postId) != null){ // if post exists, repeat function
 						// post ui (change as needed)
 						let authorProfile = await db.get(`${await db.get(`${postId}_author`)}_profile`);
-						let newPosts = `<a href = "/posts/${postId}"><main><h1><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h1><h3>${await db.get(postId)}</h3>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" style = "padding:2px; width:25px; border-radius:50%; vertical-align:middle;"/> ${await db.get(await db.get(`${postId}_author`))}</i></p></main></a> ${posts}`;
+						let newPosts = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h2>${await db.get(postId)}<br>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" style = "padding:2px; width:25px; border-radius:50%; vertical-align:middle;"/> ${await db.get(await db.get(`${postId}_author`))}</i></p></div></a> ${posts}`;
 						posts = newPosts;
 						repeatAndCheck();
 					}else{
+						if(await db.get("p1") == null){
+							posts = `<br><center><h2 style = "color:#D9544D">no posts available</h2></center>`;
+						}
 						res.render("home", {
 							posts: posts,
 							user: user,
@@ -140,15 +143,8 @@ app.get("/posts/:id", function(req, res) {
 			let userOptions = `<span style = "float:right;"><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
 		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>`;
 			let pulledPost = await db.get(post);
-			if(user == "" || user == undefined){
-				user = "no user available";
-				userOptions = [];
-				profile = "/default_user.png";
-			}
-			let postUrl = `https://big-space.propianist1124.repl.co/posts/${post}`;
 			res.render("post_view", {
 				user: user, // your account
-				userOptions: userOptions, // your options
 				profile: profile, // user's profile
 				title: await db.get(`${post}_title`), // post title
 				pulledPost: `"${await db.get(post)}"<br><br>${await db.get(`${post}_image`)}`, // post with an image
@@ -197,7 +193,6 @@ app.get("/@:user", function(req, res) {
 				page = `<span style = "color:var(--tertiary)">${await db.get(`${userToken}_page`)}</span>`;
 			}
 			res.render("users", {
-				user: user, // current user
 				userOptions: userOptions, // your options (if you own an account or not)
 				bio: bio, // selected user's bio (about me)
 				profile: profile, // your own profile

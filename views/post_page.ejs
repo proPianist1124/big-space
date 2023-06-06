@@ -4,8 +4,6 @@
 	<%- include("./partials/meta"); %>
 </head>
 <body>
-	<script src = "/script.js"></script>
-	<script src="/fontawesome.js"></script>
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
@@ -14,7 +12,7 @@
 		<h2>
 			New Post&nbsp;&nbsp;
 			<a href = "/">
-				<button class = "normal"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button>
+				<button><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button>
 			</a>
 		</h2>
 		<form action = "/post" method = "POST">
@@ -34,7 +32,7 @@
 			</select>
 			<br>&nbsp;<input placeholder = "photo [url]" name = "postImage" id = "userPost" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type = "url">
 			<br><br>
-			<button type = "submit" class = "login">
+			<button type = "submit">
 				Post <i class="fa-solid fa-folder-plus"></i>
 			</button>
 		</form>

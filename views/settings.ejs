@@ -4,8 +4,6 @@
 	<%- include("./partials/meta"); %>
 </head>
 <body>
-	<script src = "/script.js"></script>
-	<script src="/fontawesome.js"></script>
 	<h3>
 		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
 		<span style = "float:right;"><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
@@ -14,7 +12,7 @@
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
-	<main style = "background-color:var(--post)">
+	<div class = "postcard" style = "background-color:var(--post); border-radius:0px;">
 		<form action = "/save_settings" method = "POST">
 			<h2 style = "text-align:center">
 				<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
@@ -34,16 +32,16 @@
 				Save <i class="fa-solid fa-floppy-disk"></i>
 			</button>
 		</form>
-	</main>
+	</div>
 	<br>
 	<center>
 		<a href = "/">
-			<button class = "login" style = "border-radius:5px 0px 0px 5px;">
+			<button style = "border-radius:5px 0px 0px 5px;">
 				<i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back
 			</button>
 		</a>
 		<a href = "/@<%- user %>">
-			<button class = "login" style = "border-radius:0px 5px 5px 0px;">
+			<button style = "border-radius:0px 5px 5px 0px;">
 				<i class="fa-regular fa-id-card"></i>&nbsp;&nbsp;View Profile
 			</button>
 		</a>

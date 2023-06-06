@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Manrope&family=Plus+Jakarta+Sans&family=Poppins&display=swap');
 
 :root{
+	--mainFont:'Manrope', sans-serif;
+	--secondFont:'Poppins', sans-serif;
+}
+.theme-dark{
 	--background:#393D3F;
 	--background-lighter:#4c5052;
 	--post:#45484a;
@@ -8,12 +12,21 @@
 	--secondary:#8a98a5;
 	--tertiary:#29a3f5;
 	--tertiary-darker:dodgerblue;
-	--quatenary:white;
 	--postColor:var(--primary);
 	--error:#D9544D;
 	--error-bolder:#f20202;
-	--mainFont:'Manrope', sans-serif;
-	--secondFont:'Poppins', sans-serif;
+}
+.theme-light{
+	--background:#ffffff;
+	--background-lighter:#ededed;
+	--post:#f5f5f5;
+	--primary:#171717;
+	--secondary:#808080;
+	--tertiary:#29a3f5;
+	--tertiary-darker:dodgerblue;
+	--postColor:var(--primary);
+	--error:#D9544D;
+	--error-bolder:#f20202;
 }
 body {
 	background-color:var(--background);
@@ -42,20 +55,6 @@ h2 i:hover{
 p{
 	font-size:15px;
 }
-main{
-	max-width: 800px;
-	margin: 15px auto;
-	padding: 20px 20px;
-	background-color:var(--post);
-	color:var(--postColor);
-	border-radius:10px;
-	transition:0.3s;
-}
-main:hover{
-	background-color:var(--background-lighter);
-	border-radius:0px;
-	cursor:pointer;
-}
 button{
 	font-family: var(--mainFont);
 	font-size:15px;
@@ -63,8 +62,9 @@ button{
 	padding:5px 10px;
   border-radius:5px;
 	background-color:var(--tertiary);
-	color:var(--primary);
+	color:#ffffff;
 	transition:0.3s;
+	width:150px;
 }
 button:hover{
 	background-color:var(--tertiary-darker);
@@ -82,30 +82,18 @@ button.replit:hover{
 	width:210px;
 	color:#F26207;
 }
-button.login{
-	width:400px
-}
-button.login:hover{
-	width:410px;
-}
 button.post{
 	border-radius:50%;
 	height:50px;
 	width:50px;
-}
-button.normal{
-	transition:0.3s;
-	width:100px;
-}
-button.normal:hover{
-	width:120px;
+	color:#ffffff;
 }
 
 input{
 	font-family: var(--mainFont);
 	color:var(--secondary);
 	border-radius:5px;
-	width:800px;
+	width:400px;
 	height:50px;
 	transition:0.3s;
 	background-color:var(--post);
@@ -163,6 +151,13 @@ a.user{
 }
 a.user:hover{
 	color:var(--tertiary-darker);
+}
+.profile{
+	color:var(--primary);
+	text-decoration:none;
+}
+.profile:hover{
+	text-decoration:underline;
 }
 a.logout{
 	color:var(--error);
@@ -243,4 +238,18 @@ img{
 	margin-left: 160px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
+}
+.postcard{
+	max-width: 800px;
+	margin: 15px auto;
+	padding: 20px 20px;
+	background-color:var(--post);
+	color:var(--postColor);
+	border-radius:10px;
+	transition:0.3s;
+}
+.postcard:hover{
+	background-color:var(--background-lighter);
+	border-radius:0px;
+	cursor:pointer;
 }

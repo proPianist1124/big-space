@@ -4,24 +4,19 @@
 	<%- include("./partials/meta"); %>
 </head>
 <body>
-	<script src = "/script.js"></script>
-	<script src="/fontawesome.js"></script>
-	<h3>
-		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> <span style = "color:var(--primary)">&nbsp;<%- user %></span><%- userOptions %>
-	</h3>
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
-	<main style = "background-color:var(--post); border-radius:0px;">
+	<div class = "postcard" style = "background-color:var(--post); border-radius:0px;">
 		<h2 style = "text-align:center">
 			"<%- title %>" - <span style = "color:var(--secondary)">Expanded View</span>
 		</h2>
-	</main>
-	<main style = "background-color:var(--post); border-radius:0px;">
+	</div>
+	<div class = "postcard" style = "background-color:var(--post); border-radius:0px;">
 		<h1 style = "text-align:center">
 			<%- pulledPost %>
 		</h1>
-	</main>
+	</div>
 	<br>
 	<center>
 		<h2>Impressed? 
@@ -30,7 +25,7 @@
 			</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-share" onclick = "copy()"></i></h2>
 		<a href = "/">
-			<button class = "login">
+			<button>
 				<i class="fa-solid fa-arrow-right-from-bracket"></i>
 				&nbsp;&nbsp;Go back
 			</button>

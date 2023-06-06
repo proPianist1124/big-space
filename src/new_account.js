@@ -67,7 +67,7 @@ module.exports = function(app) {
 								await db.set(newUser, token);
 								await db.set(`${token}_password`, newPass);
 								await db.set(`${token}_address`, location);
-								await db.set(`${token}_profile`, `https://big-space.lto.lol/default_user.png`);
+								await db.set(`${token}_profile`, `https://big-space.repl.co/default_user.png`);
 								res.send(`<script>window.location.replace("/"); document.cookie = "name=${token}; SameSite=None; Secure";</script>`);
 								console.log("");
 								console.log(`new account ${newUser} was created`.blue);

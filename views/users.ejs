@@ -1,19 +1,14 @@
 <!doctype html>
 <head>
-	<title>Big Space | <%- user %></title>
+	<title>Big Space | <%- userSelect %></title>
 	<%- include("./partials/meta"); %>
 </head>
 <body>
-	<script src = "/script.js"></script>
-	<script src="/fontawesome.js"></script>
-	<h3>
-		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> <span style = "color:var(--primary)">&nbsp;<%- user %></span><%- userOptions %>
-	</h3>
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
 	<br> 
-	<main style = "background-color:var(--post); border-radius:0px;">
+	<div class = "postcard" style = "background-color:var(--post); border-radius:0px;">
 		<h2 style = "text-align:center">
 			<img src = "<%- userSelectProfile %>" style = "border-radius:50%; width:100px;">
 			<br>
@@ -27,11 +22,11 @@
 				<%- page %>
 			</a>
 		</p>
-	</main>
+	</div>
 	<br>
 	<center>
 		<a href = "/">
-			<button class = "login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button>
+			<button><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button>
 		</a>
 	</center>
 	<center>
