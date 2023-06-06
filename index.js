@@ -33,9 +33,9 @@ app.listen(port, () => { // check if webapp is running properly
   })();
 });
 
-function sha256(input) {
+/*function sha256(input) {
 	return createHash("sha256").update(input).digest("hex");
-}
+}*/
 function encodeImageFileAsURL(element) {
   var file = element.files[0];
   var reader = new FileReader();
@@ -56,7 +56,6 @@ require("./src/save_settings")(app); // save your bio
 app.get("/", function(req, res) {
 	let posts = [];
 	let imageIfPossible = [];
-	const location = sha256(req.header("x-forwarded-for"));
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
@@ -96,7 +95,6 @@ app.get("/", function(req, res) {
 
 // user settings
 app.get("/settings", function(req, res) {
-	const location = sha256(req.header("x-forwarded-for"));
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
