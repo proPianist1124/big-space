@@ -13,6 +13,7 @@ const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
 const fs = require("fs");
+const ejs = require("ejs")
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let mods = {
@@ -20,7 +21,8 @@ let mods = {
 	mod2: process.env["mod2"],
 }
 
-app.set("view engine", "ejs");
+app.engine("html", ejs.renderFile);
+app.set('view engine', "html");
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser()); // my delicious cookies
@@ -32,15 +34,6 @@ app.listen(port, () => { // check if webapp is running properly
     console.log(`SESSION HISTORY`.cyan);
   })();
 });
-
-function encodeImageFileAsURL(element) {
-  var file = element.files[0];
-  var reader = new FileReader();
-  reader.onloadend = function() {
-    console.log('RESULT', reader.result)
-  }
-  reader.readAsDataURL(file);
-}
 
 require("./src/login")(app); // login
 require("./src/new_account")(app); // new account
@@ -56,7 +49,7 @@ app.get("/", function(req, res) {
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		if (user == null || user == "" || user != process.env["beta_user"]) {
+		if (user == null || user == "") {
 			// login page if the user's cookies are unavailable
 			res.render("login");
 		} else {
