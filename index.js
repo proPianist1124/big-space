@@ -33,9 +33,6 @@ app.listen(port, () => { // check if webapp is running properly
   })();
 });
 
-/*function sha256(input) {
-	return createHash("sha256").update(input).digest("hex");
-}*/
 function encodeImageFileAsURL(element) {
   var file = element.files[0];
   var reader = new FileReader();
