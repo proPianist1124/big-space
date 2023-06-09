@@ -42,9 +42,6 @@ require("./src/logout")(app); // logout
 require("./src/post")(app); // post
 require("./src/save_settings")(app); // save your bio
 
-app.get("/iconPack", function(req, res) {
-	res.render("partials/pack")
-});
 // login page/home page
 app.get("/", function(req, res) {
 	let posts = [];
