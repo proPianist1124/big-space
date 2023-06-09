@@ -11,6 +11,8 @@ const http = require("http");
 const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
+const fs = require("fs");
+const ejs = require("ejs");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let mods = {

@@ -27,3 +27,10 @@ function load(){
 		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
 	}
 }
+
+function hideInfo(){
+	let passwordLength = String(document.getElementById("userPassword").value).length;
+	let tokenLength = String(document.getElementById("userToken").value).length;
+	document.getElementById("userPassword").innerHTML = "*".repeat(parseInt(passwordLength));
+	document.getElementById("userToken").innerHTML = "*".repeat(parseInt(tokenLength));
+}

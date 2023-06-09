@@ -11,6 +11,8 @@ const http = require("http");
 const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
+const fs = require("fs");
+const ejs = require("ejs");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let accounts = [];
@@ -47,7 +49,7 @@ module.exports = function(app) {
 					}
 				}
 				async function newAccount(){ // async function for creating an account after ratelimit
-					if(regex.test(newUser) == false){
+					if(regex.test(newUser) == false || newUser == process.env["mod1"]){
 						res.send(process.env["invalid_message"]);
 					}else{
 						if (await db.get(newUser) != null) {

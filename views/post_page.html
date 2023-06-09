@@ -4,6 +4,11 @@
 	<%- include("./partials/meta"); %>
 </head>
 <body>
+	<h3>
+		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
+		<span style = "float:right;"><span id = "theme" onclick = "toggleTheme()"></span>&nbsp;&nbsp;<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>
+	</h3>
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
@@ -17,12 +22,12 @@
 		</h2>
 		<form action = "/post" method = "POST">
 			<br>
-			&nbsp;<input placeholder = "title" name = "postTitle" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "25" required/>
+			&nbsp;<input placeholder = "title" name = "postTitle" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "25" style = "border-radius:0px;" required/>
 			<br>
-			&nbsp;<input placeholder = "content" name = "postContent" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "100" required/>
+			&nbsp;<input placeholder = "content" name = "postContent" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "100" style = "border-radius:0px;" required/>
 			<br>
 			<span style = "padding:2px;"></span>
-			<select name="postTopic">
+			<select name="postTopic" style = "border-radius:0px;">
 				<option value="#random">#random</option>
 				<option value="#programming">#programming</option>
 				<option value="#comedy">#comedy</option>
@@ -30,7 +35,7 @@
 				<option value="#politics">#politics</option>
 				<%- adminSelect %>
 			</select>
-			<br>&nbsp;<input placeholder = "photo [url]" name = "postImage" id = "userPost" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type = "url">
+			<br>&nbsp;<input placeholder = "photo [url]" name = "postImage" id = "userPost" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type = "url" style = "border-radius:0px;">
 			<br><br>
 			<button type = "submit">
 				Post <i class="fa-solid fa-folder-plus"></i>

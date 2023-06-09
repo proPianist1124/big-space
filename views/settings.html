@@ -5,14 +5,14 @@
 </head>
 <body>
 	<h3>
-		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> <span style = "color:var(--primary)">&nbsp;<%- user %></span>
-		<span style = "float:right;"><span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
+		<span style = "float:right;"><span id = "theme" onclick = "toggleTheme()"></span>&nbsp;&nbsp;<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
 		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>
 	</center>
-	<div class = "postcard" style = "background-color:var(--post); border-radius:0px;">
+	<div class = "postcard" style = "background-color:var(--post);">
 		<form action = "/save_settings" method = "POST">
 			<h2 style = "text-align:center">
 				<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
@@ -20,9 +20,9 @@
 				Account: <%- user %>
 			</h2>
 			<p style = "text-align:left; font-size:18px;">
-				Token: <span style = "color:var(--tertiary)"><%- token %></span>
+				Token: <span id = "userToken" style = "color:var(--tertiary)" onclick = "showToken()"><%- token %></span>
 				<br>
-				Password: <span style = "color:var(--tertiary)"><%- password %></span>
+				Password: <span id = "userPassword" style = "color:var(--tertiary)" onclick = "showPassword()"><%- password %></span>
 				<br>Bio: <input name = "bio" class = "bio" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off" required/>
 				<br>Page: <input name = "page" type = "url" class = "bio" value = "<%- page %>" placeholder = "your page…" autocomplete = "off" required/>
 				<br>Profile: <input name = "profile" type = "url" class = "bio" value = "<%- profile %>" placeholder = "profile pic…" autocomplete = "off" required/>
@@ -49,4 +49,8 @@
 	<center>
 		<%- include("./partials/footer"); %>
 	</center>
+	<script>
+		hideInfo();
+	</script>
+	<%- javascript %>
 </body>

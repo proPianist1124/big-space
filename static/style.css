@@ -1,17 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Manrope&family=Plus+Jakarta+Sans&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lato&family=Manrope&family=Poppins&display=swap');
 
 :root{
-	--mainFont:'Manrope', sans-serif;
+	--mainFont:'Inter', sans-serif;
 	--secondFont:'Poppins', sans-serif;
+	--thirdFont:'Lato', sans-serif;
+	--badgeClr:#ffffff;
+	--badgeBg:#1E90FF;
 }
 .theme-dark{
-	--background:#393D3F;
-	--background-lighter:#4c5052;
-	--post:#45484a;
-	--primary:#f7f9f9;
-	--secondary:#8a98a5;
-	--tertiary:#29a3f5;
-	--tertiary-darker:dodgerblue;
+	--background:#1f1f1f;
+	--background-lighter:#363636;
+	--post:#2e2e2e;
+	--primary:#d1d1d1;
+	--secondary:#616161;
+	--tertiary:#985eff;
+	--tertiary-darker:#6200ee;
 	--postColor:var(--primary);
 	--error:#D9544D;
 	--error-bolder:#f20202;
@@ -25,17 +28,19 @@
 	--tertiary:#29a3f5;
 	--tertiary-darker:dodgerblue;
 	--postColor:var(--primary);
-	--error:#D9544D;
-	--error-bolder:#f20202;
+	--error:#f20202;
+	--error-bolder:#D9544D;
 }
 body {
 	background-color:var(--background);
 	font-family: var(--mainFont);
+	font-size:17px;
 	text-align:left;
 	color:var(--primary);
 	animation: fadeInAnimation ease 1.5s;
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
+	transition:0.3s;
 }
 @keyframes fadeInAnimation {
 	0% {
@@ -47,16 +52,17 @@ body {
 }
 h1, h2, h3, h4, h5, h6{
 	color:var(--primary);
+	font-family:var(--thirdFont);
 }
 h2 i:hover{
 	font-style:italic;
 	cursor:pointer;
 }
 p{
-	font-size:15px;
+	font-size:17px;
 }
 button{
-	font-family: var(--mainFont);
+	font-family: var(--secondFont);
 	font-size:15px;
 	border:none;
 	padding:5px 10px;
@@ -122,7 +128,7 @@ select{
 	border:none;
 	background-color:var(--post);
 	color:var(--secondary);
-	width:800px;
+	width:402px;
 	height:50px;
 	font-size:20px;
 	transition:0.3s;
@@ -203,6 +209,7 @@ img{
   color: var(--secondary);
 	font-size:15px;
   text-align: center;
+	transition:0.3s;
 }
 .footer a{
 	color:var(--secondary);
@@ -242,7 +249,7 @@ img{
 .postcard{
 	max-width: 800px;
 	margin: 15px auto;
-	padding: 20px 20px;
+	padding: 2px 20px;
 	background-color:var(--post);
 	color:var(--postColor);
 	border-radius:10px;
@@ -250,6 +257,15 @@ img{
 }
 .postcard:hover{
 	background-color:var(--background-lighter);
-	border-radius:0px;
 	cursor:pointer;
+}
+.badge {
+	align-items:center;
+	background-color:var(--badgeBg);
+	color:var(--badgeClr);
+	border-radius:10px;
+	max-width:fit-content;
+	font-family:arial;
+	font-size:14px;
+	padding:2.5px 5px;
 }

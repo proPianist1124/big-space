@@ -11,6 +11,8 @@ const http = require("http");
 const bp = require("body-parser");
 const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
+const fs = require("fs");
+const ejs = require("ejs");
 
 module.exports = function(app) {
 	app.post("/login", function(req, res) {

@@ -14,3 +14,4 @@
 12. Add dropdown under "logout"
 14. ~~Light/dark themes~~
 15. ~~Add link to personal profile on username click~~
+16. Change `innerHTML` error on pages without changing theme icon with javascript
