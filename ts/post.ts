@@ -15,6 +15,7 @@ const fs = require("fs");
 const ejs = require("ejs");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
+const imgRegex = new RegExp("^https://[^/]+/[^/?]+$");
 let mods = {
 	mod1: process.env["mod1"],
 	mod2: process.env["mod2"],
@@ -55,7 +56,11 @@ module.exports = function(app) {
 							console.log(`${user.blue}: ${userTitle.green} - ${userContent.green}`);
 
 							if (userImage != "") { // to check if image url box is filled
-								await db.set(`${postName}_image`, `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`);
+								if(imgRegex.test(userImage) == false){
+									await db.set(`${postName}_image`, "");
+								}else{
+									await db.set(`${postName}_image`, `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`);
+								}
 							}else{
 								await db.set(`${postName}_image`,"");
 							}
@@ -65,7 +70,7 @@ module.exports = function(app) {
 							await db.set(`${postName}_date`, fullDate);
 							await db.set(`${postName}_topic`, userTopic);
 							await db.set(`${postName}_author`, req.cookies.name);
-							res.send(`<script>window.location.replace("/");</script>`); // send the client back to the og url
+							res.redirect("/"); // send the client back to the og url
 						}
 					})();
 				}

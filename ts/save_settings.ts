@@ -33,7 +33,7 @@ module.exports = function(app) {
 					await db.set(`${token}_bio`, req.body.bio);
 					await db.set(`${token}_page`, req.body.page);
 					await db.set(`${token}_profile`, req.body.profile);
-					res.send(`<script>window.location.replace("/settings");</script>`);
+					res.redirect("/settings")
 					console.log(`${user} updated their page ${await db.get(`${token}_profile`)}`.blue);
 				}
 			}

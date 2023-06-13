@@ -5,8 +5,8 @@
 </head>
 <body>
 	<h3>
-		&nbsp;&nbsp;<img src = "<%- profile %>" style = "border-radius:50%; width:25px; vertical-align:middle; background-color:var(--post)"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-		<span style = "float:right;"><span id = "theme" onclick = "toggleTheme()"></span>&nbsp;&nbsp;<span class = "settings"><a href = "/settings" class="fa-solid fa-gear"></a></span>
+		&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
+		<span style = "float:right;"><span id = "theme" onclick = "toggleTheme()"></span>&nbsp;&nbsp;<span class = "icon"><a href = "/settings" class="fa-solid fa-sliders"></a></span>
 		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>
 	</h3>
 	<center>
@@ -31,6 +31,7 @@
 			<button type = "submit">
 				Save <i class="fa-solid fa-floppy-disk"></i>
 			</button>
+			<br><br>
 		</form>
 	</div>
 	<br>

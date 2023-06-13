@@ -22,25 +22,24 @@ let mods = {
 }
 
 app.engine("html", ejs.renderFile);
-app.set('view engine', "html");
+app.set("view engine", "html");
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 app.use(cookieParser()); // my delicious cookies
 app.use(express.static("static"));
 app.listen(port, () => { // check if webapp is running properly
 	(async () => {
-		await db.set("proPianist1124_plan",true);
     console.log(`Webserver started @ port ${port}`.green);
     console.log("");
     console.log(`SESSION HISTORY`.cyan);
   })();
 });
 
-require("./src/login")(app); // login
-require("./src/new_account")(app); // new account
-require("./src/logout")(app); // logout
-require("./src/post")(app); // post
-require("./src/save_settings")(app); // save your bio
+require("./ts/login.ts")(app); // login
+require("./ts/new_account.ts")(app); // new account
+require("./ts/logout.ts")(app); // logout
+require("./ts/post.ts")(app); // post
+require("./ts/save_settings.ts")(app); // save your bio
 
 // login page/home page
 app.get("/", function(req, res) {
@@ -49,7 +48,7 @@ app.get("/", function(req, res) {
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		let plan = `<span class = "badge">Pro</span>`;
+		let plan = `&nbsp;&nbsp;<span class = "badge">Pro</span>`;
 		if (user == null || token == "") {
 			// login page if the user's cookies are unavailable
 			res.render("login");
@@ -63,12 +62,9 @@ app.get("/", function(req, res) {
 					let postId = `p${count}`;
 					if(await db.get(postId) != null){ // if post exists, repeat function
 						// post ui (change as needed)
-
-						if(await db.get(await db.get(`${await db.get(`${postId}_author`)}_plan`)) == null){
-							plan = "";
-						}
+						
 						let authorProfile = await db.get(`${await db.get(`${postId}_author`)}_profile`);
-						let newPosts = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h2>${await db.get(postId)}<br>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" style = "padding:2px; width:25px; border-radius:50%; vertical-align:middle;"/>&nbsp;&nbsp;${await db.get(await db.get(`${postId}_author`))}</i>${plan}</p></div></a> ${posts}`;
+						let newPosts = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h2>${await db.get(postId)}<br>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" class = "pfp"/>&nbsp;&nbsp;${await db.get(await db.get(`${postId}_author`))}</i></p></div></a> ${posts}`;
 						posts = newPosts;
 						repeatAndCheck();
 					}else{
@@ -193,6 +189,7 @@ app.get("/@:user", function(req, res) {
 
 // page where you post stuff
 app.get("/post_page", function(req, res) {
+	let official = [];
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
@@ -200,14 +197,14 @@ app.get("/post_page", function(req, res) {
 			res.send(process.env["invalid_message"]);
 		}else{
 			if (user == process.env["mod1"]) {
-				adminSelect = `<option value="#official">#official</option>`;
+				official = `<option value="#official">#official</option>`;
 			} else {
-				adminSelect = "";
+				official = "";
 			}
 			res.render("post_page", {
 				user: user,
 				profile: await db.get(`${req.cookies.name}_profile`),
-				adminSelect: adminSelect,
+				adminSelect: official,
 			});
 		}
 	})();
@@ -225,7 +222,7 @@ app.get("/purge/:method", function(req, res) {
 				if (purgeUser == mods.mod1 || purgeUser == mods.mod2) {
 					await db.empty();
 					console.log(`-- ${purgeUser} purged entire database`);
-					res.send(`<script>window.location.replace("/");</script>`);
+					res.redirect("/")
 					process.exit();
 				} else {
 					res.send(process.env["invalid_message"]);
@@ -233,7 +230,7 @@ app.get("/purge/:method", function(req, res) {
 			}else{
 				await db.delete(method);
 				console.log(`-- ${purgeUser} purged ${method}`);
-				res.send(`<script>window.location.replace("/");</script>`);
+				res.redirect("/");
 				process.exit();
 			}
 		}else{

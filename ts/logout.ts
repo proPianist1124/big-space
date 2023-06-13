@@ -22,7 +22,7 @@ module.exports = function(app) {
 			console.log(`${token} has logged out`.red);
 			console.log("");
 			res.clearCookie("name");
-			res.send(`<script>window.location.replace("/");</script>`);
+			res.redirect("/");
 		})();
 	});
 }

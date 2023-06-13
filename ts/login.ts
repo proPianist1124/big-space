@@ -14,6 +14,7 @@ const timestamp = require("time-stamp");
 const fs = require("fs");
 const ejs = require("ejs");
 
+app.use(cookieParser());
 module.exports = function(app) {
 	app.post("/login", function(req, res) {
 		function sha256(input) {
@@ -23,9 +24,12 @@ module.exports = function(app) {
 			let newUser = req.body.username;
 			let newPass = req.body.password;
 
+			const token = await db.get(newUser);
 			// if the new user exists and the password is the same as the saved password for that specific username
-			if (await db.get(newUser) != null && newPass == await db.get(`${await db.get(newUser)}_password`)) {
-				res.send(`<script>window.location.replace("/"); document.cookie = "name=${await db.get(newUser)}; SameSite=None; Secure";</script>`);
+			if (token != null && newPass == await db.get(`${token}_password`)) {
+				res.render("partials/redirect", {
+					cookie:`<script>document.cookie = "name=${token}"</script>`
+				});
 				console.log("");
 				console.log(`${newUser} has signed in`.yellow);
 				console.log("");

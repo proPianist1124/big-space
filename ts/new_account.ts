@@ -23,7 +23,7 @@ module.exports = function(app) {
 		}
 		const newUser = req.body.newAccount;
 		const newPass = req.body.newPassword;
-		const location = sha256(req.header("x-forwarded-for"));
+		// const location = sha256(req.header("x-forwarded-for")); dont need to save locations for the time being
 		start();
 		function start() {
 			(async () => {
@@ -49,7 +49,7 @@ module.exports = function(app) {
 					}
 				}
 				async function newAccount(){ // async function for creating an account after ratelimit
-					if(regex.test(newUser) == false || newUser == process.env["mod1"]){
+					if(regex.test(newUser) == false){
 						res.send(process.env["invalid_message"]);
 					}else{
 						if (await db.get(newUser) != null) {
@@ -68,9 +68,10 @@ module.exports = function(app) {
 								await db.set(token, newUser);
 								await db.set(newUser, token);
 								await db.set(`${token}_password`, newPass);
-								await db.set(`${token}_address`, location);
 								await db.set(`${token}_profile`, `https://big-space.repl.co/default_user.png`);
-								res.send(`<script>window.location.replace("/"); document.cookie = "name=${token}; SameSite=None; Secure";</script>`);
+								res.render("partials/redirect", {
+									cookie:`<script>document.cookie = "name=${token}"</script>`
+								});
 								console.log("");
 								console.log(`new account ${newUser} was created`.blue);
 								console.log("");

@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lato&family=Manrope&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lato&family=Manrope&family=Poppins&family=Raleway&display=swap');
 
 :root{
 	--mainFont:'Inter', sans-serif;
 	--secondFont:'Poppins', sans-serif;
-	--thirdFont:'Lato', sans-serif;
+	--thirdFont:'Raleway', sans-serif;
 	--badgeClr:#ffffff;
-	--badgeBg:#1E90FF;
 }
 .theme-dark{
 	--background:#1f1f1f;
@@ -18,18 +17,20 @@
 	--postColor:var(--primary);
 	--error:#D9544D;
 	--error-bolder:#f20202;
+	--badgeBg:#1E90FF;
 }
 .theme-light{
 	--background:#ffffff;
 	--background-lighter:#ededed;
-	--post:#f5f5f5;
+	--post:#f7f7f7;
 	--primary:#171717;
 	--secondary:#808080;
 	--tertiary:#29a3f5;
 	--tertiary-darker:dodgerblue;
 	--postColor:var(--primary);
 	--error:#f20202;
-	--error-bolder:#D9544D;
+	--error-bolder:#bc0b0b;
+	--badgeBg:#985eff;
 }
 body {
 	background-color:var(--background);
@@ -41,6 +42,8 @@ body {
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 	transition:0.3s;
+	margin:20px;
+	user-select:none;
 }
 @keyframes fadeInAnimation {
 	0% {
@@ -98,7 +101,6 @@ button.post{
 input{
 	font-family: var(--mainFont);
 	color:var(--secondary);
-	border-radius:5px;
 	width:400px;
 	height:50px;
 	transition:0.3s;
@@ -128,7 +130,7 @@ select{
 	border:none;
 	background-color:var(--post);
 	color:var(--secondary);
-	width:402px;
+	width:404px;
 	height:50px;
 	font-size:20px;
 	transition:0.3s;
@@ -174,11 +176,11 @@ a.logout:hover{
 	color:var(--error-bolder);
 	cursor:pointer;
 }
-.settings a{
+.icon a{
 	color:var(--primary);
 	transition:0.3s;
 }
-.settings a:hover{
+.icon a:hover{
 	color:var(--secondary);
 }
 
@@ -191,6 +193,12 @@ a.logout:hover{
 
 img{
 	border-radius:20px;
+}
+img.pfp{
+	border-radius:50%;
+	width:25px;
+	vertical-align:middle;
+	background-color:var(--post);
 }
 
 .pencil {
@@ -265,7 +273,7 @@ img{
 	color:var(--badgeClr);
 	border-radius:10px;
 	max-width:fit-content;
-	font-family:arial;
+	font-family:var(--secondFont);
 	font-size:14px;
 	padding:2.5px 5px;
 }
