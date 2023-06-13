@@ -70,7 +70,7 @@ module.exports = function(app) {
 								await db.set(`${token}_password`, newPass);
 								await db.set(`${token}_profile`, `https://big-space.repl.co/default_user.png`);
 								res.render("partials/redirect", {
-									cookie:`<script>document.cookie = "name=${token}"</script>`
+									cookie:token,
 								});
 								console.log("");
 								console.log(`new account ${newUser} was created`.blue);

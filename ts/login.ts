@@ -28,7 +28,7 @@ module.exports = function(app) {
 			// if the new user exists and the password is the same as the saved password for that specific username
 			if (token != null && newPass == await db.get(`${token}_password`)) {
 				res.render("partials/redirect", {
-					cookie:`<script>document.cookie = "name=${token}"</script>`
+					cookie:token,
 				});
 				console.log("");
 				console.log(`${newUser} has signed in`.yellow);

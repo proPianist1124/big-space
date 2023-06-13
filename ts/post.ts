@@ -33,6 +33,7 @@ module.exports = function(app) {
 				res.send(process.env["invalid_message"]);
 			} else {
 				let postNum = 0;
+				let image = [];
 				let user = await db.get(req.cookies.name);
 				let userTitle = req.body.postTitle;
 				let userContent = req.body.postContent;
@@ -57,19 +58,15 @@ module.exports = function(app) {
 
 							if (userImage != "") { // to check if image url box is filled
 								if(imgRegex.test(userImage) == false){
-									await db.set(`${postName}_image`, "");
+									image = "";
 								}else{
-									await db.set(`${postName}_image`, `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`);
+									image = `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`;
 								}
 							}else{
-								await db.set(`${postName}_image`,"");
+								image = "";
 							}
 							// set a database object for the post that DOESN'T exist
-							await db.set(postName, userContent);
-							await db.set(`${postName}_title`, userTitle);
-							await db.set(`${postName}_date`, fullDate);
-							await db.set(`${postName}_topic`, userTopic);
-							await db.set(`${postName}_author`, req.cookies.name);
+							await db.set(postName, `postString = {title: "${userTitle}", content: "${userContent}", date: "${fullDate}", topic: "${userTopic}", image: "${image}", author: "${req.cookies.name}"}`);
 							res.redirect("/"); // send the client back to the og url
 						}
 					})();

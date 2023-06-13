@@ -20,39 +20,20 @@ function setTheme(themeName) {
 function toggleTheme() {
   if (localStorage.getItem('theme') === 'theme-light') {
 		setTheme('theme-dark');
-		if(document.cookie != ""){
-			if(window.location.href == urls.url1 || window.location.href == urls.url2 || window.location.href == urls.url3 || window.location.href == urls.url4 || window.location.href == urls.url5 || window.location.href == urls.url6){
-				document.getElementById("theme").innerHTML = `<i class="fa-regular fa-sun"></i>`;
-			}
-		}
+		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-sun"></i>`;
   } else {
     setTheme('theme-light');
-		if(document.cookie != ""){
-			if(window.location.href == urls.url1 || window.location.href == urls.url2 || window.location.href == urls.url3 || window.location.href == urls.url4 || window.location.href == urls.url5 || window.location.href == urls.url6){
-				document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
-			}
-		}
+		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
   }
 }
 // Immediately invoked function to set the theme on initial load
 function load(){
 	if (localStorage.getItem('theme') === 'theme-dark') {
 		setTheme('theme-dark');
-		if(document.cookie != ""){
-			if(window.location.href == urls.url1 || window.location.href == urls.url2 || window.location.href == urls.url3 || window.location.href == urls.url4 || window.location.href == urls.url5 || window.location.href == urls.url6){
-				document.getElementById("theme").innerHTML = `<i class="fa-regular fa-sun"></i>`;
-			}
-		}
-		if(window.location.href == "/" || window.location.href == "/settings"){
-			console.log(window.location.href);
-		}
+		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-sun"></i>`;
   } else {
 		setTheme('theme-light');
-		if(document.cookie != ""){
-			if(window.location.href == urls.url1 || window.location.href == urls.url2 || window.location.href == urls.url3 || window.location.href == urls.url4 || window.location.href == urls.url5 || window.location.href == urls.url6){
-				document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
-			}
-		}
+		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
 	}
 }
 

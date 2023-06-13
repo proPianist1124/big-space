@@ -52,6 +52,11 @@
 	</center>
 	<script>
 		hideInfo();
+		function showPassword(){
+			document.getElementById("userPassword").innerHTML = "<%- password %>";
+		}
+		function showToken(){
+			document.getElementById("userToken").innerHTML = "<%- token %>";
+		}
 	</script>
-	<%- javascript %>
 </body>

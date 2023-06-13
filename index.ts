@@ -43,18 +43,18 @@ require("./ts/save_settings.ts")(app); // save your bio
 
 // login page/home page
 app.get("/", function(req, res) {
-	let posts = [];
+	let postString = [];
 	let imageIfPossible = [];
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		let plan = `&nbsp;&nbsp;<span class = "badge">Pro</span>`;
 		if (user == null || token == "") {
 			// login page if the user's cookies are unavailable
 			res.render("login");
 		} else {
 			// counting method
 			let count = 0;
+			let posts = [];
 			repeatAndCheck();
 			function repeatAndCheck(){
 				(async () => {
@@ -62,10 +62,10 @@ app.get("/", function(req, res) {
 					let postId = `p${count}`;
 					if(await db.get(postId) != null){ // if post exists, repeat function
 						// post ui (change as needed)
-						
-						let authorProfile = await db.get(`${await db.get(`${postId}_author`)}_profile`);
-						let newPosts = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${await db.get(`${postId}_topic`)}</u>&nbsp;&nbsp;${await db.get(`${postId}_date`)}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${await db.get(`${postId}_title`)}</span></h2>${await db.get(postId)}<br>${await db.get(`${postId}_image`)}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" class = "pfp"/>&nbsp;&nbsp;${await db.get(await db.get(`${postId}_author`))}</i></p></div></a> ${posts}`;
-						posts = newPosts;
+						eval(await db.get(postId));
+						let authorProfile = await db.get(`${postString.author}_profile`);
+						let newPost = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2>${postString.content}<br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" class = "pfp"/>&nbsp;&nbsp;${await db.get(postString.author)}</i></p></div></a> ${posts}`;
+						posts = newPost; // adds newly evaluated post to continuing string
 						repeatAndCheck();
 					}else{
 						if(await db.get("p1") == null){
@@ -113,6 +113,7 @@ app.get("/settings", function(req, res) {
 				bio: bio,
 				page: page,
 				profile: profile,
+				password: password,
 				javascript: `<script>function showPassword(){document.getElementById("userPassword").innerHTML = "${password}"} function showToken(){document.getElementById("userToken").innerHTML = "${token}"}</script>`
 			});
 		}
@@ -124,9 +125,11 @@ app.get("/settings", function(req, res) {
 app.get("/posts/:id", function(req, res) {
 	(async () => {
 		let post = req.params.id;
+		let postString = [];
 		if(await db.get(post) == null){
 			res.send(process.env["invalid_message"]);
 		}else{
+			eval(await db.get(post));
 			let token = req.cookies.name
 			let user = await db.get(token);
 			let profile = await db.get(`${token}_profile`);
@@ -134,11 +137,10 @@ app.get("/posts/:id", function(req, res) {
 			res.render("post_view", {
 				user: user, // your account
 				profile: profile, // user's profile
-				title: await db.get(`${post}_title`), // post title
-				pulledPost: `"${await db.get(post)}"<br><br>${await db.get(`${post}_image`)}`, // post with an image
-				author: await db.get(await db.get(`${post}_author`)), // post author
-				topic: await db.get(`${post}_topic`), // post topic
-				postUrl: post, // the post url
+				title: postString.title, // post title
+				pulledPost: `"${postString.content}"<br><br>${postString.image}`, // post with an image
+				author: await db.get(postString.author), // post author
+				topic: postString.topic, // post topic
 			});
 		}
 	})();
