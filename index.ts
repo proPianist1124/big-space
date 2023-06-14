@@ -71,10 +71,11 @@ app.get("/", function(req, res) {
 						if(await db.get("p1") == null){
 							posts = `<br><center><h2 style = "color:#D9544D">no posts available</h2></center>`;
 						}
+						eval(await db.get(token));
 						res.render("home", {
 							posts: posts,
-							user: user,
-							profile: await db.get(`${token}_profile`),
+							user: user.name,
+							profile: user.profile,
 						});
 					}
 				})();
@@ -106,15 +107,14 @@ app.get("/settings", function(req, res) {
 			}else{
 				page = await db.get(`${token}_page`);
 			}
+			eval(await db.get(token));
 			res.render("settings", {
-				user: user,
-				password: password,
-				token: token,
-				bio: bio,
-				page: page,
-				profile: profile,
-				password: password,
-				javascript: `<script>function showPassword(){document.getElementById("userPassword").innerHTML = "${password}"} function showToken(){document.getElementById("userToken").innerHTML = "${token}"}</script>`
+				user: user.name,
+				password: user.password,
+				token: user.token,
+				bio: user.bio,
+				page: user.page,
+				profile: user.profile,
 			});
 		}
 	})();
@@ -150,39 +150,33 @@ app.get("/posts/:id", function(req, res) {
 // personal user webpage
 app.get("/@:user", function(req, res) {
 	(async () => {
+		let user = [];
 		let userId = req.params.user; // selected user
-		let userToken = await db.get(userId); // select user's token
 		let token = req.cookies.name; // your own token
 		let bio = [];
 		let page = [];
-		let profile = await db.get(`${token}_profile`);
 		let follow = [];
+		console.log(await db.get(userId))
+		eval(await db.get(await db.get(userId)));
 		if(await db.get(userId) == null){
 			res.send(process.env["invalid_message"]);
 		}else{
-			let token = req.cookies.name;
-			let user = await db.get(token);
-			if(user == "" || token == ""){
-				follow = [];
-			}else{
-				follow = `<form><i class="fa-solid fa-user-plus"></i></form>`;
-			}
-			if(await db.get(`${userToken}_bio`) == null || await db.get(`${userToken}_bio`) == ""){
+			if(user.bio == ""){
 				bio = `<span style = "color:var(--error)">no bio available</span>`;
 			}else{
-				bio = `<span style = "color:var(--tertiary)">${await db.get(`${userToken}_bio`)}</span>`;
+				bio = `<span style = "color:var(--tertiary)">${user.bio}</span>`;
 			}
-			if(await db.get(`${userToken}_page`) == null || await db.get(`${userToken}_page`) == ""){
+			if(user.page == ""){
 				page = `<span style = 'color:var(--error)'>none available</span>`;
 			}else{
-				page = `<span style = "color:var(--tertiary)">${await db.get(`${userToken}_page`)}</span>`;
+				page = `<span style = "color:var(--tertiary)">${user.page}</span>`;
 			}
 			res.render("users", {
 				bio: bio, // selected user's bio (about me)
 				page: page, // selected user's website WITH CSS
-				pageUrl: await db.get(`${userToken}_page`), // selected user's website URL
+				pageUrl: user.page, // selected user's website URL
 				userSelect: userId, // selected user
-				userSelectProfile: await db.get(`${userToken}_profile`), // selected user's profile
+				userSelectProfile: user.profile, // selected user's profile
 			});
 		}
 	})();

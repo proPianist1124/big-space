@@ -30,11 +30,11 @@ module.exports = function(app) {
 				if(user == null || user  == ""){
 					res.send(process.env["invalid_message"]);
 				}else{
-					await db.set(`${token}_bio`, req.body.bio);
-					await db.set(`${token}_page`, req.body.page);
-					await db.set(`${token}_profile`, req.body.profile);
-					res.redirect("/settings")
-					console.log(`${user} updated their page ${await db.get(`${token}_profile`)}`.blue);
+					eval(await db.get(token));
+					await db.set(token, `user = {name:"${user.name}", token:"${user.token}", password:"${user.password}", profile:"${req.body.profile}", bio:"${req.body.bio}", page:"${req.body.page}"}`);
+					console.log(user);
+					res.redirect("/settings");
+					console.log(`${user.name} updated their page`.blue);
 				}
 			}
 		})();
