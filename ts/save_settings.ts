@@ -32,7 +32,6 @@ module.exports = function(app) {
 				}else{
 					eval(await db.get(token));
 					await db.set(token, `user = {name:"${user.name}", token:"${user.token}", password:"${user.password}", profile:"${req.body.profile}", bio:"${req.body.bio}", page:"${req.body.page}"}`);
-					console.log(user);
 					res.redirect("/settings");
 					console.log(`${user.name} updated their page`.blue);
 				}

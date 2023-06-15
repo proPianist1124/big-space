@@ -54,7 +54,7 @@ module.exports = function(app) {
 							let fullDate = timestamp("MM/DD");
 
 							// let the server know that someone has posted (for security purposes)
-							console.log(`${user.blue}: ${userTitle.green} - ${userContent.green}`);
+							console.log(`${user.name}: ${userTitle.green} - ${userContent.green}`);
 
 							if (userImage != "") { // to check if image url box is filled
 								if(imgRegex.test(userImage) == false){

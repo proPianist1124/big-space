@@ -1,19 +1,15 @@
-// https://replit.com/talk/learn/Replit-DB/43305
+// https://replit.com/talk/learn/Replit-DB/43305 remember to uninstall "path" and "http" and "fs"
 const Database = require("@replit/database");
 const db = new Database();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
-const router = express.Router();
-const path = require("path");
 const port = 3000;
-const http = require("http");
 const bp = require("body-parser");
-const { createHash } = require("node:crypto");
 const timestamp = require("time-stamp");
-const fs = require("fs");
 const ejs = require("ejs");
+const { createHash } = require("node:crypto");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let mods = {
@@ -63,8 +59,8 @@ app.get("/", function(req, res) {
 					if(await db.get(postId) != null){ // if post exists, repeat function
 						// post ui (change as needed)
 						eval(await db.get(postId));
-						let authorProfile = await db.get(`${postString.author}_profile`);
-						let newPost = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2>${postString.content}<br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${authorProfile}" class = "pfp"/>&nbsp;&nbsp;${await db.get(postString.author)}</i></p></div></a> ${posts}`;
+						eval(await db.get(postString.author));
+						let newPost = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2>${postString.content}<br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i></p></div></a> ${posts}`;
 						posts = newPost; // adds newly evaluated post to continuing string
 						repeatAndCheck();
 					}else{
@@ -124,22 +120,18 @@ app.get("/settings", function(req, res) {
 // a post's unique page
 app.get("/posts/:id", function(req, res) {
 	(async () => {
+		let user = [];
 		let post = req.params.id;
 		let postString = [];
 		if(await db.get(post) == null){
 			res.send(process.env["invalid_message"]);
 		}else{
 			eval(await db.get(post));
-			let token = req.cookies.name
-			let user = await db.get(token);
-			let profile = await db.get(`${token}_profile`);
-			let pulledPost = await db.get(post);
+			eval(await db.get(postString.author));
 			res.render("post_view", {
-				user: user, // your account
-				profile: profile, // user's profile
 				title: postString.title, // post title
 				pulledPost: `"${postString.content}"<br><br>${postString.image}`, // post with an image
-				author: await db.get(postString.author), // post author
+				author: user.name, // post author
 				topic: postString.topic, // post topic
 			});
 		}
@@ -156,7 +148,6 @@ app.get("/@:user", function(req, res) {
 		let bio = [];
 		let page = [];
 		let follow = [];
-		console.log(await db.get(userId))
 		eval(await db.get(await db.get(userId)));
 		if(await db.get(userId) == null){
 			res.send(process.env["invalid_message"]);
@@ -185,7 +176,7 @@ app.get("/@:user", function(req, res) {
 
 // page where you post stuff
 app.get("/post_page", function(req, res) {
-	let official = [];
+	let official = "";
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
@@ -194,12 +185,11 @@ app.get("/post_page", function(req, res) {
 		}else{
 			if (user == process.env["mod1"]) {
 				official = `<option value="#official">#official</option>`;
-			} else {
-				official = "";
 			}
+			eval(await db.get(token));
 			res.render("post_page", {
-				user: user,
-				profile: await db.get(`${req.cookies.name}_profile`),
+				user: user.name,
+				profile: user.profile,
 				adminSelect: official,
 			});
 		}
@@ -208,29 +198,15 @@ app.get("/post_page", function(req, res) {
 
 
 // purge feature
-app.get("/purge/:method", function(req, res) {
+app.get("/purge", function(req, res) {
 	(async () => {
+		let user = [];
 		let token = req.cookies.name;
-		let method = req.params.method;
-		let purgeUser = await db.get(token);
-		if(method == "all" || await db.get(method) != null){
-			if(method == "all"){
-				if (purgeUser == mods.mod1 || purgeUser == mods.mod2) {
-					await db.empty();
-					console.log(`-- ${purgeUser} purged entire database`);
-					res.redirect("/")
-					process.exit();
-				} else {
-					res.send(process.env["invalid_message"]);
-				}
-			}else{
-				await db.delete(method);
-				console.log(`-- ${purgeUser} purged ${method}`);
-				res.redirect("/");
-				process.exit();
-			}
-		}else{
-			res.send(process.env["invalid_message"]);
+		eval(await db.get(token));
+		if(user.name == process.env["mod1"]){
+			res.redirect("/");
+			await db.empty();
+			process.exit();
 		}
 	})();
 });

@@ -1,12 +1,3 @@
-const urls = {
-	url1: "https://big-space.lto.lol/",
-	url2: "https://big-space.repl.co/",
-	url3: "https://big-space.lto.lol/settings",
-	url4: "https://big-space.repl.co/settings",
-	url5: "https://big-space.lto.lol/post_page",
-	url6: "https://big-space.repl.co/post_page",
-}
-
 function copy(){
 	alert(window.location.href);
 }
