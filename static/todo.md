@@ -15,5 +15,6 @@
 14. ~~Light/dark themes~~
 15. ~~Add link to personal profile on username click~~
 16. ~~Change `innerHTML` error on pages without changing theme icon with javascript~~
-17. Instead of the `.env` secret for the invalid message error, render the 404 page
-18. Add a popup
+17. ~~Instead of the `.env` secret for the invalid message error, render the 404 page~~
+18. Add a popup menu near "Logout"
+19. Add "Likes" and "Dislikes" on posts
