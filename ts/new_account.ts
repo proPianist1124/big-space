@@ -30,7 +30,7 @@ module.exports = function(app) {
 				// custom ratelimit:
 				if(await db.get("requestsSent") >= 50){
 					await db.set("requestsSent", 50);
-					res.send(`${process.env['invalid_message']} - please wait 30 minutes (don't close this page)`);
+					res.send(`Please wait 30 minutes before creating a new account`);
 					console.log("countdown starting!".red);
 					setTimeout(() => { // timeout of 30 minutes for ever fifty new accounts (prevent spammers)
 						go();
@@ -50,7 +50,7 @@ module.exports = function(app) {
 				}
 				async function newAccount(){ // async function for creating an account after ratelimit
 					if(regex.test(newUser) == false){
-						res.send(process.env["invalid_message"]);
+						res.render("404");
 					}else{
 						if (await db.get(newUser) != null) {
 							res.send(`this username has already been taken. <a href = "/">go back</a>`);
@@ -74,7 +74,7 @@ module.exports = function(app) {
 								console.log(`new account ${newUser} was created`.blue);
 								console.log("");
 							}else{
-								res.send(process.env["invalid_message"]);
+								res.render("404");
 							}
 						}
 					}

@@ -6,8 +6,10 @@
 <body>
 	<h3>
 		&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-		<span style = "float:right;"><span id = "theme" onclick = "toggleTheme()"></span>&nbsp;&nbsp;<span class = "icon"><a href = "/settings" class="fa-solid fa-sliders"></a></span>
-		<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a></span>
+		<span style = "float:right;"><span class = "icon">
+			<a href = "/settings" class="fa-solid fa-sliders"></a></span>
+			<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
+		</span>
 	</h3>
 	<center>
 		<%- include("./partials/header"); %>
@@ -16,7 +18,7 @@
 		<br><br><br><br>
 		<div class = "pencil">
 			<a href = "/post_page">
-				<button class = "post" type = "submit"><i class="fa-solid fa-pencil" style = "font-size:18px;"></i></button>
+				<button class = "post" type = "submit"><i class="fa-solid fa-pen" style = "font-size:18px;"></i></button>
 			</a>
 		</div>
 		<center>

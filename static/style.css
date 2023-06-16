@@ -14,7 +14,6 @@
 	--secondary:#616161;
 	--tertiary:#985eff;
 	--tertiary-darker:#6200ee;
-	--postColor:var(--primary);
 	--error:#D9544D;
 	--error-bolder:#f20202;
 	--badgeBg:#1E90FF;
@@ -27,7 +26,6 @@
 	--secondary:#808080;
 	--tertiary:#29a3f5;
 	--tertiary-darker:dodgerblue;
-	--postColor:var(--primary);
 	--error:#f20202;
 	--error-bolder:#bc0b0b;
 	--badgeBg:#985eff;
@@ -200,13 +198,21 @@ img.pfp{
 	vertical-align:middle;
 	background-color:var(--post);
 }
+code{
+	border-radius:3px;
+	padding:5px 10px;
+	background-color:var(--background-lighter);
+}
+hr {
+  border-top: 1px solid var(--post);
+}
 
 .pencil {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-	padding:25px 25px;
+	padding:20px 20px;
 }
 .footer{
 	position: fixed;
@@ -259,7 +265,7 @@ img.pfp{
 	margin: 15px auto;
 	padding: 2px 20px;
 	background-color:var(--post);
-	color:var(--postColor);
+	color:var(--primary);
 	border-radius:10px;
 	transition:0.3s;
 }
@@ -276,4 +282,50 @@ img.pfp{
 	font-family:var(--secondFont);
 	font-size:14px;
 	padding:2.5px 5px;
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: var(--background-lighter); /* Postcard background color */
+  color: var(--primary); /* Text color */
+  text-align: center; /* Centered text */
+  border-radius: 5px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
 }

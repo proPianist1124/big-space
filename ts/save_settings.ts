@@ -23,12 +23,12 @@ module.exports = function(app) {
 		const location = sha256(req.header("x-forwarded-for"));
 		(async () => {
 			if(regex.test(req.body.bio) == false){
-				res.send(process.env["invalid_message"])
+				res.render("404");
 			}else{
 				let token = req.cookies.name;
 				let user = await db.get(token);
 				if(user == null || user  == ""){
-					res.send(process.env["invalid_message"]);
+					res.render("404");
 				}else{
 					eval(await db.get(token));
 					await db.set(token, `user = {name:"${user.name}", token:"${user.token}", password:"${user.password}", profile:"${req.body.profile}", bio:"${req.body.bio}", page:"${req.body.page}"}`);

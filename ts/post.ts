@@ -30,17 +30,16 @@ module.exports = function(app) {
 		(async () => {
 			let user = await db.get(req.cookies.name);
 			if (user == null || user == "") {
-				res.send(process.env["invalid_message"]);
+				res.render("404");
 			} else {
 				let postNum = 0;
 				let image = [];
-				let user = await db.get(req.cookies.name);
 				let userTitle = req.body.postTitle;
 				let userContent = req.body.postContent;
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
 				if(regex.test(userTitle) == false || regex.test(userContent) == false){ //regex pattern checking if title/content
-					res.send(process.env["invalid_message"]);
+					res.render("404");
 				}else{
 					counting(); // start checking if post exists, then replace it if it doesnt
 				}
@@ -54,13 +53,13 @@ module.exports = function(app) {
 							let fullDate = timestamp("MM/DD");
 
 							// let the server know that someone has posted (for security purposes)
-							console.log(`${user.name}: ${userTitle.green} - ${userContent.green}`);
+							console.log(`New Post: ${userTitle.green} - ${userContent.green}`);
 
 							if (userImage != "") { // to check if image url box is filled
 								if(imgRegex.test(userImage) == false){
 									image = "";
 								}else{
-									image = `<center><img src = "${userImage}" style = "width:50%; height:50%;"></center>`;
+									image = `<center><img src = '${userImage}' style = 'width:50%; height:50%;'></center>`;
 								}
 							}else{
 								image = "";

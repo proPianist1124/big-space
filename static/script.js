@@ -12,10 +12,15 @@ function toggleTheme() {
   if (localStorage.getItem('theme') === 'theme-light') {
 		setTheme('theme-dark');
 		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-sun"></i>`;
+		document.getElementById("snackbar").innerHTML = `Configured Dark Mode`;
   } else {
     setTheme('theme-light');
 		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
+		document.getElementById("snackbar").innerHTML = `Configured Light Mode`;
   }
+	let snackbar = document.getElementById("snackbar");
+  snackbar.className = "show";
+  setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 2000);
 }
 // Immediately invoked function to set the theme on initial load
 function load(){

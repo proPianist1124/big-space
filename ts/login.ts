@@ -36,7 +36,7 @@ module.exports = function(app) {
 				console.log("");
 			} else {
 				// if the user does not exist or the password entered was incorrect
-				res.send(process.env["invalid_message"]);
+				res.render("404");
 			}
 		})();
 	});

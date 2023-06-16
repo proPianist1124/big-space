@@ -91,7 +91,7 @@ app.get("/settings", function(req, res) {
 		let page = [];
 		let profile = await db.get(`${token}_profile`);
 		if(user == null || token == ""){ // prevent spamming in accounts checking if cookies exist
-			res.send(process.env["invalid_message"])
+			res.render("404");
 		}else{
 			if(await db.get(`${token}_bio`) == null){
 				bio = "";
@@ -124,7 +124,7 @@ app.get("/posts/:id", function(req, res) {
 		let post = req.params.id;
 		let postString = [];
 		if(await db.get(post) == null){
-			res.send(process.env["invalid_message"]);
+			res.render("404");
 		}else{
 			eval(await db.get(post));
 			eval(await db.get(postString.author));
@@ -150,7 +150,7 @@ app.get("/@:user", function(req, res) {
 		let follow = [];
 		eval(await db.get(await db.get(userId)));
 		if(await db.get(userId) == null){
-			res.send(process.env["invalid_message"]);
+			res.render("404");
 		}else{
 			if(user.bio == ""){
 				bio = `<span style = "color:var(--error)">no bio available</span>`;
@@ -181,7 +181,7 @@ app.get("/post_page", function(req, res) {
 		let token = req.cookies.name;
 		let user = await db.get(token);
 		if(user == null || token == ""){
-			res.send(process.env["invalid_message"]);
+			res.render("404");
 		}else{
 			if (user == process.env["mod1"]) {
 				official = `<option value="#official">#official</option>`;
@@ -217,21 +217,12 @@ app.get("/jobs", function(req, res) {
 	res.render("jobs");
 });
 
+// Big Space API and Styling Kit
+app.get("/kit", function(req, res) {
+	res.render("partials/kit");
+});
 
 // custom 404 page
 app.use((req, res, next) => {
-	let gif = Math.floor(Math.random() * 3);
-	let selection = []
-	if(gif == 0){
-		selection = "/banana.gif";
-	}
-	if(gif == 1){
-		selection = "/nooo.gif";
-	}
-	if(gif == 2){
-		selection = "/monkey.gif";
-	}
-  res.status(404).render("404", {
-		gif: selection,
-	});
+  res.status(404).render("404");
 })
