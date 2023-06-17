@@ -212,7 +212,7 @@ app.get("/purge", function(req, res) {
 });
 
 
-// big space careers!
+// Big Space Careers/Jobs
 app.get("/jobs", function(req, res) {
 	res.render("jobs");
 });
@@ -220,6 +220,11 @@ app.get("/jobs", function(req, res) {
 // Big Space API and Styling Kit
 app.get("/kit", function(req, res) {
 	res.render("partials/kit");
+});
+
+// Big Space Terms of Service
+app.get("/terms", function(req, res) {
+	res.render("terms");
 });
 
 // custom 404 page

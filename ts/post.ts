@@ -12,6 +12,7 @@ const { createHash } = require("node:crypto");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 const imgRegex = new RegExp("^https://[^/]+/[^/?]+$");
+const topicRegex = new RegExp("#[a-z0-9_]+");
 let mods = {
 	mod1: process.env["mod1"],
 	mod2: process.env["mod2"],
@@ -34,10 +35,14 @@ module.exports = function(app) {
 				let userContent = req.body.postContent;
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
-				if(regex.test(userTitle) == false || regex.test(userContent) == false){ //regex pattern checking if title/content
+				if(regex.test(userTitle) == false || regex.test(userContent) == false || topicRegex.test(userTopic) == false){ //regex pattern checking if title/content
 					res.render("404");
 				}else{
-					counting(); // start checking if post exists, then replace it if it doesnt
+					if(userTopic != "#random" || userTopic != "#programming" || userTopic != "#comedy" || userTopic != "#business" || userTopic != "#politics" || userTopic != "#official"){
+						res.render("404");
+					}else{
+						counting(); // start checking if post exists, then replace it if it doesnt
+					}
 				}
 				function counting() {
 					(async () => {
@@ -61,7 +66,7 @@ module.exports = function(app) {
 								image = "";
 							}
 							// set a database object for the post that DOESN'T exist
-							await db.set(postName, `postString = {title: "${userTitle}", content: "${userContent}", date: "${fullDate}", topic: "${userTopic}", image: "${image}", author: "${req.cookies.name}"}`);
+							await db.set(postName, `postString = {title: "${userTitle}", content: "${userContent}", date: "${fullDate}", topic: "${userTopic}", image: "${image}", likes: "0", dislikes: "0", author: "${req.cookies.name}"}`);
 							res.redirect("/"); // send the client back to the og url
 						}
 					})();

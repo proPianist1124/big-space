@@ -11,6 +11,7 @@ const ejs = require("ejs");
 const { createHash } = require("node:crypto");
 
 const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
+const imgRegex = new RegExp("^https://[^/]+/[^/?]+$");
 module.exports = function(app) {
 	app.post("/save_settings", function(req, res) {
 		function sha256(input) {
@@ -18,7 +19,7 @@ module.exports = function(app) {
 		}
 		const location = sha256(req.header("x-forwarded-for"));
 		(async () => {
-			if(regex.test(req.body.bio) == false){
+			if(regex.test(req.body.bio) == false || imgRegex.test(req.body.profile) == false){
 				res.render("404");
 			}else{
 				let token = req.cookies.name;

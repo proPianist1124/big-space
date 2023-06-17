@@ -13,11 +13,6 @@ const { createHash } = require("node:crypto");
 module.exports = function(app) {
 	app.get("/logout", function(req, res) {
 		(async () => {
-			let user = [];
-			let token = await db.get(req.cookies.name);
-			console.log("");
-			console.log(`${user.name} has logged out`.red);
-			console.log("");
 			res.clearCookie("name");
 			res.redirect("/");
 		})();
