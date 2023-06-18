@@ -8,11 +8,12 @@ const port = 3000;
 const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
+const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
-const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
-const imgRegex = new RegExp("^https://[^/]+/[^/?]+$");
-const topicRegex = new RegExp("#[a-z0-9_]+");
+const regex = /^[\.a-zA-Z0-9,!? ]*$/;
+const imgRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+const topicRegex = /#[a-z0-9_]+/;
 let mods = {
 	mod1: process.env["mod1"],
 	mod2: process.env["mod2"],
@@ -25,9 +26,12 @@ module.exports = function(app) {
 		}
 		const location = sha256(req.header("x-forwarded-for"));
 		(async () => {
-			let user = await db.get(req.cookies.name);
-			if (user == null || user == "") {
+			let token = req.cookies.name;
+			let user = await db.get(token);
+			eval(user);
+			if (user == null || token == "" || req.cookies.password != user.password) {
 				res.render("404");
+				console.log("invalid auth");
 			} else {
 				let postNum = 0;
 				let image = [];
@@ -37,12 +41,9 @@ module.exports = function(app) {
 				let userImage = req.body.postImage;
 				if(regex.test(userTitle) == false || regex.test(userContent) == false || topicRegex.test(userTopic) == false){ //regex pattern checking if title/content
 					res.render("404");
+					console.log("invalid regex");
 				}else{
-					if(userTopic != "#random" || userTopic != "#programming" || userTopic != "#comedy" || userTopic != "#business" || userTopic != "#politics" || userTopic != "#official"){
-						res.render("404");
-					}else{
-						counting(); // start checking if post exists, then replace it if it doesnt
-					}
+					counting(); // start checking if post exists, then replace it if it doesnt
 				}
 				function counting() {
 					(async () => {

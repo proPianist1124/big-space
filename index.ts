@@ -9,12 +9,15 @@ const port = 3000;
 const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
+const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
-const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let mods = {
 	mod1: process.env["mod1"],
 	mod2: process.env["mod2"],
+}
+function sha256(input) {
+	return createHash("sha256").update(input).digest("hex");
 }
 
 app.engine("html", ejs.renderFile);
@@ -44,7 +47,8 @@ app.get("/", function(req, res) {
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		if (user == null || token == "") {
+		eval(user);
+		if (user == null || token == "" || req.cookies.password != user.password) {
 			// login page if the user's cookies are unavailable
 			res.render("login");
 		} else {
@@ -90,7 +94,8 @@ app.get("/settings", function(req, res) {
 		let bio = [];
 		let page = [];
 		let profile = await db.get(`${token}_profile`);
-		if(user == null || token == ""){ // prevent spamming in accounts checking if cookies exist
+		eval(user);
+		if(user == null || token == "" || req.cookies.password != user.password){ // prevent spamming in accounts checking if cookies exist
 			res.render("404");
 		}else{
 			if(await db.get(`${token}_bio`) == null){
@@ -144,12 +149,11 @@ app.get("/@:user", function(req, res) {
 	(async () => {
 		let user = [];
 		let userId = req.params.user; // selected user
-		let token = req.cookies.name; // your own token
 		let bio = [];
 		let page = [];
 		let follow = [];
-		eval(await db.get(await db.get(userId)));
-		if(await db.get(userId) == null){
+		eval(await db.get(sha256(userId)));
+		if(await db.get(sha256(userId)) == null){
 			res.render("404");
 		}else{
 			if(user.bio == ""){
@@ -180,7 +184,8 @@ app.get("/post_page", function(req, res) {
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		if(user == null || token == ""){
+		eval(user);
+		if(user == null || token == "" || req.cookies.password != user.password){
 			res.render("404");
 		}else{
 			if (user == process.env["mod1"]) {
