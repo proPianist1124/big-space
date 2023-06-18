@@ -61,7 +61,7 @@ module.exports = function(app) {
 							}
 							let token = urlCombo(15);
 							if(await db.get(token) == null){
-								await db.set(token, `user = {name: "${newUser}", token: "${token}", password: "${newPass}", profile: "https://big-space.repl.co/default_user.png", bio: "", page: ""}`);
+								await db.set(token, `user = {name: "${newUser}", token: "${token}", password: "${newPass}", profile: "https://big-space.repl.co/default_user.png", bio: "", page: "", badge: ""}`);
 								await db.set(newUser, token);
 								res.render("partials/redirect", {
 									cookie:token,
