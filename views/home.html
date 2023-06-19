@@ -1,28 +1,30 @@
 <!doctype html>
 <head>
 	<title>Big Space | Share Content</title>
-	<%- include("./partials/meta"); %>
+	<%- include("./partials/meta.html"); %>
 </head>
 <body>
 	<h3>
 		&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-		<span style = "float:right;"><span class = "icon">
-			<a href = "/settings" class="fa-solid fa-sliders"></a></span>
-			<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
+		<span style = "float:right;">
+			<span class = "icon">
+				<a href = "/settings"><%- include("./icons/settings"); %></a>
+			</span>
+			<a href = "/logout" class = "logout">Logout <%- include("./icons/exit"); %></a>
 		</span>
 	</h3>
 	<center>
-		<%- include("./partials/header"); %>
+		<%- include("./partials/header.html"); %>
 	</center>
 	<%- posts %>
 		<br><br><br><br>
 		<div class = "pencil">
 			<a href = "/post_page">
-				<button class = "post" type = "submit"><i class="fa-solid fa-pen" style = "font-size:18px;"></i></button>
+				<button class = "post" type = "submit"><%- include("./icons/pencil"); %></button>
 			</a>
 		</div>
 		<center>
-			<%- include("./partials/footer"); %>
+			<%- include("./partials/footer.html"); %>
 		</center>
 		<script>
 			if(localStorage.getItem("viewed_message2") == null){

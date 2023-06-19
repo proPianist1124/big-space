@@ -11,6 +11,14 @@ const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
+const apiLimiter = rateLimit({
+	windowMs: 60 * 60 * 1000, // 60 minute window
+	max: 3, // 3 requests per window
+	standardHeaders: true,
+	legacyHeaders: false,
+	message:"invalid request, try again later :)",
+});
+
 const regex = /^[\.a-zA-Z0-9,!? ]*$/;
 const imgRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 const topicRegex = /#[a-z0-9_]+/;
@@ -20,7 +28,7 @@ let mods = {
 }
 
 module.exports = function(app) {
-	app.post("/post", function(req, res) {
+	app.post("/post", apiLimiter, function(req, res) {
 		function sha256(input) {
 			return createHash("sha256").update(input).digest("hex");
 		}

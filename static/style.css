@@ -220,6 +220,9 @@ code{
 	padding:5px 10px;
 	background-color:var(--background-lighter);
 }
+svg{
+	vertical-align:middle;
+}
 hr {
   border-top: 1px solid var(--post);
 }
@@ -285,6 +288,7 @@ hr {
 	color:var(--primary);
 	border-radius:10px;
 	transition:0.3s;
+	overflow:hidden;
 }
 .postcard:hover{
 	background-color:var(--background-lighter);

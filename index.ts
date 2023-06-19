@@ -11,6 +11,7 @@ const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
+const fs = require('fs');
 
 let mods = {
 	mod1: process.env["mod1"],
@@ -64,7 +65,7 @@ app.get("/", function(req, res) {
 						// post ui (change as needed)
 						eval(await db.get(postId));
 						eval(await db.get(postString.author));
-						let newPost = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2>${postString.content}<br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i></p></div></a> ${posts}`;
+						let newPost = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2><span>${postString.content}</span><br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i></p></div></a> ${posts}`;
 						posts = newPost; // adds newly evaluated post to continuing string
 						repeatAndCheck();
 					}else{
@@ -121,7 +122,6 @@ app.get("/settings", function(req, res) {
 	})();
 });
 
-
 // a post's unique page
 app.get("/posts/:id", function(req, res) {
 	(async () => {
@@ -162,7 +162,7 @@ app.get("/@:user", function(req, res) {
 				bio = `<span style = "color:var(--tertiary)">${user.bio}</span>`;
 			}
 			if(user.page == ""){
-				page = `<span style = 'color:var(--error)'>none available</span>`;
+				page = `<span style = 'color:var(--error)'>no page available</span>`;
 			}else{
 				page = `<span style = "color:var(--tertiary)">${user.page}</span>`;
 			}

@@ -11,11 +11,9 @@ function setTheme(themeName) {
 function toggleTheme() {
   if (localStorage.getItem('theme') === 'theme-light') {
 		setTheme('theme-dark');
-		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-sun"></i>`;
 		document.getElementById("snackbar").innerHTML = `Configured Dark Mode`;
   } else {
     setTheme('theme-light');
-		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
 		document.getElementById("snackbar").innerHTML = `Configured Light Mode`;
   }
 	let snackbar = document.getElementById("snackbar");
@@ -26,10 +24,8 @@ function toggleTheme() {
 function load(){
 	if (localStorage.getItem('theme') === 'theme-dark') {
 		setTheme('theme-dark');
-		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-sun"></i>`;
   } else {
 		setTheme('theme-light');
-		document.getElementById("theme").innerHTML = `<i class="fa-regular fa-moon"></i>`;
 	}
 }
 

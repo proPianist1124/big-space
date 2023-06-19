@@ -12,8 +12,8 @@ const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
 const apiLimiter = rateLimit({
-	windowMs: 5 * 60 * 1000,
-	max: 20,
+	windowMs: 60 * 60 * 1000,
+	max: 1,
 	standardHeaders: true,
 	legacyHeaders: false,
 	message:"invalid request, try again later :)",
@@ -32,27 +32,7 @@ module.exports = function(app) {
 		start();
 		function start() {
 			(async () => {
-				// custom ratelimit:
-				if(await db.get("requestsSent") >= 50){
-					await db.set("requestsSent", 50);
-					res.send(`Please wait 30 minutes before creating a new account`);
-					console.log("countdown starting!".red);
-					setTimeout(() => { // timeout of 30 minutes for ever fifty new accounts (prevent spammers)
-						go();
-						async function go() {
-							await db.delete("requestsSent");
-							console.log("ratelimit gone!".green);
-						}
-					}, 1800000);
-				}else{
-					if(await db.get("requestsSent") == null){ // 
-						await db.set("requestsSent", 1);
-					}else{
-						let newRequest = parseInt(await db.get("requestsSent")) + 1
-						await db.set("requestsSent", newRequest);
-						newAccount();
-					}
-				}
+				newAccount();
 				async function newAccount(){ // async function for creating an account after ratelimit
 					if(regex.test(newUser) == false){
 						res.render("404");
