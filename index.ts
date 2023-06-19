@@ -11,7 +11,6 @@ const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
-const fs = require('fs');
 
 let mods = {
 	mod1: process.env["mod1"],
