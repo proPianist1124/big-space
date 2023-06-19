@@ -8,6 +8,7 @@ const port = 3000;
 const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
+const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
 module.exports = function(app) {

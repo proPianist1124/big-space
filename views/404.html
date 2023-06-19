@@ -1,23 +1,23 @@
 <!doctype html>
 <head>
 	<title>Big Space | 404</title>
-	<%- include("./partials/meta"); %>
+	<%- include("./partials/meta.html"); %>
 </head>
 <body>
 	<h3>
 		<center>
-			<%- include("./partials/header"); %>
+			<%- include("./partials/header.html"); %>
 				<h2 style = "color:var(--error)">404 Not Found</h2>
 				<img src = "/404.svg" style = "width:300px; height:300px; border-radius:0px;"/>
 				<br><br>
 				<a href = "/">
 					<button>
-						<i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back
+						<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
 					</button>
 				</a>
 			</center>
 	</h3>
 	<center>
-		<%- include("./partials/footer"); %>
+		<%- include("./partials/footer.html"); %>
 	</center>
 </body>

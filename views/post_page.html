@@ -1,25 +1,29 @@
 <!doctype html>
 <head>
 	<title>Big Space | New Post</title>
-	<%- include("./partials/meta"); %>
+	<%- include("./partials/meta.html"); %>
 </head>
 <body>
 	<h3>
 		&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-		<span style = "float:right;"><span class = "icon">
-			<a href = "/settings" class="fa-solid fa-sliders"></a></span>
-			<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
+		<span style = "float:right;">
+			<span class = "icon">
+				<a href = "/settings"><%- include("./icons/settings"); %></a>
+			</span>
+			<a href = "/logout" class = "logout">Logout <%- include("./icons/exit"); %></a>
 		</span>
 	</h3>
 	<center>
-		<%- include("./partials/header"); %>
+		<%- include("./partials/header.html"); %>
 	</center>
 	<br>
 	<div style = "color:var(--primary)">
 		<h2>
 			New Post&nbsp;&nbsp;
 			<a href = "/">
-				<button><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back</button>
+				<button>
+					<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
+				</button>
 			</a>
 		</h2>
 		<form action = "/post" method = "POST">
@@ -40,11 +44,11 @@
 			<br>&nbsp;<input placeholder = "photo [url]" name = "postImage" id = "userPost" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type = "url" style = "border-radius:0px;">
 			<br><br>
 			<button type = "submit">
-				Post <i class="fa-solid fa-folder-plus"></i>
+				Post <%- include("./icons/add"); %>
 			</button>
 		</form>
 	</div>
 	<center>
-		<%- include("./partials/footer"); %>
+		<%- include("./partials/footer.html"); %>
 	</center>
 </body>

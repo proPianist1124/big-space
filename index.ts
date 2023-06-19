@@ -9,12 +9,16 @@ const port = 3000;
 const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
+const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
+const fs = require('fs');
 
-const regex = new RegExp("^[\.a-zA-Z0-9,!? ]*$");
 let mods = {
 	mod1: process.env["mod1"],
 	mod2: process.env["mod2"],
+}
+function sha256(input) {
+	return createHash("sha256").update(input).digest("hex");
 }
 
 app.engine("html", ejs.renderFile);
@@ -44,7 +48,8 @@ app.get("/", function(req, res) {
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		if (user == null || token == "") {
+		eval(user);
+		if (user == null || token == "" || req.cookies.password != user.password) {
 			// login page if the user's cookies are unavailable
 			res.render("login");
 		} else {
@@ -60,7 +65,7 @@ app.get("/", function(req, res) {
 						// post ui (change as needed)
 						eval(await db.get(postId));
 						eval(await db.get(postString.author));
-						let newPost = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2>${postString.content}<br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i></p></div></a> ${posts}`;
+						let newPost = `<a href = "/posts/${postId}"><div class = "postcard"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2><span>${postString.content}</span><br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i></p></div></a> ${posts}`;
 						posts = newPost; // adds newly evaluated post to continuing string
 						repeatAndCheck();
 					}else{
@@ -90,7 +95,8 @@ app.get("/settings", function(req, res) {
 		let bio = [];
 		let page = [];
 		let profile = await db.get(`${token}_profile`);
-		if(user == null || token == ""){ // prevent spamming in accounts checking if cookies exist
+		eval(user);
+		if(user == null || token == "" || req.cookies.password != user.password){ // prevent spamming in accounts checking if cookies exist
 			res.render("404");
 		}else{
 			if(await db.get(`${token}_bio`) == null){
@@ -115,7 +121,6 @@ app.get("/settings", function(req, res) {
 		}
 	})();
 });
-
 
 // a post's unique page
 app.get("/posts/:id", function(req, res) {
@@ -144,12 +149,11 @@ app.get("/@:user", function(req, res) {
 	(async () => {
 		let user = [];
 		let userId = req.params.user; // selected user
-		let token = req.cookies.name; // your own token
 		let bio = [];
 		let page = [];
 		let follow = [];
-		eval(await db.get(await db.get(userId)));
-		if(await db.get(userId) == null){
+		eval(await db.get(sha256(userId)));
+		if(await db.get(sha256(userId)) == null){
 			res.render("404");
 		}else{
 			if(user.bio == ""){
@@ -158,7 +162,7 @@ app.get("/@:user", function(req, res) {
 				bio = `<span style = "color:var(--tertiary)">${user.bio}</span>`;
 			}
 			if(user.page == ""){
-				page = `<span style = 'color:var(--error)'>none available</span>`;
+				page = `<span style = 'color:var(--error)'>no page available</span>`;
 			}else{
 				page = `<span style = "color:var(--tertiary)">${user.page}</span>`;
 			}
@@ -180,7 +184,8 @@ app.get("/post_page", function(req, res) {
 	(async () => {
 		let token = req.cookies.name;
 		let user = await db.get(token);
-		if(user == null || token == ""){
+		eval(user);
+		if(user == null || token == "" || req.cookies.password != user.password){
 			res.render("404");
 		}else{
 			if (user == process.env["mod1"]) {

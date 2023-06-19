@@ -1,11 +1,11 @@
 <!doctype html>
 <head>
 	<title>Big Space | <%- title %></title>
-	<%- include("./partials/meta"); %>
+	<%- include("./partials/meta.html"); %>
 </head>
 <body>
 	<center>
-		<%- include("./partials/header"); %>
+		<%- include("./partials/header.html"); %>
 	</center>
 	<div class = "postcard" style = "background-color:var(--post);">
 		<h2 style = "text-align:center">
@@ -23,16 +23,16 @@
 			<a href = "/@<%- author %>" class = "user">
 				Follow "<%- author %>"!
 			</a>
-			&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-share" onclick = "copy()"></i></h2>
+			&nbsp;&nbsp;&nbsp;&nbsp;<span onclick = "copy()"><%- include("./icons/share"); %></span></h2>
 		<a href = "/">
 			<button>
-				<i class="fa-solid fa-arrow-right-from-bracket"></i>
+				<%- include("./icons/back"); %>
 				&nbsp;&nbsp;Go back
 			</button>
 		</a>
 		<br><br><br>
 	</center>
 	<center>
-		<%- include("./partials/footer"); %>
+		<%- include("./partials/footer.html"); %>
 	</center>
 </body>

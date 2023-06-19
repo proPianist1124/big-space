@@ -1,18 +1,20 @@
 <!doctype html>
 <head>
 	<title>Big Space | Settings</title>
-	<%- include("./partials/meta"); %>
+	<%- include("./partials/meta.html"); %>
 </head>
 <body>
 	<h3>
 		&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-		<span style = "float:right;"><span class = "icon">
-			<a href = "/settings" class="fa-solid fa-sliders"></a></span>
-			<a href = "/logout" class = "logout">Logout <i class="fa-solid fa-circle-xmark"></i></a>
+		<span style = "float:right;">
+			<span class = "icon">
+				<a href = "/settings"><%- include("./icons/settings"); %></a>
+			</span>
+			<a href = "/logout" class = "logout">Logout <%- include("./icons/exit"); %></a>
 		</span>
 	</h3>
 	<center>
-		<%- include("./partials/header"); %>
+		<%- include("./partials/header.html"); %>
 	</center>
 	<div class = "postcard" style = "background-color:var(--post);">
 		<form action = "/save_settings" method = "POST">
@@ -31,7 +33,7 @@
 			</p>
 			<br><br>
 			<button type = "submit">
-				Save <i class="fa-solid fa-floppy-disk"></i>
+				Save <%- include("./icons/save"); %>
 			</button>
 			<br><br>
 		</form>
@@ -40,17 +42,17 @@
 	<center>
 		<a href = "/">
 			<button style = "border-radius:5px 0px 0px 5px;">
-				<i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Go back
+				<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
 			</button>
 		</a>
 		<a href = "/@<%- user %>">
 			<button style = "border-radius:0px 5px 5px 0px;">
-				<i class="fa-regular fa-id-card"></i>&nbsp;&nbsp;View Profile
+				<%- include("./icons/profile"); %>&nbsp;&nbsp;View Profile
 			</button>
 		</a>
 	</center>
 	<center>
-		<%- include("./partials/footer"); %>
+		<%- include("./partials/footer.html"); %>
 	</center>
 	<script>
 		hideInfo();
