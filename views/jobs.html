@@ -1,45 +1,45 @@
 <!doctype html>
-<head>
-	<title>Big Space | Jobs</title>
-	<meta name="description" content="Find Big Space jobs here! Join us today!">
-	<%- include("./partials/meta.html"); %>
-</head>
-<body>
-	<center>
-		<%- include("./partials/header.html"); %>
-		<div class = "postcard" style = "background-color:var(--post);">
-			<h2>Big Space Jobs</h2>
-			<p>Interested? We're hiring the current roles below!</p>
-		</div>
-		<div class = "postcard" style = "background-color:var(--post);">
-			<div class = "card">
-				<h3 style = "color:var(--tertiary)">
-					<%- include("./icons/shield"); %> Security
-				</h3>
-				Experienced with Node.js, Nodemailer, and Express. Should also be familiar with hashing passwords and IP addresses.
-			</div>
-			<br>
-			<div class = "card">
-				<h3 style = "color:var(--tertiary)">
-					<%- include("./icons/folder-code"); %> Backend Dev
-				</h3>
-				Familiar with Node.js Express package, know how to configure a web server, ratelimit, and build a simple IP verification.
-			</div>
-			<br>
-			<div class = "card">
-				<h3 style = "color:var(--tertiary)">
-					<%- include("./icons/theme"); %> UX Designer
-				</h3>
-				Should know how to use Figma, create concept designs, and apply them into HTML5 format (using CSS3 as well).
-			</div>
-		</div>
-		<a href = "/">
-			<button>
-				<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
-			</button>
-		</a>
-	</center>
-	<center>
+<html lang = "en">
+	<head>
+		<title>Big Space | Jobs</title>
+		<meta name="description" content="Find Big Space jobs here! Join us today!">
+		<%- include("./partials/meta.html"); %>
+	</head>
+	<body>
+		<center>
+			<%- include("./partials/header.html"); %>
+				<div class = "postcard" style = "background-color:var(--post);">
+					<h2>Big Space Jobs</h2>
+					<p>Interested? We're hiring the current roles below!</p>
+				</div>
+				<div class = "postcard" style = "background-color:var(--post);">
+				<div class = "card">
+					<h3 style = "color:var(--tertiary)">
+						<%- include("./icons/shield"); %> Security
+					</h3>
+					Experienced with Node.js, Nodemailer, and Express. Should also be familiar with hashing passwords and IP addresses.
+				</div>
+					<br>
+					<div class = "card">
+						<h3 style = "color:var(--tertiary)">
+						<%- include("./icons/folder-code"); %> Backend Dev
+						</h3>
+						Familiar with Node.js Express package, know how to configure a web server, ratelimit, and build a simple IP verification.
+					</div>
+					<br>
+					<div class = "card">
+						<h3 style = "color:var(--tertiary)">
+							<%- include("./icons/theme"); %> UX Designer
+						</h3>
+						Should know how to use Figma, create concept designs, and apply them into HTML5 format (using CSS3 as well).
+					</div>
+				</div>
+				<a href = "/">
+					<button>
+						<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
+					</button>
+				</a>
+		</center>
 		<%- include("./partials/footer.html"); %>
-	</center>
-</body>
+	</body>
+</html>

@@ -1,38 +1,42 @@
 <!doctype html>
-<head>
-	<title>Big Space | <%- title %></title>
-	<%- include("./partials/meta.html"); %>
-</head>
-<body>
-	<center>
-		<%- include("./partials/header.html"); %>
-	</center>
-	<div class = "postcard" style = "background-color:var(--post);">
-		<h2 style = "text-align:center">
-			"<%- title %>" - <span style = "color:var(--secondary)">Expanded View</span>
-		</h2>
-	</div>
-	<div class = "postcard" style = "background-color:var(--post);">
-		<h1 style = "text-align:center">
-			<%- pulledPost %>
-		</h1>
-	</div>
-	<br>
-	<center>
-		<h2>Impressed? 
-			<a href = "/@<%- author %>" class = "user">
-				Follow "<%- author %>"!
+<html lang = "en">
+	<head>
+		<title>Big Space | <%- title %></title>
+		<meta property="og:title" content="<%- title %>"/>
+		<meta property="og:description" content="<%- content %>"/>
+		<%- include("./partials/meta.html"); %>
+	</head>
+	<body>
+		<center>
+			<%- include("./partials/header.html"); %>
+		</center>
+		<div class = "postcard" style = "background-color:var(--post);">
+			<h2 style = "text-align:center">
+				"<%- title %>" - <span style = "color:var(--secondary)">Expanded View</span>
+			</h2>
+		</div>
+		<div class = "postcard" style = "background-color:var(--post);">
+			<h1 style = "text-align:center">
+				<%- content %>
+			</h1>
+			<br>
+			<%- image %>
+		</div>
+		<br>
+		<center>
+			<h2>Impressed? 
+				<a href = "/@<%- author %>" class = "user">
+					Follow "<%- author %>"!
+				</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span onclick = "copy()"><%- include("./icons/share"); %></span></h2>
+			<a href = "/">
+				<button>
+					<%- include("./icons/back"); %>
+						&nbsp;&nbsp;Go back
+				</button>
 			</a>
-			&nbsp;&nbsp;&nbsp;&nbsp;<span onclick = "copy()"><%- include("./icons/share"); %></span></h2>
-		<a href = "/">
-			<button>
-				<%- include("./icons/back"); %>
-				&nbsp;&nbsp;Go back
-			</button>
-		</a>
-		<br><br><br>
-	</center>
-	<center>
+			<br><br><br>
+		</center>
 		<%- include("./partials/footer.html"); %>
-	</center>
-</body>
+	</body>
+</html>

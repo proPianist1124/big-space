@@ -1,68 +1,69 @@
 <!doctype html>
-<head>
-	<title>Big Space | Settings</title>
-	<%- include("./partials/meta.html"); %>
-</head>
-<body>
-	<h3>
-		&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-		<span style = "float:right;">
-			<span class = "icon">
-				<a href = "/settings"><%- include("./icons/settings"); %></a>
+<html lang = "en">
+	<head>
+		<title>Big Space | Settings</title>
+		<%- include("./partials/meta.html"); %>
+	</head>
+	<body>
+		<h3>
+			&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
+			<span style = "float:right;">
+				<span class = "icon">
+					<a href = "/settings"><%- include("./icons/settings"); %></a>
+				</span>
+				&nbsp;
+				<a href = "/logout" class = "logout">
+					<button class = "logout">Logout <%- include("./icons/logout"); %></button>
+				</a>
 			</span>
-			<a href = "/logout" class = "logout">
-				Logout
+		</h3>
+		<center>
+			<%- include("./partials/header.html"); %>
+		</center>
+		<div class = "postcard" style = "background-color:var(--post);">
+			<form action = "/save_settings" method = "POST">
+				<h2 style = "text-align:center">
+					<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
+					<br>
+					Account: <%- user %>
+				</h2>
+				<p style = "text-align:left; font-size:18px;">
+					Token: <span id = "userToken" style = "color:var(--tertiary)" onclick = "showToken()"><%- token %></span>
+					<br>
+					Password: <span id = "userPassword" style = "color:var(--tertiary)" onclick = "showPassword()"><%- password %></span>
+					<br>Bio: <input name = "bio" class = "default" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off" required/>
+					<br>Page: <input name = "page" type = "url" class = "default" value = "<%- page %>" placeholder = "your page…" autocomplete = "off" required/>
+					<br>Profile: <input name = "profile" type = "url" class = "default" value = "<%- profile %>" placeholder = "profile pic…" autocomplete = "off" required/>
+				</p>
+				<br><br>
+				<button type = "submit">
+					Save <%- include("./icons/save"); %>
+				</button>
+				<br><br>
+			</form>
+		</div>
+		<br>
+		<center>
+			<a href = "/">
+				<button style = "border-radius:5px 0px 0px 5px;">
+					<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
+				</button>
 			</a>
-		</span>
-	</h3>
-	<center>
-		<%- include("./partials/header.html"); %>
-	</center>
-	<div class = "postcard" style = "background-color:var(--post);">
-		<form action = "/save_settings" method = "POST">
-			<h2 style = "text-align:center">
-				<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
-				<br>
-				Account: <%- user %>
-			</h2>
-			<p style = "text-align:left; font-size:18px;">
-				Token: <span id = "userToken" style = "color:var(--tertiary)" onclick = "showToken()"><%- token %></span>
-				<br>
-				Password: <span id = "userPassword" style = "color:var(--tertiary)" onclick = "showPassword()"><%- password %></span>
-				<br>Bio: <input name = "bio" class = "default" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off" required/>
-				<br>Page: <input name = "page" type = "url" class = "default" value = "<%- page %>" placeholder = "your page…" autocomplete = "off" required/>
-				<br>Profile: <input name = "profile" type = "url" class = "default" value = "<%- profile %>" placeholder = "profile pic…" autocomplete = "off" required/>
-			</p>
-			<br><br>
-			<button type = "submit">
-				Save <%- include("./icons/save"); %>
-			</button>
-			<br><br>
-		</form>
-	</div>
-	<br>
-	<center>
-		<a href = "/">
-			<button style = "border-radius:5px 0px 0px 5px;">
-				<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
-			</button>
-		</a>
-		<a href = "/@<%- user %>">
-			<button style = "border-radius:0px 5px 5px 0px;">
-				<%- include("./icons/profile"); %>&nbsp;&nbsp;View Profile
-			</button>
-		</a>
-	</center>
-	<center>
+			<a href = "/@<%- user %>">
+				<button style = "border-radius:0px 5px 5px 0px;">
+					<%- include("./icons/profile"); %>&nbsp;&nbsp;View Profile
+				</button>
+			</a>
+		</center>
 		<%- include("./partials/footer.html"); %>
-	</center>
-	<script>
-		hideInfo();
-		function showPassword(){
-			document.getElementById("userPassword").innerHTML = "<%- password %>";
-		}
-		function showToken(){
-			document.getElementById("userToken").innerHTML = "<%- token %>";
-		}
-	</script>
-</body>
+		<script>
+			hideInfo();
+			function showPassword(){
+				document.getElementById("userPassword").innerHTML = "<%- password %>";
+			}
+			function showToken(){
+				document.getElementById("userToken").innerHTML = "<%- token %>";
+			}
+		</script>
+	</body>
+</html>

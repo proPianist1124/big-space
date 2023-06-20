@@ -1,56 +1,55 @@
 <!doctype html>
-<head>
-	<title>Big Space | New Post</title>
-	<%- include("./partials/meta.html"); %>
-</head>
-<body>
-	<h3>
-		&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-		<span style = "float:right;">
-			<span class = "icon">
-				<a href = "/settings"><%- include("./icons/settings"); %></a>
+<html lang = "en">
+	<head>
+		<title>Big Space | New Post</title>
+		<%- include("./partials/meta.html"); %>
+	</head>
+	<body>
+		<h3>
+			&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
+			<span style = "float:right;">
+				<span class = "icon">
+					<a href = "/settings"><%- include("./icons/settings"); %></a>
+				</span>
+				&nbsp;
+				<a href = "/logout" class = "logout">
+					<button class = "logout">Logout <%- include("./icons/logout"); %></button>
+				</a>
 			</span>
-			<a href = "/logout" class = "logout">
-				Logout
-			</a>
-		</span>
-	</h3>
-	<center>
-		<%- include("./partials/header.html"); %>
-	</center>
-	<br>
-	<div style = "color:var(--primary)">
-		<h2>
-			New Post&nbsp;&nbsp;
-			<a href = "/">
-				<button>
-					<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
+		</h3>
+		<center>
+			<%- include("./partials/header.html"); %>
+		</center>
+		<br>
+		<div style = "color:var(--primary)">
+			<h2>
+				New Post&nbsp;&nbsp;
+				<a href = "/">
+					<button>
+						<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
+					</button>
+				</a>
+			</h2>
+			<form action = "/post" method = "POST">
+				<br>
+				<input placeholder = "title" name = "postTitle" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "25" style = "border-radius:0px;" required/>
+				<input placeholder = "content" name = "postContent" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "100" style = "border-radius:0px;" required/>
+				<br>
+				<select name="postTopic" style = "border-radius:0px;">
+					<option value="#random">#random</option>
+					<option value="#programming">#programming</option>
+					<option value="#comedy">#comedy</option>
+					<option value="#business">#business</option>
+					<option value="#politics">#politics</option>
+					<%- adminSelect %>
+				</select>
+				<input placeholder = "photo [url]" name = "postImage" id = "userPost" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type = "url" style = "border-radius:0px;">
+				<br><br>
+				<button type = "submit">
+					Post <%- include("./icons/add"); %>
 				</button>
-			</a>
-		</h2>
-		<form action = "/post" method = "POST">
-			<br>
-			&nbsp;<input placeholder = "title" name = "postTitle" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "25" style = "border-radius:0px;" required/>
-			<br>
-			&nbsp;<input placeholder = "content" name = "postContent" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "100" style = "border-radius:0px;" required/>
-			<br>
-			<span style = "padding:2.5px;"></span>
-			<select name="postTopic" style = "border-radius:0px;">
-				<option value="#random">#random</option>
-				<option value="#programming">#programming</option>
-				<option value="#comedy">#comedy</option>
-				<option value="#business">#business</option>
-				<option value="#politics">#politics</option>
-				<%- adminSelect %>
-			</select>
-			<br>&nbsp;<input placeholder = "photo [url]" name = "postImage" id = "userPost" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type = "url" style = "border-radius:0px;">
-			<br><br>
-			<button type = "submit">
-				Post <%- include("./icons/add"); %>
-			</button>
-		</form>
-	</div>
-	<center>
+			</form>
+		</div>
 		<%- include("./partials/footer.html"); %>
-	</center>
-</body>
+	</body>
+</html>

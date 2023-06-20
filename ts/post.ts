@@ -47,7 +47,7 @@ module.exports = function(app) {
 				let userContent = req.body.postContent;
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
-				if(regex.test(userTitle) == false || regex.test(userContent) == false || topicRegex.test(userTopic) == false){ //regex pattern checking if title/content
+				if(regex.test(userTitle) == false || regex.test(userContent) == false || topicRegex.test(userTopic) == false || userTitle.length > 40 || userContent.length > 250){ //regex pattern checking if title/content
 					res.render("404");
 					console.log("invalid regex");
 				}else{

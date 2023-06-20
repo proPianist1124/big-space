@@ -1,39 +1,69 @@
 <!doctype html>
-<head>
-	<title>Big Space | Login</title>
-	<meta property="og:title" content="Big Space | Share Content"/>
-	<meta property="og:description" content="Share content together! Connect with others with our easy UI and have your voice heard!"/>
-	<%- include("./partials/meta.html"); %>
-</head>
-<body>
-	<center>
-		<br>
-		<%- include("./partials/header.html"); %>
-		<br>
-		<h2 style = "color:var(--primary)">Login</h2>
-		<form action = "/login" method = "POST">
-			<input name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
-			<br>
-			<input name = "password" placeholder = "Enter password…" autocomplete = "off" type = "password" required/>
+<html lang = "en">
+	<head>
+		<title>Big Space | Share Content Together!</title>
+		<meta property="og:title" content="Big Space | Share Content"/>
+		<meta property="og:description" content="Share content together! Connect with others with our easy UI and have your voice heard!"/>
+		<%- include("./partials/meta.html"); %>
+	</head>
+	<body>
+		<center>
+			<div style = "float:right; display:flex; vertical-align:middle; align-items:center;">
+				<button id = "modalBtn">Login / Sign Up</button>
+			</div>
 			<br><br>
-			<button type = "submit">Login</button>
-		</form>
-		<br>
-		<h2 style = "color:var(--primary)">Sign Up </h2>
-		<form action = "/new_account" method = "POST">
-			<input name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
-			<br>
-			<input name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
-			<br><br>
-			<button type = "submit">Sign Up</button>
-		</form>
-			<br>
-			<noscript>
-				<span style = "color:#D9544D">please enable javascript for this website to function</span>
-			</noscript>
-		<!-- <h2>Not Trusting? Login with Replit instead!</h2><button onclick="alert('replit auth is not available yet')" class = "replit"><img src = "/replit.png" style = "width:25px; height:25px; vertical-align:middle;"> Auth with Replit</button></center>-->
-	</center>
-	<center>
+			<%- include("./partials/header.html"); %>
+				<br>
+				<div class = "card-container">
+					<h2>Why Us?</h2>
+					<div class = "card">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+				</div>
+				<div class = "card-container">
+					<h2>What We Provide</h2>
+					<div class = "card">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+				</div>
+				<div class = "card-container">
+					<h2>Our Mission</h2>
+					<div class = "card">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+				</div>
+			
+				<div id="authModal" class="modal">
+					<div class="modal-content">
+						<h2 style = "color:var(--primary)">Login</h2>
+						<form action = "/login" method = "POST">
+							<input name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
+							<br>
+							<input name = "password" placeholder = "Enter password…" autocomplete = "off" type = "password" required/>
+							<br><br>
+							<button type = "submit">Login</button>
+						</form>
+						<br>
+						<h2 style = "color:var(--primary)">Sign Up </h2>
+						<form action = "/new_account" method = "POST">
+							<input name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
+							<br>
+							<input name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
+							<br><br>
+							<button type = "submit">Sign Up</button>
+						</form>
+					</div>
+				</div>
+				<noscript>
+					<span style = "color:#D9544D">please enable javascript for this website to function</span>
+				</noscript>
+		</center>
 		<%- include("./partials/footer.html"); %>
-	</center>
-</body>
+		<script>
+			let modal = document.getElementById("authModal");
+			let btn = document.getElementById("modalBtn");
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+				window.onclick = function(event) {
+					if (event.target == modal) {
+						modal.style.display = "none";
+					}
+				}
+		</script>
+	</body>
+</html>

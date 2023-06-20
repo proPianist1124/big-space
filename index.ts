@@ -134,7 +134,8 @@ app.get("/posts/:id", function(req, res) {
 			eval(await db.get(postString.author));
 			res.render("post_view", {
 				title: postString.title, // post title
-				pulledPost: `"${postString.content}"<br><br>${postString.image}`, // post with an image
+				content: postString.content,
+				image: postString.image,
 				author: user.name, // post author
 				topic: postString.topic, // post topic
 			});
@@ -149,6 +150,7 @@ app.get("/@:user", function(req, res) {
 		let user = [];
 		let userId = req.params.user; // selected user
 		let bio = [];
+		let bioMeta = [];
 		let page = [];
 		let follow = [];
 		eval(await db.get(sha256(userId)));
@@ -157,8 +159,10 @@ app.get("/@:user", function(req, res) {
 		}else{
 			if(user.bio == ""){
 				bio = `<span style = "color:var(--error)">no bio available</span>`;
+				bioMeta = `no bio available`;
 			}else{
 				bio = `<span style = "color:var(--tertiary)">${user.bio}</span>`;
+				bioMeta = user.bio;
 			}
 			if(user.page == ""){
 				page = `<span style = 'color:var(--error)'>no page available</span>`;
@@ -169,8 +173,9 @@ app.get("/@:user", function(req, res) {
 				bio: bio, // selected user's bio (about me)
 				page: page, // selected user's website WITH CSS
 				pageUrl: user.page, // selected user's website URL
-				userSelect: userId, // selected user
-				userSelectProfile: user.profile, // selected user's profile
+				bioMeta: bioMeta,
+				user: userId, // selected user
+				profile: user.profile, // selected user's profile
 			});
 		}
 	})();

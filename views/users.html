@@ -1,37 +1,38 @@
 <!doctype html>
-<head>
-	<title>Big Space | <%- userSelect %></title>
-	<%- include("./partials/meta.html"); %>
-</head>
-<body>
-	<center>
-		<%- include("./partials/header.html"); %>
-	</center>
-	<br> 
-	<div class = "postcard" style = "background-color:var(--post);">
-		<h2 style = "text-align:center">
-			<img src = "<%- userSelectProfile %>" style = "border-radius:50%; width:100px;">
-			<br>
-			<%- userSelect %>
-		</h2>
-		<p style = "text-align:left; font-size:18px;">
-			<%- include("./icons/profile"); %> About me: <%- bio %>
-			<br>
-			<%- include("./icons/world"); %> Website: 
-			<a href = "<%- pageUrl %>" class = "default" target = "_blank">
-				<%- page %>
+<html lang = "en">
+	<head>
+		<title>Big Space | <%- user %></title>
+		<meta property="og:title" content="About <%- user %>"/>
+		<meta property="og:description" content="<%- bioMeta %>"/>
+		<%- include("./partials/meta.html"); %>
+	</head>
+	<body>
+		<center>
+			<%- include("./partials/header.html"); %>
+		</center>
+		<br> 
+		<div class = "postcard" style = "background-color:var(--post);">
+			<h2 style = "text-align:center">
+				<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
+				<br>
+				<%- user %>
+			</h2>
+			<span style = "text-align:left; font-size:18px;">
+				<%- include("./icons/profile"); %>About me: <%- bio %>
+					<br>
+					<%- include("./icons/world"); %> Website: 
+						<a href = "<%- pageUrl %>" class = "default" target = "_blank">
+							<%- page %>
+						</a>
+					</span></div>
+		<br>
+		<center>
+			<a href = "/">
+				<button>
+					<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
+				</button>
 			</a>
-		</p>
-	</div>
-	<br>
-	<center>
-		<a href = "/">
-			<button>
-				<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
-			</button>
-		</a>
-	</center>
-	<center>
+		</center>
 		<%- include("./partials/footer.html"); %>
-	</center>
-</body>
+	</body>
+</html>

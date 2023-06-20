@@ -12,8 +12,8 @@
 	--post:#2e2e2e;
 	--primary:#d1d1d1;
 	--secondary:#616161;
-	--tertiary:#985eff;
-	--tertiary-darker:#6200ee;
+	--tertiary:#e75480;
+	--tertiary-darker:#d23262;
 	--error:#D9544D;
 	--error-bolder:#f20202;
 	--badgeBg:#1E90FF;
@@ -112,11 +112,20 @@ button.post{
 	width:50px;
 	color:#ffffff;
 }
+button.logout{
+	background-color:var(--error);
+	transition:0.5s;
+	width:100px;
+}
+button.logout:hover{
+	background-color:var(--error-bolder);
+	cursor:pointer;
+}
 
 input{
 	font-family: var(--mainFont);
 	color:var(--secondary);
-	width:400px;
+	width:100%;
 	height:50px;
 	transition:0.3s;
 	background-color:var(--post);
@@ -145,7 +154,7 @@ select{
 	border:none;
 	background-color:var(--post);
 	color:var(--secondary);
-	width:404px;
+	width:100%;
 	height:50px;
 	font-size:20px;
 	transition:0.3s;
@@ -181,15 +190,6 @@ a.user:hover{
 }
 .profile:hover{
 	text-decoration:underline;
-}
-a.logout{
-	color:var(--error);
-	padding:10px;
-	transition:0.5s;
-}
-a.logout:hover{
-	color:var(--error-bolder);
-	cursor:pointer;
 }
 .icon a{
 	color:var(--primary);
@@ -258,10 +258,24 @@ hr {
 	background-color:var(--post);
 	border-radius:5px;
 	padding:10px 5px;
-	transition:0.3s
+	transition:0.3s;
+	overflow:auto;
 }
 .card:hover{
 	background-color:var(--background-lighter);
+}
+.card-container{
+	color:var(--secondary);
+}
+.card-container h2{
+	color:var(--secondary);
+	transition:0.3s;
+}
+.card-container:hover{
+	color:var(--primary);
+}
+.card-container h2:hover{
+	color:var(--primary);
 }
 
 .sidenav {
@@ -349,4 +363,31 @@ hr {
 @keyframes fadeout {
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: var(--background-lighter);
+  margin: auto;
+  padding: 20px;
+  width: 50%;
+	border-radius:20px;
+	animation: fadeInAnimation ease 1s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
 }

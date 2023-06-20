@@ -12,7 +12,7 @@ const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
 const apiLimiter = rateLimit({
-	windowMs: 60 * 60 * 1000,
+	windowMs: 120 * 60 * 1000, // window is 120 minutes
 	max: 1,
 	standardHeaders: true,
 	legacyHeaders: false,
