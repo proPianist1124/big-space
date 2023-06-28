@@ -12,7 +12,14 @@
 		</center>
 		<div class = "postcard" style = "background-color:var(--post);">
 			<h2 style = "text-align:center">
-				"<%- title %>" - <span style = "color:var(--secondary)">Expanded View</span>
+				<span>
+					<img src = "<%- authorProfile %>" style = "width:35px; height:35px; vertical-align:middle;">
+					<a href = "/@<%- author %>" class = "user"><%- author %></a>
+				</span>
+				 - "<%- title %>"
+				<span class = "report" onclick = "alert('reported this post! mod team will take a look at it!')">
+					<%- include("./icons/flag"); %>
+				</span>
 			</h2>
 		</div>
 		<div class = "postcard" style = "background-color:var(--post);">
@@ -22,21 +29,29 @@
 			<br>
 			<%- image %>
 		</div>
-		<br>
+		<div class = "postcard" style = "background-color:var(--post)">
+			<h3>Make a comment</h3>
+			<form action = "/comment" method = "POST">
+				<input placeholder = "comment…" autocomplete = "off" name = "comment" required/><br><br>
+				<button type = "submit" onclick = "document.cookie = 'post=<%- post %>'"><%- include("./icons/add"); %> Comment</button>&nbsp;&nbsp;<span style = "color:var(--error)">*Users must have an account to comment</span>
+				<br><br>
+			</form>
+		</div>
+		<div class = "postcard" style = "background-color:var(--background)">
+			<h3>Comments</h3>
+			<%- comments %>
+		</div>
 		<center>
-			<h2>Impressed? 
-				<a href = "/@<%- author %>" class = "user">
-					Follow "<%- author %>"!
-				</a>
-				&nbsp;&nbsp;&nbsp;&nbsp;<span onclick = "copy()"><%- include("./icons/share"); %></span></h2>
 			<a href = "/">
 				<button>
 					<%- include("./icons/back"); %>
 						&nbsp;&nbsp;Go back
 				</button>
 			</a>
-			<br><br><br>
 		</center>
-		<%- include("./partials/footer.html"); %>
+		<br><br><br>
+		<div style = "text-align:center;">
+			<%- include("./partials/footer.html"); %>
+		</div>
 	</body>
 </html>

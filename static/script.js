@@ -1,7 +1,3 @@
-function copy(){
-	alert(window.location.href);
-}
-
 // function to set a given theme/color-scheme
 function setTheme(themeName) {
 	localStorage.setItem('theme', themeName);
@@ -9,7 +5,7 @@ function setTheme(themeName) {
 }
 // function to toggle between light and dark theme
 function toggleTheme() {
-  if (localStorage.getItem('theme') === 'theme-light') {
+  if (localStorage.getItem('theme') == 'theme-light') {
 		setTheme('theme-dark');
 		document.getElementById("snackbar").innerHTML = `Configured Dark Mode`;
   } else {
@@ -22,10 +18,10 @@ function toggleTheme() {
 }
 // Immediately invoked function to set the theme on initial load
 function load(){
-	if (localStorage.getItem('theme') === 'theme-dark') {
-		setTheme('theme-dark');
-  } else {
+	if (localStorage.getItem('theme') == 'theme-light') {
 		setTheme('theme-light');
+  } else {
+		setTheme('theme-dark');
 	}
 }
 

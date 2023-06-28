@@ -1,34 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lato&family=Manrope&family=Poppins&family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&display=swap');
 
 :root{
-	--mainFont:'Inter', sans-serif;
-	--secondFont:'Poppins', sans-serif;
-	--thirdFont:'Raleway', sans-serif;
+	--mainFont:'Open Sans', sans-serif;
+	--badgeBg:#985eff;
 	--badgeClr:#ffffff;
+	--error:#D9544D;
 }
+
 .theme-dark{
 	--background:#1f1f1f;
-	--background-lighter:#363636;
-	--post:#2e2e2e;
+	--background-lighter:#303030;
+	--post:#262626;
 	--primary:#d1d1d1;
 	--secondary:#616161;
 	--tertiary:#e75480;
 	--tertiary-darker:#d23262;
-	--error:#D9544D;
-	--error-bolder:#f20202;
-	--badgeBg:#1E90FF;
 }
 .theme-light{
 	--background:#ffffff;
 	--background-lighter:#ededed;
 	--post:#f7f7f7;
 	--primary:#171717;
-	--secondary:#808080;
-	--tertiary:#29a3f5;
-	--tertiary-darker:dodgerblue;
-	--error:#f20202;
-	--error-bolder:#bc0b0b;
-	--badgeBg:#985eff;
+	--secondary:#b0b0b0;
+	--tertiary:#e75480;
+	--tertiary-darker:#d23262;
 }
 body {
 	background-color:var(--background);
@@ -40,12 +35,12 @@ body {
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 	transition:0.3s;
-	margin:20px;
 	user-select:none;
+	overflow-x: hidden;
 }
 h1, h2, h3, h4, h5, h6{
 	color:var(--primary);
-	font-family:var(--thirdFont);
+	font-weight:normal;
 }
 h1{
 	animation: bounceIn 2s;
@@ -80,7 +75,7 @@ p{
 	font-size:17px;
 }
 button{
-	font-family: var(--secondFont);
+	font-family: var(--mainFont);
 	font-size:15px;
 	border:none;
 	padding:5px 10px;
@@ -121,17 +116,20 @@ button.logout:hover{
 	background-color:var(--error-bolder);
 	cursor:pointer;
 }
-
+input, select{
+	width:100%;
+	height:50px;
+	box-sizing:border-box;
+}
 input{
 	font-family: var(--mainFont);
 	color:var(--secondary);
-	width:100%;
-	height:50px;
 	transition:0.3s;
 	background-color:var(--post);
 	font-size:20px;
 	outline:none;
 	border:none;
+	border-radius:10px;
 }
 input:focus{
 	background-color:var(--background-lighter);
@@ -140,10 +138,11 @@ input:focus{
 	border:none;
 }
 input.default{
-	height:20px;
+	height:26px;
 	width:150px;
 	color:var(--tertiary);
-	font-size:18px;
+	font-size:16px;
+	border-radius:5px;
 }
 input.default:focus{
 	background-color:var(--background);
@@ -154,8 +153,6 @@ select{
 	border:none;
 	background-color:var(--post);
 	color:var(--secondary);
-	width:100%;
-	height:50px;
 	font-size:20px;
 	transition:0.3s;
 }
@@ -211,7 +208,9 @@ img{
 }
 img.pfp{
 	border-radius:50%;
+	overflow:hidden;
 	width:25px;
+	height:25px;
 	vertical-align:middle;
 	background-color:var(--post);
 }
@@ -225,6 +224,17 @@ svg{
 }
 hr {
   border-top: 1px solid var(--post);
+}
+span.report{
+	float:right;
+	color:var(--secondary);
+	transition:0.3s;
+}
+span.report:hover{
+	color:var(--error);
+}
+span.report:focus{
+	color:var(--error);
 }
 
 .pencil {
@@ -259,7 +269,7 @@ hr {
 	border-radius:5px;
 	padding:10px 5px;
 	transition:0.3s;
-	overflow:auto;
+	overflow:hidden;
 }
 .card:hover{
 	background-color:var(--background-lighter);
@@ -275,7 +285,7 @@ hr {
 	color:var(--primary);
 }
 .card-container h2:hover{
-	color:var(--primary);
+	color:var(--tertiary);
 }
 
 .sidenav {
@@ -295,7 +305,7 @@ hr {
   padding: 0px 10px;
 }
 .postcard{
-	max-width: 800px;
+	max-width: 925px;
 	margin: 15px auto;
 	padding: 2px 20px;
 	background-color:var(--post);
@@ -314,7 +324,7 @@ hr {
 	color:var(--badgeClr);
 	border-radius:10px;
 	max-width:fit-content;
-	font-family:var(--secondFont);
+	font-family:var(--mainFont);
 	font-size:14px;
 	padding:2.5px 5px;
 }
@@ -390,4 +400,65 @@ hr {
 	animation: fadeInAnimation ease 1s;
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 175px;
+  background-color: var(--post);
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+	border-radius:10px;
+}
+
+.sidebar a{
+  display: block;
+  color: var(--secondary);
+  padding: 10px;
+  text-decoration: none;
+	vertical-align:middle;
+	transition:0.3s;
+}
+.sidebar a:hover{
+	color:var(--tertiary);
+}
+.sidebar a.sidebar-profile{
+	color:var(--primary);
+	transition:0.3s;
+}
+.sidebar a.sidebar-profile:hover{
+	color:var(--tertiary);
+}
+.sidebar a.logout:hover{
+	color:#fff;
+	background-color:var(--error);
+}
+
+div.content {
+  margin-left: 100px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 1250px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {
+		float: left;
+	}
+	div.content {
+		margin-left: 0;
+	}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
 }

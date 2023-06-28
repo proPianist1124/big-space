@@ -13,17 +13,20 @@
 		<br> 
 		<div class = "postcard" style = "background-color:var(--post);">
 			<h2 style = "text-align:center">
-				<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
+				<img src = "<%- profile %>" style = "border-radius:50%; width:100px; height:100px;">
 				<br>
 				<%- user %>
 			</h2>
 			<span style = "text-align:left; font-size:18px;">
-				<%- include("./icons/profile"); %>About me: <%- bio %>
+				<%- include("./icons/profile"); %>
+					<span style = "font-weight:bold">About me:</span> <%- bio %>
 					<br>
-					<%- include("./icons/world"); %> Website: 
+					<%- include("./icons/world"); %>
+						<span style = "font-weight:bold">Website:</span>
 						<a href = "<%- pageUrl %>" class = "default" target = "_blank">
 							<%- page %>
 						</a>
+						<br><br>
 					</span></div>
 		<br>
 		<center>
@@ -33,6 +36,8 @@
 				</button>
 			</a>
 		</center>
-		<%- include("./partials/footer.html"); %>
+		<div style = "text-align:center;">
+			<%- include("./partials/footer.html"); %>
+		</div>
 	</body>
 </html>

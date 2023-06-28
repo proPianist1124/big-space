@@ -3,13 +3,13 @@
 	<head>
 		<title>Big Space | Share Content Together!</title>
 		<meta property="og:title" content="Big Space | Share Content"/>
-		<meta property="og:description" content="Share content together! Connect with others with our easy UI and have your voice heard!"/>
+		<meta property="og:description" content="Share content together on this friendly social networking site! Make friends! Show your moments!"/>
 		<%- include("./partials/meta.html"); %>
 	</head>
 	<body>
 		<center>
 			<div style = "float:right; display:flex; vertical-align:middle; align-items:center;">
-				<button id = "modalBtn">Login / Sign Up</button>
+				<button id = "loginBtn" style = "border-radius:5px 0px 0px 5px; width:100px;">Login</button>&nbsp;<button id = "signupBtn" style = "border-radius:0px 5px 5px 0px; width:100px;">Sign up</button>
 			</div>
 			<br><br>
 			<%- include("./partials/header.html"); %>
@@ -26,23 +26,27 @@
 					<h2>Our Mission</h2>
 					<div class = "card">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
 				</div>
-			
-				<div id="authModal" class="modal">
+				<br><br><br>
+				<div id = "loginModal" class="modal">
 					<div class="modal-content">
 						<h2 style = "color:var(--primary)">Login</h2>
 						<form action = "/login" method = "POST">
-							<input name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
+							<input style = "border-radius:10px 10px 0px 0px;" name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
 							<br>
-							<input name = "password" placeholder = "Enter password…" autocomplete = "off" type = "password" required/>
+							<input style = "border-radius:0px 0px 10px 10px;" name = "password" placeholder = "Enter password…" autocomplete = "off" type = "password" required/>
 							<br><br>
 							<button type = "submit">Login</button>
 						</form>
 						<br>
+					</div>
+				</div>
+				<div id = "signupModal" class = "modal">
+					<div class = "modal-content">
 						<h2 style = "color:var(--primary)">Sign Up </h2>
 						<form action = "/new_account" method = "POST">
-							<input name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
+							<input style = "border-radius:10px 10px 0px 0px;" name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
 							<br>
-							<input name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
+							<input style = "border-radius:0px 0px 10px 10px;" name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
 							<br><br>
 							<button type = "submit">Sign Up</button>
 						</form>
@@ -52,17 +56,19 @@
 					<span style = "color:#D9544D">please enable javascript for this website to function</span>
 				</noscript>
 		</center>
-		<%- include("./partials/footer.html"); %>
+		<div style = "text-align:center;">
+			<%- include("./partials/footer.html"); %>
+		</div>
 		<script>
-			let modal = document.getElementById("authModal");
-			let btn = document.getElementById("modalBtn");
-			btn.onclick = function() {
-				modal.style.display = "block";
+			let loginModal = document.getElementById("loginModal");
+			let signupModal = document.getElementById("signupModal");
+			let loginBtn = document.getElementById("loginBtn");
+			let signupBtn = document.getElementById("signupBtn");
+			loginBtn.onclick = function() {
+				loginModal.style.display = "block";
 			}
-				window.onclick = function(event) {
-					if (event.target == modal) {
-						modal.style.display = "none";
-					}
+				signupBtn.onclick = function() {
+					signupModal.style.display = "block";
 				}
 		</script>
 	</body>

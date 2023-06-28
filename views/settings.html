@@ -5,57 +5,43 @@
 		<%- include("./partials/meta.html"); %>
 	</head>
 	<body>
-		<h3>
-			&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-			<span style = "float:right;">
-				<span class = "icon">
-					<a href = "/settings"><%- include("./icons/settings"); %></a>
-				</span>
-				&nbsp;
-				<a href = "/logout" class = "logout">
-					<button class = "logout">Logout <%- include("./icons/logout"); %></button>
-				</a>
+		<div class="sidebar">
+			<a href = "/@<%- user %>" class = "sidebar-profile"><img src = "<%- profile %>" class = "pfp"/> &nbsp;<%- user %></a>
+			<a href="/"><%- include("./icons/home"); %> Home</a>
+			<a href="/settings"><%- include("./icons/settings"); %> Settings</a>
+			<a href="/post_page"><%- include("./icons/pencil"); %> Share</a>
+			<a href="/logout" class = "logout"><%- include("./icons/logout"); %> Logout</a>
+			<span style = "position: fixed; left: 0; bottom: 0; display:flex; vertical-align:middle;">
+				<a href = "https://github.com/proPianist1124/big-space">Big Space™ 2023</a>
 			</span>
-		</h3>
-		<center>
-			<%- include("./partials/header.html"); %>
-		</center>
-		<div class = "postcard" style = "background-color:var(--post);">
-			<form action = "/save_settings" method = "POST">
-				<h2 style = "text-align:center">
-					<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
-					<br>
-					Account: <%- user %>
-				</h2>
-				<p style = "text-align:left; font-size:18px;">
-					Token: <span id = "userToken" style = "color:var(--tertiary)" onclick = "showToken()"><%- token %></span>
-					<br>
-					Password: <span id = "userPassword" style = "color:var(--tertiary)" onclick = "showPassword()"><%- password %></span>
-					<br>Bio: <input name = "bio" class = "default" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off" required/>
-					<br>Page: <input name = "page" type = "url" class = "default" value = "<%- page %>" placeholder = "your page…" autocomplete = "off" required/>
-					<br>Profile: <input name = "profile" type = "url" class = "default" value = "<%- profile %>" placeholder = "profile pic…" autocomplete = "off" required/>
-				</p>
-				<br><br>
-				<button type = "submit">
-					Save <%- include("./icons/save"); %>
-				</button>
-				<br><br>
-			</form>
 		</div>
-		<br>
-		<center>
-			<a href = "/">
-				<button style = "border-radius:5px 0px 0px 5px;">
-					<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
-				</button>
-			</a>
-			<a href = "/@<%- user %>">
-				<button style = "border-radius:0px 5px 5px 0px;">
-					<%- include("./icons/profile"); %>&nbsp;&nbsp;View Profile
-				</button>
-			</a>
-		</center>
-		<%- include("./partials/footer.html"); %>
+		<div class = "content">
+			<center>
+				<%- include("./partials/header.html"); %>
+			</center>
+			<div class = "postcard" style = "background-color:var(--post);">
+				<form action = "/save_settings" method = "POST">
+					<h2 style = "text-align:center">
+						<img src = "<%- profile %>" style = "border-radius:50%; width:100px;">
+						<br>
+						Account: <%- user %>&nbsp;&nbsp;<span onclick = "toggleTheme()"><%- include("./icons/theme"); %></span>
+					</h2>
+					<p style = "text-align:left; font-size:18px;">
+						Token: <span id = "userToken" style = "color:var(--tertiary)" onclick = "showToken()"><%- token %></span>
+						<br>
+						Password: <span id = "userPassword" style = "color:var(--tertiary)" onclick = "showPassword()"><%- password %></span>
+						<br>Bio: <input name = "bio" class = "default" value = "<%- bio %>" placeholder = "your bio…" autocomplete = "off" required/>
+						<br>Page: <input name = "page" type = "url" class = "default" value = "<%- page %>" placeholder = "your page…" autocomplete = "off" required/>
+						<br>Profile: <input name = "profile" type = "url" class = "default" value = "<%- profile %>" placeholder = "profile pic…" autocomplete = "off" required/>
+					</p>
+					<br><br>
+					<button type = "submit">
+						Save <%- include("./icons/save"); %>
+					</button>
+					<br><br>
+				</form>
+			</div>
+		</div>
 		<script>
 			hideInfo();
 			function showPassword(){

@@ -5,34 +5,27 @@
 		<%- include("./partials/meta.html"); %>
 	</head>
 	<body>
-		<h3>
-			&nbsp;&nbsp;<img src = "<%- profile %>" class = "pfp"/> &nbsp;<a class = "profile" href = "/@<%- user %>"><%- user %></a>
-			<span style = "float:right;">
-				<span class = "icon">
-					<a href = "/settings"><%- include("./icons/settings"); %></a>
-				</span>
-				&nbsp;
-				<a href = "/logout" class = "logout">
-					<button class = "logout">Logout <%- include("./icons/logout"); %></button>
-				</a>
+		<div class="sidebar">
+			<a href = "/@<%- user %>" class = "sidebar-profile"><img src = "<%- profile %>" class = "pfp"/> &nbsp;<%- user %></a>
+			<a href="/"><%- include("./icons/home"); %> Home</a>
+			<a href="/settings"><%- include("./icons/settings"); %> Settings</a>
+			<a href="/post_page"><%- include("./icons/pencil"); %> Share</a>
+			<a href="/logout" class = "logout"><%- include("./icons/logout"); %> Logout</a>
+			<span style = "position: fixed; left: 0; bottom: 0; display:flex; vertical-align:middle;">
+				<a href = "https://github.com/proPianist1124/big-space">Big Space™ 2023</a>
 			</span>
-	</h3>
-		<center>
-			<%- include("./partials/header.html"); %>
-		</center>
-		<%- posts %>
-			<br><br><br><br>
-			<div class = "pencil">
-				<a href = "/post_page">
-					<button class = "post" type = "submit"><%- include("./icons/pencil"); %></button>
-				</a>
-			</div>
-			<%- include("./partials/footer.html"); %>
-			<script>
-				if(localStorage.getItem("viewed_message2") == null){
-					alert("hey! Big Space is soon going to be undergoing huge changes, so your account might be logged out! However, don't worry. Your account hasn't been deleted. Just sign in again, and everything will be alright.");
-					localStorage.setItem("viewed_message2", "true");
-				}
-			</script>
+		</div>
+		<div class = "content">
+			<center>
+				<%- include("./partials/header.html"); %>
+			</center>
+			<%- posts %>
+				<br><br><br>
+				<!-- <div class = "pencil">
+					<a href = "/post_page">
+						<button class = "post" type = "submit"><%- include("./icons/pencil"); %></button>
+					</a>
+				</div> -->
+		</div>
 	</body>
 </html>
