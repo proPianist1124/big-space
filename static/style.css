@@ -90,7 +90,9 @@ button:hover{
 	background-color:var(--tertiary-darker);
 	cursor:pointer;
 	box-shadow: 0 5px 15px var(--tertiary-darker);
-	width:20%;
+	transform:scale(1.1,1.1);
+	-webkit-transform:scale(1.1,1.1);
+	-moz-transform:scale(1.1,1.1);
 }
 button.replit{
 	background-color:#1C2333;

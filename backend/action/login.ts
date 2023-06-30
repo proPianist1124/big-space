@@ -11,7 +11,6 @@ const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
-app.use(cookieParser());
 module.exports = function(app) {
 	app.post("/login", function(req, res) {
 		function sha256(input) {
