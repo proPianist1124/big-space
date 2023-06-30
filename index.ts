@@ -1,6 +1,6 @@
 // https://replit.com/talk/learn/Replit-DB/43305 remember to uninstall "path" and "http" and "fs"
 const Redis = require("ioredis")
-const db = new Redis(process.env["token"]);
+const db = new Redis(process.env["redis_key"]);
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -12,10 +12,6 @@ const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
-let mods = {
-	mod1: process.env["mod1"],
-	mod2: process.env["mod2"],
-}
 function sha256(input) {
 	return createHash("sha256").update(input).digest("hex");
 }
@@ -39,11 +35,6 @@ require("./action/post.ts")(app); // post
 require("./action/save_settings.ts")(app); // save your bio
 require("./action/comment.ts")(app); // add a comment to a post
 
-
-app.get("/test", function(req, res) {
-	let test = `<script>alert("test")</script>`.toString();
-	res.send(test);
-});
 // login page/home page
 app.get("/", function(req, res) {
 	let postString = [];
@@ -73,8 +64,8 @@ app.get("/", function(req, res) {
 								badge = process.env["pro_badge"];
 							}
 						}
-						let postLayout = `<a href = "/posts/${postId}"><div class = "postcard" onclick = "document.cookie = 'post=${postId}'"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2><span>${postString.content}</span><br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i>${badge}</p></div></a> ${posts}`;
-						posts = postLayout; // adds newly evaluated post to continuing string
+						let structure = `<a href = "/posts/${postId}"><div class = "postcard" onclick = "document.cookie = 'post=${postId}'"><h2><span style = "color:var(--primary)"><u>${postString.topic}</u>&nbsp;&nbsp;${postString.date}</span>&nbsp;&nbsp;<span style = "color:var(--secondary)">${postString.title}</span></h2><span>${postString.content}</span><br>${postString.image}<p style = "color:var(--tertiary)"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i>&nbsp;&nbsp;${badge}</p></div></a> ${posts}`;
+						posts = structure; // adds newly evaluated post to continuing string
 						repeatAndCheck();
 					}else{
 						if(await db.get("p1") == null){

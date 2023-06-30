@@ -1,5 +1,5 @@
 const Redis = require("ioredis")
-const db = new Redis(process.env["token"]);
+const db = new Redis(process.env["redis_key"]);
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -9,6 +9,7 @@ const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
+const cloudinary = require('cloudinary').v2;
 const { createHash } = require("node:crypto");
 
 const apiLimiter = rateLimit({
@@ -17,6 +18,12 @@ const apiLimiter = rateLimit({
 	standardHeaders: true,
 	legacyHeaders: false,
 	message:"chill out on the posts smh :)",
+});
+// Cloudinary Configuration
+cloudinary.config({
+  cloud_name: "dyemytgtv",
+  api_key: process.env["cloudinary_key"],
+  api_secret: process.env["cloudinary_secret"],
 });
 
 const regex = /^[\.a-zA-Z0-9,!? ]*$/;
@@ -35,7 +42,6 @@ module.exports = function(app) {
 			eval(user);
 			if (token == undefined || req.cookies.password == undefined || req.cookies.password != user.password) {
 				res.render("404");
-				console.log("invalid auth");
 			} else {
 				let postNum = 0;
 				let image = [];
@@ -43,9 +49,20 @@ module.exports = function(app) {
 				let userContent = req.body.postContent;
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
-				if(regex.test(userTitle) == false || regex.test(userContent) == false || topicRegex.test(userTopic) == false || userTitle.length > 40 || userContent.length > 250){ //regex pattern checking if title/content
+
+				if(userContent.includes(`"`) || userContent.includes(`<`) || userContent.includes(`>`)){
+					if(userContent.includes(`"`)){
+						userContent = userContent.replace(/"/g, "'"); // quotations break the entire "postString"
+					}
+					if(userContent.includes(`<`)){
+						userContent = userContent.replace(/</g, "&lt;"); // prevent XSS attacks
+					}
+					if(userContent.includes(`>`)){
+						userContent = userContent.replace(/>/g, "&gt;"); // prevent XSS attacks
+					}
+				}
+				if(regex.test(userTitle) == false || topicRegex.test(userTopic) == false || userTitle.length > 40 || userContent.length > 250){ //regex pattern checking if title/content
 					res.render("404");
-					console.log("invalid regex");
 				}else{
 					counting(); // start checking if post exists, then replace it if it doesnt
 				}
@@ -62,7 +79,7 @@ module.exports = function(app) {
 							console.log(`New Post: ${userTitle.green} - ${userContent.green}`);
 
 							if (userImage != "") { // to check if image url box is filled
-								if(imgRegex.test(userImage) == false){
+								if(imgRegex.test(userImage) == false){ // confirm "userImage" is not an xss attack
 									image = "";
 								}else{
 									image = `<center><img src = '${userImage}' style = 'width:50%; height:50%;'></center>`;
@@ -71,8 +88,13 @@ module.exports = function(app) {
 								image = "";
 							}
 							// set a database object for the post that DOESN'T exist
+							console.log(userContent)
 							await db.set(postName, `postString = {title: "${userTitle}", content: "${userContent}", date: "${fullDate}", topic: "${userTopic}", image: "${image}", likes: "0", dislikes: "0", author: "${req.cookies.name}"}`);
+							console.log(await db.get(postName))
 							res.redirect("/"); // send the client back to the og url
+							
+							let postNumber = parseInt(await db.get("postNumber")) + 1;
+							await db.set("postNumber", postNumber)
 						}
 					})();
 				}

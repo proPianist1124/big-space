@@ -1,5 +1,5 @@
 const Redis = require("ioredis")
-const db = new Redis(process.env["token"]);
+const db = new Redis(process.env["redis_key"]);
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");

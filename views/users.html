@@ -12,17 +12,17 @@
 		</center>
 		<br> 
 		<div class = "postcard" style = "background-color:var(--post);">
-			<h2 style = "text-align:center">
+			<h3 style = "text-align:center">
 				<img src = "<%- profile %>" style = "border-radius:50%; width:100px; height:100px;">
 				<br>
-				<%- user %>
-			</h2>
+				<%- user %>&nbsp;&nbsp;<span style = "font-size:35px;"><%- badge %></span>
+			</h3>
 			<span style = "text-align:left; font-size:18px;">
 				<%- include("./icons/profile"); %>
-					<span style = "font-weight:bold">About me:</span> <%- bio %>
+					About me: <%- bio %>
 					<br>
 					<%- include("./icons/world"); %>
-						<span style = "font-weight:bold">Website:</span>
+						Website: 
 						<a href = "<%- pageUrl %>" class = "default" target = "_blank">
 							<%- page %>
 						</a>
@@ -32,7 +32,7 @@
 		<center>
 			<a href = "/">
 				<button>
-					<%- include("./icons/back"); %>&nbsp;&nbsp;Go back
+					<%- include("./icons/back"); %>&nbsp;Go back
 				</button>
 			</a>
 		</center>
