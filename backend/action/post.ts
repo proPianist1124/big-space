@@ -19,12 +19,6 @@ const apiLimiter = rateLimit({
 	legacyHeaders: false,
 	message:"chill out on the posts smh :)",
 });
-// Cloudinary Configuration
-cloudinary.config({
-  cloud_name: "dyemytgtv",
-  api_key: process.env["cloudinary_key"],
-  api_secret: process.env["cloudinary_secret"],
-});
 
 const regex = /^[\.a-zA-Z0-9,!? ]*$/;
 const imgRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;

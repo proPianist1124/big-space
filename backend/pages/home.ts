@@ -11,9 +11,17 @@ const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
+const apiLimiter = rateLimit({
+	windowMs: 60 * 60 * 1000, // 60 minute window
+	max: 60, // 3 requests per window
+	standardHeaders: true,
+	legacyHeaders: false,
+	message:"bro stop reloading the pages so much :)",
+});
+
 module.exports = function(app) {
 	// login page/home page
-	app.get("/", function(req, res) {
+	app.get("/", apiLimiter, function(req, res) {
 		let postString = [];
 		(async () => {
 			let token = req.cookies.name;

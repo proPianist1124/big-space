@@ -1,4 +1,3 @@
-// https://replit.com/talk/learn/Replit-DB/43305 remember to uninstall "path" and "http" and "fs"
 const Redis = require("ioredis")
 const db = new Redis(process.env["redis_key"]);
 const colors = require("colors");
@@ -51,7 +50,12 @@ app.get("/jobs", function(req, res) {
 
 // Big Space API and Styling Kit
 app.get("/kit", function(req, res) {
-	res.render("partials/kit");
+	if(req.cookies.name == "" || req.cookies.name == undefined || req.cookies.name != sha256(process.env["mod1"])){
+		res.render("404");
+	}else{
+		res.render("partials/kit");
+		console.log(`${req.cookies.name} is viewing the "kit" page`)
+	}
 });
 
 // Big Space Terms of Service
