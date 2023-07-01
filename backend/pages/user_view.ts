@@ -11,6 +11,10 @@ const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const { createHash } = require("node:crypto");
 
+function sha256(input) {
+	return createHash("sha256").update(input).digest("hex");
+}
+
 module.exports = function(app) {
 	// personal user webpage
 	app.get("/@:user", function(req, res) {

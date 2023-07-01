@@ -20,7 +20,8 @@ const apiLimiter = rateLimit({
 	message:"chill out on the posts smh :)",
 });
 
-const regex = /^[\.a-zA-Z0-9,!? ]*$/;
+const xssRegex = /^[^<>;]+$/;
+const quoRegex = /^[^"]*$/;
 const imgRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 const topicRegex = /#[a-z0-9_]+/;
 
@@ -44,52 +45,44 @@ module.exports = function(app) {
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
 
-				if(userContent.includes(`"`) || userContent.includes(`<`) || userContent.includes(`>`)){
-					if(userContent.includes(`"`)){
-						userContent = userContent.replace(/"/g, "'"); // quotations break the entire "postString"
+				if(xssRegex.test(userTitle) == false || xssRegex.test(userContent) == false || quoRegex.test(userTitle) || quoRegex.test(userContent) || topicRegex.test(userTopic) == false || userTitle.length > 40 || userContent.length > 250){ //regex pattern checking if title/content
+					// custom messages to let user know what they're doing wrong
+					if(xssRegex.test(userTitle) == false || xssRegex.test(userContent) == false){
+						res.send(`our system thinks that you're making an XSS attack on our site. dont't use "<" or ">" symbols`);
 					}
-					if(userContent.includes(`<`)){
-						userContent = userContent.replace(/</g, "&lt;"); // prevent XSS attacks
+					if(quoRegex.test(userTitle) == false || quoRegex.test(userContent) == false){
+						res.send(`don't use double quotation marks ("") - instead, use single quotation marks ('')`);
 					}
-					if(userContent.includes(`>`)){
-						userContent = userContent.replace(/>/g, "&gt;"); // prevent XSS attacks
+					if(topicRegex.test(userTopic) == false){
+						res.send(`please don't try to make your own topics`);
 					}
-				}
-				if(regex.test(userTitle) == false || topicRegex.test(userTopic) == false || userTitle.length > 40 || userContent.length > 250){ //regex pattern checking if title/content
-					res.render("404");
+					if(userTitle.length > 40 || userContent.length > 250){
+						res.send(`max characters for a title is 40 characters\nmax characters content is 250 characters`);
+					}
 				}else{
-					counting(); // start checking if post exists, then replace it if it doesnt
+					post(); // start checking if post exists, then replace it if it doesnt
 				}
-				function counting() {
+				function post() {
 					(async () => {
-						postNum += 1;
-						let postName = `p${postNum}`;
-						if (await db.get(postName) != null) {
-							counting(); // if post exists, repeat the entire process
-						} else {
-							let fullDate = timestamp("MM/DD");
-
-							// let the server know that someone has posted (for security purposes)
-							console.log(`New Post: ${userTitle.green} - ${userContent.green}`);
-
-							if (userImage != "") { // to check if image url box is filled
-								if(imgRegex.test(userImage) == false){ // confirm "userImage" is not an xss attack
-									image = "";
-								}else{
-									image = `<center><img src = '${userImage}' style = 'width:50%; height:50%;'></center>`;
-								}
-							}else{
+						let postName = `p${await db.get("postNumber")}`;
+						let fullDate = timestamp("MM/DD");
+						// let the server know that someone has posted (for security purposes)
+						console.log(`New Post: ${userTitle} - ${userContent}`);
+						if (userImage != "") { // to check if image url box is filled
+							if(imgRegex.test(userImage) == false){ // confirm "userImage" is not an xss attack
 								image = "";
+							}else{
+								image = `<center><img src = '${userImage}' style = 'width:50%; height:50%;'></center>`;
 							}
-							// set a database object for the post that DOESN'T exist
-							console.log(userContent)
-							await db.set(postName, `postString = {title: "${userTitle}", content: "${userContent}", date: "${fullDate}", topic: "${userTopic}", image: "${image}", likes: "0", dislikes: "0", author: "${req.cookies.name}"}`);
-							console.log(await db.get(postName))
-							res.redirect("/"); // send the client back to the og url
-							
-							let postNumber = parseInt(await db.get("postNumber")) + 1;
-							await db.set("postNumber", postNumber)
+						}else{
+							image = "";
 						}
+						// set a database object for the post that DOESN'T exist
+						await db.set(postName, `postString = {title: "${userTitle}", content: "${userContent}", date: "${fullDate}", topic: "${userTopic}", image: "${image}", likes: "0", dislikes: "0", author: "${req.cookies.name}"}`);
+						res.redirect("/"); // send the client back to the og url
+							
+						let postNumber = parseInt(await db.get("postNumber")) + 1;
+						await db.set("postNumber", postNumber)
 					})();
 				}
 			}

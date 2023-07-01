@@ -9,7 +9,7 @@
 	<body>
 		<center>
 			<div style = "float:right; display:flex; vertical-align:middle; align-items:center;">
-				<button id = "loginBtn" style = "border-radius:5px 0px 0px 5px; width:100px;">Login</button>&nbsp;<button id = "signupBtn" style = "border-radius:0px 5px 5px 0px; width:100px;">Sign up</button>
+				<button id = "loginBtn" style = "border-radius:50px 0px 0px 50px; width:100px;">Login</button>&nbsp;<button id = "signupBtn" style = "border-radius:0px 50px 50px 0px; width:100px;">Sign up</button>
 			</div>
 			<br><br>
 			<%- include("./partials/header.html"); %>
@@ -47,6 +47,7 @@
 							<input style = "border-radius:10px 10px 0px 0px;" name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
 							<br>
 							<input style = "border-radius:0px 0px 10px 10px;" name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
+							<i>By signing up for an account, you agree to the <a href = "/terms" class = "default" target = "_blank">Terms of Service</a></i>
 							<br><br>
 							<button type = "submit">Sign Up</button>
 						</form>

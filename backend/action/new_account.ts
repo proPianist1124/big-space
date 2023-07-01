@@ -19,7 +19,7 @@ const apiLimiter = rateLimit({
 	message: "don't spam account smh",
 });
 
-const regex = /^[\.a-zA-Z0-9,!? ]*$/;
+const regex = /[^a-zA-Z0-9]/;
 let accounts = [];
 module.exports = function(app) {
 	app.post("/new_account", apiLimiter, function(req, res) {
@@ -34,8 +34,16 @@ module.exports = function(app) {
 			(async () => {
 				newAccount();
 				async function newAccount(){ // async function for creating an account after ratelimit
-					if(regex.test(newUser) == false || newUser.length < 4 || newUser.length > 20){
-						res.render("404");
+					if(regex.test(newUser) == true || newUser.length < 4 || newUser.length > 20){
+						if(regex.test(newUser) == true){
+							res.send("please don't use special characters");
+						}
+						if(newUser.length < 4){
+							res.send("username must be more than 4 letters");
+						}
+						if(newUser.length > 20){
+							res.send("username can't be more than 20 letters");
+						}
 					}else{
 						if (await db.get(newUser) != null) {
 							res.send(`this username has already been taken. <a href = "/">go back</a>`);
