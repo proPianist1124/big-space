@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root{
 	--mainFont:'Poppins', sans-serif;
@@ -176,7 +175,8 @@ a.default{
 	text-decoration:none;
 }
 a.default:hover{
-	text-shadow: 0 0 20px var(--tertiary);
+	color:var(--tertiary-darker);
+	text-shadow: 0 0 20px var(--tertiary-darker);
 }
 a.user{
 	color:var(--tertiary);
@@ -271,12 +271,11 @@ hr{
 }
 .card{
 	max-width:500px;
-	height:120px;
+	height:175px;
 	background-color:var(--post);
 	border-radius:5px;
 	padding:10px 5px;
-	transition:0.3s;
-	overflow:hidden;
+	transition:0.3;
 }
 .card:hover{
 	background-color:var(--background-lighter);
@@ -317,12 +316,28 @@ hr{
 	padding: 2px 20px;
 	background-color:var(--post);
 	color:var(--primary);
-	border-radius:20px;
+	border-radius:10px;
 	transition:0.3s;
 	overflow:hidden;
 }
 .postcard:hover{
 	/*background-color:var(--background-lighter);*/
+	cursor:pointer;
+}
+.usercard{
+	max-width: 925px;
+	margin: 15px auto;
+	padding: 2px 20px;
+	background-color:var(--post);
+	color:var(--primary);
+	border-radius:10px;
+	transition:0.3s;
+	overflow:hidden;
+}
+.usercard:hover{
+	transform:scale(1.05,1.05);
+	-webkit-transform:scale(1.05,1.05);
+	-moz-transform:scale(1.05,1.05);
 	cursor:pointer;
 }
 .badge {

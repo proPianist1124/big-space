@@ -11,7 +11,7 @@
 			<%- include("./partials/header.html"); %>
 		</center>
 		<br> 
-		<div class = "postcard" style = "background-color:var(--post);">
+		<div class = "postcard">
 			<h3 style = "text-align:center">
 				<img src = "<%- profile %>" style = "border-radius:50%; width:100px; height:100px;">
 				<br>
@@ -28,16 +28,21 @@
 						</a>
 						<br><br>
 					</span></div>
-		<br>
-		<center>
-			<a href = "/">
-				<button>
-					<%- include("./icons/back"); %>&nbsp;Go back
-				</button>
-			</a>
-		</center>
-		<div style = "text-align:center;">
-			<%- include("./partials/footer.html"); %>
+		<div class = "postcard" style = "background-color:var(--background); height:50px;">
+			<h3>Recent Posts</h3>
 		</div>
+		<%- posts %>
+			<br>
+			<center>
+				<a href = "/">
+					<button>
+						<%- include("./icons/back"); %>&nbsp;Go back
+					</button>
+				</a>
+			</center>
+			<br><br><br>
+			<div style = "text-align:center;">
+				<%- include("./partials/footer.html"); %>
+			</div>
 	</body>
 </html>

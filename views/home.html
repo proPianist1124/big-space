@@ -9,10 +9,11 @@
 			<a href = "/@<%- user %>" class = "sidebar-profile"><img src = "<%- profile %>" class = "pfp"/> &nbsp;<%- user %></a>
 			<a href="/"><%- include("./icons/home"); %> Home</a>
 			<a href="/settings"><%- include("./icons/settings"); %> Settings</a>
-			<a href="/post_page"><%- include("./icons/pencil"); %> Share</a>
+			<a href="/share"><%- include("./icons/pencil"); %> Share</a>
+			<a href="#"><%- include("./icons/bell"); %> Alerts</a>
 			<a href="/logout" class = "logout"><%- include("./icons/logout"); %> Logout</a>
 			<span style = "position: fixed; left: 0; bottom: 0; display:flex; vertical-align:middle;">
-				<a href = "https://github.com/proPianist1124/big-space">Big Space™ 2023</a>
+				<a onclick = "toggleTheme()" style = "color:var(--secondary);"><%- include("./icons/theme"); %></a>
 			</span>
 		</div>
 		<div class = "content">
