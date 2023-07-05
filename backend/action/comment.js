@@ -9,7 +9,7 @@ const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
-const { createHash } = require("node:crypto");
+const sha256 = require('js-sha256');
 
 const regex = /^[\.a-zA-Z0-9,!? ]*$/;
 const apiLimiter = rateLimit({

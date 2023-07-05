@@ -9,8 +9,7 @@ const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
-const cloudinary = require('cloudinary').v2;
-const { createHash } = require("node:crypto");
+const sha256 = require('js-sha256');
 
 const apiLimiter = rateLimit({
 	windowMs: 60 * 60 * 1000, // 60 minute window
@@ -27,9 +26,6 @@ const topicRegex = /#[a-z0-9_]+/;
 
 module.exports = function(app) {
 	app.post("/post", apiLimiter, function(req, res) {
-		function sha256(input) {
-			return createHash("sha256").update(input).digest("hex");
-		}
 		const location = sha256(req.header("x-forwarded-for"));
 		(async () => {
 			let token = req.cookies.name;

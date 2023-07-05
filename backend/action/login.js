@@ -9,13 +9,10 @@ const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
-const { createHash } = require("node:crypto");
+const sha256 = require('js-sha256');
 
 module.exports = function(app) {
 	app.post("/login", function(req, res) {
-		function sha256(input) {
-			return createHash("sha256").update(input).digest("hex");
-		}
 		(async () => {
 			let user = [];
 			let newUser = req.body.username;

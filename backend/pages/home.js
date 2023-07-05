@@ -1,5 +1,3 @@
-// REMEMBER TO ADD THE RATELIMITER BEFORE I SLEEP
-
 const Redis = require("ioredis")
 const db = new Redis(process.env["redis_key"]);
 const colors = require("colors");
@@ -11,7 +9,7 @@ const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
-const { createHash } = require("node:crypto");
+const sha256 = require('js-sha256');
 
 const icons = {
 	ellipse:`<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>`,

@@ -9,7 +9,7 @@ const bp = require("body-parser");
 const timestamp = require("time-stamp");
 const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
-const { createHash } = require("node:crypto");
+const sha256 = require('js-sha256');
 
 const apiLimiter = rateLimit({
 	windowMs: 120 * 60 * 1000, // window is 120 minutes
@@ -23,9 +23,6 @@ const regex = /[^a-zA-Z0-9]/;
 let accounts = [];
 module.exports = function(app) {
 	app.post("/new_account", apiLimiter, function(req, res) {
-		function sha256(input) {
-			return createHash("sha256").update(input).digest("hex");
-		}
 		const newUser = String(req.body.newAccount);
 		const newPass = String(req.body.newPassword);
 		// const location = sha256(req.header("x-forwarded-for")); dont need to save locations for the time being
