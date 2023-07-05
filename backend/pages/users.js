@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -11,17 +11,9 @@ const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const sha256 = require('js-sha256');
 
-const apiLimiter = rateLimit({
-	windowMs: 45 * 60 * 1000, // 45 minute window
-	max: 15, // 15 requests per window
-	standardHeaders: true,
-	legacyHeaders: false,
-	message:"bro stop reloading the pages so much :)",
-});
-
 module.exports = function(app) {
 	// personal user webpage
-	app.get("/@:user", apiLimiter, function(req, res) {
+	app.get("/@:user", function(req, res) {
 		(async () => {
 			let user = [];
 			let userId = req.params.user; // selected user

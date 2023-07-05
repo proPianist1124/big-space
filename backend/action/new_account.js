@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -12,7 +12,7 @@ const rateLimit = require("express-rate-limit");
 const sha256 = require('js-sha256');
 
 const apiLimiter = rateLimit({
-	windowMs: 120 * 60 * 1000, // window is 120 minutes
+	windowMs: 240 * 60 * 1000, // window is 120 minutes
 	max: 1,
 	standardHeaders: true,
 	legacyHeaders: false,
@@ -20,7 +20,7 @@ const apiLimiter = rateLimit({
 });
 
 const regex = /[^a-zA-Z0-9]/;
-let accounts = [];
+
 module.exports = function(app) {
 	app.post("/new_account", apiLimiter, function(req, res) {
 		const newUser = String(req.body.newAccount);
@@ -61,9 +61,7 @@ module.exports = function(app) {
 									token:token,
 									password:newPass,
 								});
-								console.log("");
-								console.log(`new account ${newUser} was created`.blue);
-								console.log("");
+								console.log(`\nnew account ${newUser} was created\n`);
 							}else{
 								res.render("404");
 							}

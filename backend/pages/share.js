@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -11,22 +11,16 @@ const ejs = require("ejs");
 const rateLimit = require("express-rate-limit");
 const sha256 = require('js-sha256');
 
-const apiLimiter = rateLimit({
-	windowMs: 45 * 60 * 1000, // 45 minute window
-	max: 15, // 15 requests per window
-	standardHeaders: true,
-	legacyHeaders: false,
-	message:"bro stop reloading the pages so much :)",
-});
-
 module.exports = function(app) {
 	// page where you post stuff
-	app.get("/share", apiLimiter, function(req, res) {
+	app.get("/share", function(req, res) {
 		let official = "";
 		(async () => {
 			let token = req.cookies.name;
-			let user = await db.get(token);
-			eval(user);
+			let user = [];
+			if(req.cookies.name != undefined || req.cookies.password != undefined){
+				eval(await db.get(String(token)));
+			}
 			if(token == undefined || req.cookies.password == undefined || req.cookies.password != user.password){
 				res.render("404");
 			}else{

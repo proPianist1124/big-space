@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -24,9 +24,11 @@ module.exports = function(app) {
 	app.post("/comment", apiLimiter, function(req, res) {
 		(async () => {
 			let token = req.cookies.name;
-			let user = await db.get(token);
+			let user = [];
 			let comments = [];
-			eval(user);
+			if(req.cookies.name != undefined || req.cookies.password != undefined){
+				eval(await db.get(String(token)));
+			}
 			if(token == undefined || req.cookies.password == undefined || req.cookies.password != user.password){
 				res.render("404");
 			}else{

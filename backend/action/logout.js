@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");

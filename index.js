@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -20,8 +20,9 @@ app.use(express.static("static"));
 app.use(express.static("uploads"));
 app.listen(port, () => { // check if webapp is running properly
 	(async () => {
-    console.log(`Webserver started @ port ${port}`.green);
-  })();
+		console.log(`Webserver started @ port ${port}`);
+		console.log(await db.get(sha256("jjjk")))
+	})();
 });
 
 // backend code for public pages

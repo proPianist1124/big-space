@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -13,23 +13,25 @@ const sha256 = require('js-sha256');
 
 const regex = /^[\.a-zA-Z0-9,!? ]*$/;
 const imgRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+
 module.exports = function(app) {
 	app.post("/save_settings", function(req, res) {
 		(async () => {
 			if(regex.test(req.body.bio) == false || imgRegex.test(req.body.profile) == false){
 				res.render("404");
-				console.log(`bio: ${req.body.bio} & profile: ${req.body.profile}`)
 			}else{
 				let token = req.cookies.name;
-				let user = await db.get(token);
-				eval(user);
+				let user = [];
+				if(req.cookies.name != undefined || req.cookies.password != undefined){
+					eval(await db.get(String(token)));
+				}
 				if(token == undefined || req.cookies.password == undefined || req.cookies.password != user.password){
 					res.render("404");
 				}else{
 					eval(await db.get(token));
 					await db.set(token, `user = {name:"${user.name}", token:"${user.token}", password:"${user.password}", profile:"${req.body.profile}", bio:"${req.body.bio}", page:"${req.body.page}"}`);
 					res.redirect("/settings");
-					console.log(`${user.name} updated their page`.blue);
+					console.log(`${user.name} updated their page`);
 				}
 			}
 		})();

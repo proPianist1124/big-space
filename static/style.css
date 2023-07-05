@@ -492,7 +492,7 @@ div.content {
 }
 
 .dropdown {
-  display: inline-block;
+  float:right;
 }
 .dropdown svg{
 	color:var(--secondary);

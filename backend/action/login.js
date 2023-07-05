@@ -1,5 +1,5 @@
-const Redis = require("ioredis")
-const db = new Redis(process.env["redis_key"]);
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -26,9 +26,7 @@ module.exports = function(app) {
 					token:sha256(newUser),
 					password: newPass,
 				});
-				console.log("");
-				console.log(`${user.name} has signed in`.yellow);
-				console.log("");
+				console.log(`\n${user.name} has signed in\n`);
 			} else {
 				// if the user does not exist or the password entered was incorrect
 				res.render("404");
