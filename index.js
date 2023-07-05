@@ -21,7 +21,6 @@ app.use(express.static("uploads"));
 app.listen(port, () => { // check if webapp is running properly
 	(async () => {
 		console.log(`Webserver started @ port ${port}`);
-		console.log(await db.get(sha256("jjjk")))
 	})();
 });
 
