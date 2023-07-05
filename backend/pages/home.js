@@ -1,5 +1,5 @@
-const { QuickDB } = require("quick.db");
-const db = new QuickDB();
+const Redis = require("ioredis");
+const db = new Redis("redis://default:8ddb7554a3974eb98a2636383355b9cc@clean-porpoise-38761.upstash.io:38761");
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -15,10 +15,17 @@ const icons = {
 	ellipse:`<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>`,
 	maximize:`<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-maximize" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M16 4l4 0l0 4"></path><path d="M14 10l6 -6"></path><path d="M8 20l-4 0l0 -4"></path><path d="M4 20l6 -6"></path><path d="M16 20l4 0l0 -4"></path><path d="M14 14l6 6"></path><path d="M8 4l-4 0l0 4"></path><path d="M4 4l6 6"></path></svg>`,
 }
+const apiLimiter = rateLimit({
+	windowMs: 30 * 60 * 1000, // window is 30 minutes
+	max: 15, // maximum of 15 requests per window
+	standardHeaders: true,
+	legacyHeaders: false,
+	message: "reloaded too much :)",
+});
 
 module.exports = function(app) {
 	// login page/home page
-	app.get("/", function(req, res) {
+	app.get("/", apiLimiter, function(req, res) {
 		let postString = [];
 		(async () => {
 			let token = req.cookies.name;
