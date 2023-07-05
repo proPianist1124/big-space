@@ -280,17 +280,21 @@ hr{
 .card:hover{
 	background-color:var(--background-lighter);
 }
-.card-container{
+.cardContainer{
+	border-radius:10px;
+	background-color:var(--post);
 	color:var(--secondary);
+	transition:0.3s;
+	width:500px;
 }
-.card-container h2{
+.cardContainer:hover{
+	color:var(--primary);
+}
+.cardContainer h2{
 	color:var(--secondary);
 	transition:0.3s;
 }
-.card-container:hover{
-	color:var(--primary);
-}
-.card-container h2:hover{
+.cardContainer h2:hover{
 	color:var(--tertiary);
 }
 
@@ -440,8 +444,7 @@ hr{
   color: var(--secondary);
   padding: 10px;
   text-decoration: none;
-	vertical-align:middle;
-	transition:0.3s;
+  transition:0.3s;
 }
 .sidebar a:hover{
 	color:var(--tertiary);
@@ -489,7 +492,6 @@ div.content {
 }
 
 .dropdown {
-  float:right;
   display: inline-block;
 }
 .dropdown svg{
