@@ -52,7 +52,6 @@ module.exports = function(app) {
 							
 							let structure = `<div class = "postcard" onclick = "document.cookie = 'post=${postId}'"><h2><span style = "color:var(--primary)">${postString.date}</span>&nbsp;<span style = "color:var(--secondary)">${postString.title}</span>${menu}</h2><span>${postString.content}</span><br>${postString.image}<br><span style = "color:var(--secondary)">${postString.topic}</span><br><a href = "/@${user.name}" class = "default"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i>&nbsp;&nbsp;${badge}</a><br><br></div> ${posts}`;
 							posts = structure; // adds newly evaluated post to continuing string
-							console.log(user.profile);
 						})();
 					}
 				}
