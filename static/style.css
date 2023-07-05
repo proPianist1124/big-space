@@ -94,30 +94,11 @@ button:hover{
 	-webkit-transform:scale(1.1,1.1);
 	-moz-transform:scale(1.1,1.1);
 }
-button.replit{
-	background-color:#1C2333;
-	width:200px;
-	color:#F26207;
-	font-family: 'IBM Plex Sans', sans-serif;
-	font-size:20px;
-	transition:0.3s;
-}
-button.replit:hover{
-	background-color:#3C445C;
-	width:210px;
-	color:#F26207;
-}
 button.post{
 	border-radius:50%;
 	height:50px;
 	width:50px;
 	color:#ffffff;
-}
-button.logout{
-	box-shadow: 0 5px 15px var(--error);
-	background-color:var(--error);
-	transition:0.5s;
-	width:100px;
 }
 input, select{
 	width:100%;
@@ -449,6 +430,9 @@ hr{
 .sidebar a:hover{
 	color:var(--tertiary);
 	text-shadow: 0 0 20px var(--tertiary);
+	transform:scale(1.05,1.05);
+	-webkit-transform:scale(1.05,1.05);
+	-moz-transform:scale(1.05,1.05);
 }
 .sidebar a.sidebar-profile{
 	color:var(--primary);
@@ -460,7 +444,7 @@ hr{
 .sidebar a.logout:hover{
 	color:#fff;
 	background-color:var(--error);
-	box-shadow: 0 5px 15px var(--error);
+	/*box-shadow: 0 5px 15px var(--error);*/
 	text-shadow:none;
 }
 
