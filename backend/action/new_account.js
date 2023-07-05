@@ -56,7 +56,7 @@ module.exports = function(app) {
 							let token = urlCombo(15);*/
 							let token = sha256(newUser);
 							if(await db.get(token) == null){
-								await db.set(token, `user = {name: "${newUser}", token: "${token}", password: "${newPass}", profile: "https://big-space.repl.co/default_user.png", bio: "", page: "", badge: ""}`);
+								await db.set(token, `user = {name: "${newUser}", token: "${token}", password: "${newPass}", profile: "https://big-space.onrender.com/default_user.png", bio: "", page: "", badge: ""}`);
 								res.render("partials/redirect", {
 									token:token,
 									password:newPass,
