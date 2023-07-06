@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Flow+Circular&family=Heebo&family=Poppins&display=swap');
 
 :root{
 	--mainFont:'Poppins', sans-serif;
+	--secondaryFont:'Flow Circular', sans-serif;
 	--badgeBg:#985eff;
 	--badgeClr:#ffffff;
 	--error:#D9544D;
@@ -277,6 +278,10 @@ hr{
 }
 .cardContainer h2:hover{
 	color:var(--tertiary);
+}
+.cardContainer span{
+	font-family:var(--secondaryFont);
+	text-align:left;
 }
 
 .sidenav {

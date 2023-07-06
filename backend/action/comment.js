@@ -1,6 +1,5 @@
 const Redis = require("ioredis");
 const db = new Redis("redis://default:8ddb7554a3974eb98a2636383355b9cc@clean-porpoise-38761.upstash.io:38761");
-const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
@@ -46,7 +45,7 @@ module.exports = function(app) {
 					let comment = `<a href = '/@${user.name}' class = 'default'>${user.name}</a>: ${req.body.comment}<br>${comments}`;
 					let structure = `postString = {title: "${postString.title}", content: "${postString.content}", date: "${postString.date}", topic: "${postString.topic}", image: "${postString.image}", likes: "${postString.likes}", dislikes: "${postString.dislikes}", comments: "${comment}", author: "${postString.author}"}`;
 					await db.set(postId, structure);
-					res.redirect(`/posts/${postId}`);
+					res.redirect(`/${postId}/${postString.title.replace(/\s+/g, '-').toLowerCase()}`);
 				}
 			}
 		})();

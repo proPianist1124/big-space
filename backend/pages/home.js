@@ -1,6 +1,7 @@
+// remember to add apiLimiter before pushing to production
+
 const Redis = require("ioredis");
 const db = new Redis("redis://default:8ddb7554a3974eb98a2636383355b9cc@clean-porpoise-38761.upstash.io:38761");
-const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
@@ -25,7 +26,7 @@ const apiLimiter = rateLimit({
 
 module.exports = function(app) {
 	// login page/home page
-	app.get("/", apiLimiter, function(req, res) {
+	app.get("/", function(req, res) {
 		let postString = [];
 		(async () => {
 			let token = req.cookies.name;
