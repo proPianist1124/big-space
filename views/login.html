@@ -35,6 +35,7 @@
 				<br><br><br>
 				<div id = "loginModal" class="modal">
 					<div class="modal-content">
+						<span class = "report" onclick = "location.reload()">exit</span><br>
 						<h2 style = "color:var(--primary)">Login</h2>
 						<form action = "/login" method = "POST">
 							<input style = "border-radius:10px 10px 0px 0px;" name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
@@ -48,12 +49,13 @@
 				</div>
 				<div id = "signupModal" class = "modal">
 					<div class = "modal-content">
+						<span class = "report" onclick = "location.reload()">exit</span><br>
 						<h2 style = "color:var(--primary)">Sign Up </h2>
 						<form action = "/new_account" method = "POST">
 							<input style = "border-radius:10px 10px 0px 0px;" name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
 							<br>
 							<input style = "border-radius:0px 0px 10px 10px;" name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
-							<i>By signing up for an account, you agree to the <a href = "/terms" class = "default" target = "_blank">Terms of Service</a></i>
+							<i style = "color:var(--secondary)">By signing up for an account, you agree to the <a href = "/terms" class = "default" target = "_blank">Terms of Service</a></i>
 							<br><br>
 							<button type = "submit">Sign Up</button>
 						</form>

@@ -211,10 +211,12 @@ svg{
 hr {
   border-top: 1px solid var(--post);
 }
+
 span.report{
 	float:right;
 	color:var(--secondary);
 	transition:0.3s;
+	cursor:pointer;
 }
 span.report:hover{
 	color:var(--error);
