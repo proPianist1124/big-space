@@ -26,7 +26,7 @@ const apiLimiter = rateLimit({
 
 module.exports = function(app) {
 	// login page/home page
-	app.get("/", function(req, res) {
+	app.get("/", apiLimiter, function(req, res) {
 		let postString = [];
 		(async () => {
 			let token = req.cookies.name;
