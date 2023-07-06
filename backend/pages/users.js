@@ -47,10 +47,8 @@ module.exports = function(app) {
 				}else{
 					page = `<span style = "color:var(--tertiary)">${user.page}</span>`;
 				}
-				if(user.badge){
-					if(user.badge == "pro"){112
-						badge = process.env["pro_badge"];
-					}
+				if(user.badge == "pro"){
+					badge = `<span class = "badge">Pro Subscriber</span>`;
 				}
 				res.render("users", {
 					user: userId, // selected user

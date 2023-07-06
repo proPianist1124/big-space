@@ -36,7 +36,6 @@ body {
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 	transition:0.3s;
-	user-select:none;
 	overflow-x: hidden;
 }
 h1, h2, h3, h4, h5, h6{

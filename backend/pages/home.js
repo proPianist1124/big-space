@@ -51,10 +51,8 @@ module.exports = function(app) {
 							let postId = `p${i}`;
 							eval(await db.get(postId));
 							eval(await db.get(postString.author));
-							if(user.badge){
-								if(user.badge == "pro"){
-									badge = process.env["pro_badge"];
-								}
+							if(user.badge == "pro"){
+								badge = `<span class = "badge">Pro Subscriber</span>`;
 							}
 							const menu = `<div class="dropdown">${icons.ellipse}<div class="dropdown-content"><a href = "/${postId}/${postString.title.replace(/\s+/g, '-').toLowerCase()}">Open</a><br><a href = "/@${user.name}">Follow</a></div></div>`;
 							
