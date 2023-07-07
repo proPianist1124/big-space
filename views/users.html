@@ -18,26 +18,36 @@
 				<%- user %>&nbsp;&nbsp;<span style = "font-size:35px;"><%- badge %></span>
 			</h3>
 			<span style = "text-align:left; font-size:18px;">
+				<%- include("./icons/smile"); %>
+				Followers: <span style = "color:var(--tertiary)"><%- followers %></span>
+				<br>
 				<%- include("./icons/profile"); %>
-					About me: <%- bio %>
-					<br>
-					<%- include("./icons/world"); %>
-						Website: 
-						<a href = "<%- pageUrl %>" class = "default" target = "_blank">
-							<%- page %>
-						</a>
-						<br><br>
-					</span></div>
-		<div class = "postcard" style = "background-color:var(--background); height:50px;">
-			<h3>Recent Posts</h3>
-		</div>
-		<%- posts %>
+				About me: <%- bio %>
+				<br>
+				<%- include("./icons/world"); %>
+				Website: 
+				<a href = "<%- pageUrl %>" class = "default" target = "_blank">
+					<%- page %>
+				</a>
+				<br><br>
+			</span>
+			</div>
+			<div class = "postcard" style = "background-color:var(--background); height:50px;">
+				<h3>Recent Posts</h3>
+			</div>
+			<%- posts %>
 			<br>
 			<center>
-				<a href = "/">
-					<button>
-						<%- include("./icons/back"); %>&nbsp;Go back
+				<a href = "/" style = "display:flex; align-items:center; justify-content: center;">
+					<button style = "border-radius:50px 0px 0px 50px;">
+						<%- include("./icons/back"); %> Go back
 					</button>
+					&nbsp;
+					<form action = "/follow" method = "POST">
+						<button style = "border-radius:0px 50px 50px 0px;" onclick = "document.cookie = 'viewingUser=<%- user %>'" type = "submit">
+							<%- include("./icons/follow"); %> Follow
+						</button>
+					</form>
 				</a>
 			</center>
 			<br><br><br>

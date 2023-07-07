@@ -35,29 +35,34 @@
 				<br><br><br>
 				<div id = "loginModal" class="modal">
 					<div class="modal-content">
-						<span class = "report" onclick = "location.reload()">exit</span><br>
+						<span class = "report" onclick = "location.reload()"><%- include("./icons/exit"); %></span><br>
 						<h2 style = "color:var(--primary)">Login</h2>
 						<form action = "/login" method = "POST">
-							<input style = "border-radius:10px 10px 0px 0px;" name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
-							<br>
-							<input style = "border-radius:0px 0px 10px 10px;" name = "password" placeholder = "Enter password…" autocomplete = "off" type = "password" required/>
+							<label>Username</label>
+							<input name = "username" placeholder="Enter username…" autocomplete = "off" autocorrect = "off" spellcheck="false" required/>
 							<br><br>
-							<button type = "submit">Login</button>
+							<label>Password</label>
+							<input name = "password" placeholder = "Enter password…" autocomplete = "off" type = "password" required/>
+							<i style = "color:var(--secondary)">Forgot your password? Shoot us an email @ <a href = "mailto:invisible.horse1124@proton.me" class = "default">invisible.horse</a></i>
+							<br><br>
+							<button type = "submit" style = "width:100%;">Login</button>
 						</form>
 						<br>
 					</div>
 				</div>
 				<div id = "signupModal" class = "modal">
 					<div class = "modal-content">
-						<span class = "report" onclick = "location.reload()">exit</span><br>
+						<span class = "report" onclick = "location.reload()"><%- include("./icons/exit"); %></span><br>
 						<h2 style = "color:var(--primary)">Sign Up </h2>
 						<form action = "/new_account" method = "POST">
-							<input style = "border-radius:10px 10px 0px 0px;" name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
-							<br>
-							<input style = "border-radius:0px 0px 10px 10px;" name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
+							<label>New Username</label>
+							<input name = "newAccount" placeholder="New username…" autocomplete = "off" autocorrect = "off" spellcheck="false" minlength="4" maxlength="20" required/>
+							<br><br>
+							<label>New Password</label>
+							<input name = "newPassword" placeholder="New password…" autocomplete = "off" type = "password" required/>
 							<i style = "color:var(--secondary)">By signing up for an account, you agree to the <a href = "/terms" class = "default" target = "_blank">Terms of Service</a></i>
 							<br><br>
-							<button type = "submit">Sign Up</button>
+							<button type = "submit" style = "width:100%;">Sign Up</button>
 						</form>
 					</div>
 				</div>

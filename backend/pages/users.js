@@ -45,7 +45,7 @@ module.exports = function(app) {
 				if(user.page == ""){
 					page = `<span style = 'color:var(--error)'>no page available</span>`;
 				}else{
-					page = `<span style = "color:var(--tertiary)">${user.page}</span>`;
+					page = user.page;
 				}
 				if(user.badge == "pro"){
 					badge = `<span class = "badge">Pro Subscriber</span>`;
@@ -59,6 +59,7 @@ module.exports = function(app) {
 					profile: user.profile, // selected user's profile
 					badge: badge,
 					posts: userPosts,
+					followers: user.followers.length,
 				});
 			}
 		})();

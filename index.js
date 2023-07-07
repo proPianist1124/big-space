@@ -37,7 +37,7 @@ require("./backend/action/logout.js")(app); // logout
 require("./backend/action/post.js")(app); // post
 require("./backend/action/save_settings.js")(app); // save your bio
 require("./backend/action/comment.js")(app); // add a comment to a post
-
+require("./backend/action/follow.js")(app); // follow a user
 
 // Big Space Careers/Jobs
 app.get("/jobs", function(req, res) {
