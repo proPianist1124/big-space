@@ -21,12 +21,12 @@ module.exports = function(app) {
 			newFollower = user.name; // fill in the newFollower variable with your own username
 
 			eval(await db.get(viewingUser)); // evaluate the person being followed's personal string
-			if(user.followers.includes(newFollower)){
+			if(user.followers.includes(newFollower) || req.cookies.name == sha256(req.cookies.viewingUser)){
 				res.render("404");
 			}else{
 				user.followers.push(`"${newFollower}"`);
 				for (let i = 0; i <= user.followers.indexOf(`"${newFollower}"`); i++) {
-					if(user.followers[i] != user.followers[user.followers.indexOf(`"${newFollower}"`)]){
+					if(user.followers[i] != user.followers[user.followers.indexOf(`"${newFollower}"`)]){ // if the i's result isn't the same as the new follower, push the other users into the new array
 						newFollowerArray.push(`"${user.followers[i]}"`)
 					}else{
 						newFollowerArray.push(user.followers[i]);
