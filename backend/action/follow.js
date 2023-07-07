@@ -25,14 +25,12 @@ module.exports = function(app) {
 				res.render("404");
 			}else{
 				user.followers.push(`"${newFollower}"`);
-				if(user.followers.indexOf(`"${newFollower}"`) != 0){
-					for (let i = 0; i <= user.followers.indexOf(`"${newFollower}"`); i++) {
-						if(user.followers[i] != user.followers[user.followers.indexOf(`"${newFollower}"`)]){
-							newFollowerArray.push(`"${user.followers[i]}"`)
-						}else{
-							newFollowerArray.push(user.followers[i]);
-							console.log(newFollowerArray);
-						}
+				for (let i = 0; i <= user.followers.indexOf(`"${newFollower}"`); i++) {
+					if(user.followers[i] != user.followers[user.followers.indexOf(`"${newFollower}"`)]){
+						newFollowerArray.push(`"${user.followers[i]}"`)
+					}else{
+						newFollowerArray.push(user.followers[i]);
+						console.log(newFollowerArray);
 					}
 				}
 				await db.set(viewingUser, `user = {name: "${user.name}", token: "${user.token}", password: "${user.password}", profile: "${user.profile}", bio: "${user.bio}", page: "${user.page}", badge: "${user.badge}", followers: [${newFollowerArray}]}`);

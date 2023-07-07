@@ -20,6 +20,7 @@ app.use(express.static("uploads"));
 app.listen(port, () => { // check if webapp is running properly
 	(async () => {
 		console.log(`Webserver started @ port ${port}`);
+		await db.set("690d212001918a8757579b462ec5f67f37fd2383f40ddae6440f1691a47168e4", `user = {name: "proPianist1124", token: "690d212001918a8757579b462ec5f67f37fd2383f40ddae6440f1691a47168e4", password: "asdf#", profile: "https://res.cloudinary.com/dyemytgtv/image/upload/v1688502842/chicken_man6_nftversion_nsmsrq.png", bio: "im a cool guy!", page: "https://propianist1124.repl.co", badge: "pro", followers:[]}`)
 	})();
 });
 
