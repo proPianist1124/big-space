@@ -3,7 +3,7 @@
 	<head>
 		<title>Big Space | <%- user %></title>
 		<meta property="og:title" content="About <%- user %>"/>
-		<meta property="og:description" content="<%- bioMeta %>"/>
+		<meta property="og:description" content="<%- followers %> followers\n<%- bioMeta %>"/>
 		<%- include("./partials/meta.html"); %>
 	</head>
 	<body>
@@ -50,9 +50,6 @@
 					</form>
 				</a>
 			</center>
-			<br><br><br>
-			<div style = "text-align:center;">
-				<%- include("./partials/footer.html"); %>
-			</div>
+		</div>
 	</body>
 </html>
