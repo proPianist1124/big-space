@@ -1,4 +1,4 @@
-// remember to add apiLimiter before pushing to production
+// remember to add apiLimiter before pushing to production, get rid of localhost:3000 in "header.html" and in "meta.html"
 
 const Redis = require("ioredis");
 const db = new Redis("redis://default:8ddb7554a3974eb98a2636383355b9cc@clean-porpoise-38761.upstash.io:38761");

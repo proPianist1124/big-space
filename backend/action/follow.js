@@ -30,7 +30,6 @@ module.exports = function(app) {
 						newFollowerArray.push(`"${user.followers[i]}"`)
 					}else{
 						newFollowerArray.push(user.followers[i]);
-						console.log(newFollowerArray);
 					}
 				}
 				await db.set(viewingUser, `user = {name: "${user.name}", token: "${user.token}", password: "${user.password}", profile: "${user.profile}", bio: "${user.bio}", page: "${user.page}", badge: "${user.badge}", followers: [${newFollowerArray}]}`);
