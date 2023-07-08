@@ -57,7 +57,7 @@ module.exports = function(app) {
 							}
 							const menu = `<div class="dropdown">${icons.ellipse}<div class="dropdown-content"><a href = "/${postId}/${postString.title.replace(/\s+/g, '-').toLowerCase()}">Open</a><br><a href = "/@${user.name}">Follow</a></div></div>`;
 							
-							let structure = `<div class = "postcard"><h2><span style = "color:var(--primary)">${postString.title}</span>${menu}</h2><span>${postString.content}</span><br>${postString.image}<br><br><span style = "color:var(--secondary)">${postString.date}, ${postString.topic}</span><br><a href = "/@${user.name}" class = "default"><i><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;${user.name}</i>&nbsp;&nbsp;${badge}</a><br><br></div> ${posts}`;
+							let structure = `<div class = "postcard"><h2><span style = "color:var(--primary)">${postString.title}</span>${menu}</h2><span>${postString.content}</span><br>${postString.image}<br><br><span style = "color:var(--secondary)">${postString.date}, ${postString.topic}</span><br><a href = "/@${user.name}" class = "default"><img src = "${user.profile}" class = "pfp"/>&nbsp;&nbsp;@${user.name}&nbsp;&nbsp;${badge}</a><br><br></div> ${posts}`;
 							posts = structure; // adds newly evaluated post to continuing string
 						})();
 					}

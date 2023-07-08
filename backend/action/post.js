@@ -25,7 +25,6 @@ const topicRegex = /#[a-z0-9_]+/;
 
 module.exports = function(app) {
 	app.post("/post", apiLimiter, function(req, res) {
-		const location = sha256(req.header("x-forwarded-for"));
 		(async () => {
 			let token = req.cookies.name;
 			let user = [];
@@ -42,7 +41,8 @@ module.exports = function(app) {
 				let userTopic = req.body.postTopic;
 				let userImage = req.body.postImage;
 
-				if(xssRegex.test(userTitle) == false || xssRegex.test(userContent) == false || quoRegex.test(userTitle) || quoRegex.test(userContent) || topicRegex.test(userTopic) == false || userTitle.length > 40 || userContent.length > 250){ //regex pattern checking if title/content
+				if(xssRegex.test(userTitle) == false || xssRegex.test(userContent) == false || quoRegex.test(userTitle) == false || quoRegex.test(userContent) == false || topicRegex.test(userTopic) == false || userTitle.length > 40 || userContent.length > 250){ //regex pattern checking if title/content
+					console.log("someone attempted smth sussy")
 					// custom messages to let user know what they're doing wrong
 					if(xssRegex.test(userTitle) == false || xssRegex.test(userContent) == false){
 						res.send(`our system thinks that you're making an XSS attack on our site. dont't use "<" or ">" symbols`);
