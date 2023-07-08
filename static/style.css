@@ -6,6 +6,8 @@
 	--badgeBg: #985eff;
 	--badgeClr: #ffffff;
 	--error: #D9544D;
+	--tertiary: #e75480;
+	--tertiary-darker: #d23262;
 }
 
 .theme-dark {
@@ -14,8 +16,6 @@
 	--post: #262626;
 	--primary: #d1d1d1;
 	--secondary: #616161;
-	--tertiary: #e75480;
-	--tertiary-darker: #d23262;
 }
 
 .theme-light {
@@ -24,8 +24,6 @@
 	--post: #f7f7f7;
 	--primary: #171717;
 	--secondary: #b0b0b0;
-	--tertiary: #e75480;
-	--tertiary-darker: #d23262;
 }
 
 body {
@@ -319,7 +317,7 @@ hr {
 	background-color: var(--post);
 	color: var(--secondary);
 	transition: 0.3s;
-	width: 500px;
+	max-width: 500px;
 }
 
 .cardContainer:hover {

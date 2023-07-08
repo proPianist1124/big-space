@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Image Uploader</title>
+  </head>
+  <body>
+    <h1>Image Uploader</h1>
+    <input type="file" id="image-input" accept="image/*" required>
+    <button onclick="uploadImage()">Upload</button>
+    <div id="result"></div>
+
+    <script>
+      function uploadImage() {
+        const apiKey = 'f6624775a36cf2df14f2e5243ec4b7a7'; // Replace with your imgBB API key
+        const apiUrl = 'https://api.imgbb.com/1/upload';
+
+        const fileInput = document.getElementById('image-input');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('key', apiKey);
+
+        fetch(apiUrl, {
+          method: 'POST',
+          body: formData,
+        })
+          .then(response => response.json())
+          .then(data => {
+            const imageUrl = data.data.url;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<img src="${imageUrl}" alt="Uploaded Image">`;
+          })
+          .catch(error => {
+            console.error('Error:', error.message);
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'An error occurred during upload.';
+          });
+      }
+    </script>
+  </body>
+</html>

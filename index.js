@@ -19,6 +19,8 @@ app.use(express.static("static"));
 app.use(express.static("uploads"));
 app.listen(port, () => { // check if webapp is running properly
 	(async () => {
+		await db.set("postNumber", 20);
+		await db.del("p20");
 		console.log(`Webserver started @ port ${port}`);
 	})();
 });

@@ -19,7 +19,7 @@ function toggleTheme() {
 		document.getElementById("snackbar").innerHTML = `Configured Light Mode`;
 		document.getElementById("theme").innerHTML = icons.dark;
   }
-	let snackbar = document.getElementById("snackbar");
+  let snackbar = document.getElementById("snackbar");
   snackbar.className = "show";
   setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 2000);
 }
@@ -40,3 +40,12 @@ function hideInfo(){
 	document.getElementById("userPassword").innerHTML = "*".repeat(parseInt(passwordLength));
 	document.getElementById("userToken").innerHTML = "*".repeat(parseInt(tokenLength));
 }
+
+function showPassword() {
+	let password = document.getElementById("password");
+	if (password.type === "password") {
+	  password.type = "text";
+	} else {
+	  password.type = "password";
+	}
+  }
