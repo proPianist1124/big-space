@@ -18,7 +18,7 @@ const apiLimiter = rateLimit({
 	message: "don't spam account smh",
 });
 
-const regex = /[^a-zA-Z0-9]/;
+const regex = /^[A-Za-z0-9_-]*$/;
 
 module.exports = function(app) {
 	app.post("/new_account", apiLimiter, function(req, res) {
