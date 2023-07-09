@@ -27,7 +27,7 @@
 					<input placeholder = "title" name = "postTitle" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "25" style = "border-radius:10px 10px 0px 0px; background-color:var(--background);" required/>
 					<input placeholder = "content" name = "postContent" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength = "100" style = "border-radius:0px; background-color:var(--background);" required/>
 					<br>
-					<select name="postTopic" style = "border-radius:0px; background-color:var(--background);">
+					<select name="postTopic" style = "border-radius:0px 0px 10px 10px; background-color:var(--background);">
 						<option value="#random">#random</option>
 						<option value="#rats">#rats</option>
 						<option value="#programming">#programming</option>
@@ -38,18 +38,21 @@
 						<option value="#images">#images</option>
 						<%- adminSelect %>
 					</select>
-					<input placeholder = "img (auto)" type = "file" id="image-input" accept="image/*" style = "border-radius:0px 0px 10px 10px; background-color:var(--background);">
+					<br><br>
+					<label for = "image-input">
+						Choose an image 
+						<button type = "button" onclick = "uploadImage()" class = "post">
+							<%- include("./icons/upload"); %>
+						</button>
+					</label>
+					<input type = "file" id="image-input" accept="image/*" style = "display:none;">
 					<input name = "postImage" id = "url" type = "hidden">
 					<br><br>
-					<button type = "submit" style = "border-radius:50px 0px 0px 50px;">
+					<span id = "imgPreview"></span>
+					<br><br>
+					<button type = "submit">
 						Post <%- include("./icons/add"); %>
 					</button>
-					<button type = "button" style = "border-radius:0px 50px 50px 0px;" onclick = "uploadImage()">
-						Upload  <%- include("./icons/upload"); %>
-					</button>
-					<span style = "color:var(--error)">
-						*To upload an image, click the "Choose file" button first.
-					</span>
 					<br><br>
 				</form>
 			</div>
@@ -74,8 +77,8 @@
 			.then(data => {
 				const imageUrl = data.data.url;
 				document.getElementById("url").value = imageUrl;
+				document.getElementById("imgPreview").innerHTML = `Image Preview:<br><br><center><img style = "width:50%; height:50%;" src = "${imageUrl}"></center>`;
 				alert("image uploaded to your post!")
-				console.log(document.getElementById("url").value);
 			})
 			.catch(error => {
 				console.error('Error:', error.message);

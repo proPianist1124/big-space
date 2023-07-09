@@ -19,8 +19,6 @@ app.use(express.static("static"));
 app.use(express.static("uploads"));
 app.listen(port, () => { // check if webapp is running properly
 	(async () => {
-		await db.set("postNumber", 20);
-		await db.del("p20");
 		console.log(`Webserver started @ port ${port}`);
 	})();
 });
@@ -48,7 +46,7 @@ app.get("/jobs", function(req, res) {
 
 // Big Space API and Styling Kit
 app.get("/kit", function(req, res) {
-	if(req.cookies.name == "" || req.cookies.name == undefined || req.cookies.name != sha256(process.env["mod1"])){
+	if(req.cookies.name == "" || req.cookies.name == undefined || req.cookies.name != sha256("proPianist1124")){
 		res.render("404");
 	}else{
 		res.render("partials/kit");

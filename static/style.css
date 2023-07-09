@@ -109,9 +109,10 @@ button:hover {
 
 button.post {
 	border-radius: 50%;
-	height: 50px;
-	width: 50px;
+	height: 30px;
+	width: 30px;
 	color: #ffffff;
+	vertical-align:middle;
 }
 
 label {
@@ -226,10 +227,12 @@ a.user:hover {
 }
 
 img {
-	border-radius: 20px;
+	border-radius: 50px;
+	border:2px solid var(--primary);
 }
 
 img.pfp {
+	border:2px solid var(--tertiary);
 	border-radius: 50%;
 	overflow: hidden;
 	width: 25px;
@@ -318,6 +321,7 @@ hr {
 	color: var(--secondary);
 	transition: 0.3s;
 	max-width: 500px;
+	text-align:center;
 }
 
 .cardContainer:hover {
