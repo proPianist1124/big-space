@@ -21,7 +21,7 @@ module.exports = function(app) {
 			newFollower = user.name; // fill in the newFollower variable with your own username
 
 			eval(await db.get(viewingUser)); // evaluate the person being followed's personal string
-			if(user.followers.includes(newFollower) || req.cookies.name == sha256(req.cookies.viewingUser)){
+			if(user.followers.includes(newFollower) || req.cookies.name == sha256(req.cookies.viewingUser) || req.cookies.password != user.password){
 				res.render("404");
 			}else{
 				user.followers.push(`"${newFollower}"`);

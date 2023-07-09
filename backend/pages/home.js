@@ -44,7 +44,7 @@ module.exports = function(app) {
 
 				if(await db.get("postNumber") == null){
 					await db.set("postNumber", 0);
-					posts = `<br><center><h2 style = "color:#D9544D">no posts available</h2></center>`;
+					posts = `<br><h2 style = "color:#D9544D; text-align:center">no posts available</h2>`;
 				}else{
 					for (let i = 1; i < parseInt(await db.get("postNumber")); i++) {
 						let badge = [];

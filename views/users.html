@@ -7,9 +7,7 @@
 		<%- include("./partials/meta.html"); %>
 	</head>
 	<body>
-		<center>
-			<%- include("./partials/header.html"); %>
-		</center>
+		<%- include("./partials/header.html"); %>
 		<br> 
 		<div class = "postcard">
 			<h3 style = "text-align:center">
@@ -37,19 +35,19 @@
 			</div>
 			<%- posts %>
 			<br>
-			<center>
-				<a href = "/" style = "display:flex; align-items:center; justify-content: center;">
+			<span style = "display:flex; align-items:center; justify-content: center;">
+				<a href = "/">
 					<button style = "border-radius:50px 0px 0px 50px;">
 						<%- include("./icons/back"); %> Go back
 					</button>
-					&nbsp;
-					<form action = "/follow" method = "POST">
-						<button style = "border-radius:0px 50px 50px 0px;" onclick = "document.cookie = 'viewingUser=<%- user %>'" type = "submit">
-							<%- include("./icons/follow"); %> Follow
-						</button>
-					</form>
 				</a>
-			</center>
+				&nbsp;
+				<form action = "/follow" method = "POST">
+					<button style = "border-radius:0px 50px 50px 0px;" onclick = "document.cookie = 'viewingUser=<%- user %>'" type = "submit">
+						<%- include("./icons/follow"); %> Follow
+					</button>
+				</form>
+			</span>
 		</div>
 	</body>
 </html>

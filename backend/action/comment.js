@@ -35,7 +35,7 @@ module.exports = function(app) {
 					res.render("404");
 				}else{
 					let postString = [];
-					let postId = req.cookies.post;
+					let postId = req.body.postId;
 					eval(await db.get(postId));
 					if(postString.comments == "" || postString.comments == undefined){
 						comments = "";

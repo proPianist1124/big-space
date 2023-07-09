@@ -5,18 +5,11 @@
 		<%- include("./partials/meta.html"); %>
 	</head>
 	<body>
-		<h3>
-			<center>
-				<%- include("./partials/header.html"); %>
-					<h2 style = "color:var(--error)">404 Not Found</h2>
-					<img src = "/404.svg" style = "width:300px; height:300px; border-radius:0px;"/>
-					<br><br>
-					<a href = "/">
-						<button>
-							<%- include("./icons/back"); %>&nbsp;Go back
-						</button>
-					</a>
-				</center>
-		</h3>
+		<%- include("./partials/header.html"); %>
+		<div style = "text-align:center">
+			<br><br><br>
+			<br><br><br>
+			<h1 style = "color:var(--error)">This page does not exist</h1>
+		</div>
 	</body>
 </html>

@@ -24,7 +24,7 @@ module.exports = function(app) {
 	app.post("/new_account", apiLimiter, function(req, res) {
 		const newUser = String(req.body.newAccount);
 		const newPass = String(req.body.newPassword);
-		// const location = sha256(req.header("x-forwarded-for")); dont need to save locations for the time being
+
 		start();
 		function start() {
 			(async () => {

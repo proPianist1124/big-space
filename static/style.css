@@ -308,7 +308,8 @@ hr {
 	background-color: var(--post);
 	border-radius: 5px;
 	padding: 10px 5px;
-	transition: 0.3;
+	transition: 0.3s;
+	margin:auto;
 }
 
 .card:hover {
@@ -322,6 +323,7 @@ hr {
 	transition: 0.3s;
 	max-width: 500px;
 	text-align:center;
+	margin:auto;
 }
 
 .cardContainer:hover {
